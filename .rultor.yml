@@ -16,11 +16,12 @@ readers:
 #  https://gist.github.com/lemiorhan/97b4f827c08aed58a9d8
 #  https://github.com/jgitver/jgitver
 #  https://danielkummer.github.io/git-flow-cheatsheet/index.html
-assets:
+
+#assets:
   # @todo #/DEV Replace key by real one, generated for arch4u-pmd project
-  settings.xml: "dgroup/home#settings.xml"
-  pubring.gpg:  "dgroup/home#8B01AA62_arch4u-pmd_pubring.gpg"
-  secring.gpg:  "dgroup/home#8B01AA62_arch4u-pmd_secring.gpg"
+#  settings.xml: "dgroup/home#settings.xml"
+#  pubring.gpg:  "dgroup/home#8B01AA62_arch4u-pmd_pubring.gpg"
+#  secring.gpg:  "dgroup/home#8B01AA62_arch4u-pmd_secring.gpg"
 
 merge:
   env:
@@ -28,13 +29,13 @@ merge:
   script:
     - mvn -Pqulice clean package
 
-release:
-  sensitive:
-    - settings.xml
-    - pubring.gpg
-    - secring.gpg
-  script: |
-    mvn versions:set "-DnewVersion=${tag}"
-    git add pom.xml
-    git commit -am "${tag}"
-    mvn -X -V -Dgpg.homedir="$HOME" -P qulice,ossrh-arch4u-pmd -s ../settings.xml clean deploy
+#release:
+#  sensitive:
+#    - settings.xml
+#    - pubring.gpg
+#    - secring.gpg
+#  script: |
+#    mvn versions:set "-DnewVersion=${tag}"
+#    git add pom.xml
+#    git commit -am "${tag}"
+#    mvn -X -V -Dgpg.homedir="$HOME" -P qulice,ossrh-arch4u-pmd -s ../settings.xml clean deploy
