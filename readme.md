@@ -29,8 +29,7 @@
 
 ### Overview
 
-**arch4u-pmd** is a Ruby's well known [Enumerable](https://ruby-doc.org/core-2.6/Enumerable.html)
-ported to `java` as interface with set of default methods which simplify typical operations with collections.
+**arch4u-pmd** is a ...
 
 
 ### How to contribute?
