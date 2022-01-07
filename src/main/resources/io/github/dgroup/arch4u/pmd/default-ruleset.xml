@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<ruleset name="Default"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+  <description>Default ruleset</description>
+
+  <rule name="AvoidUsingObjectMapperAsALocalVariable"
+        since="0.1.0"
+        language="java"
+        message="ObjectMapper is better to have as field than a local variable due to performance reasons."
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <description>
+          ObjectMapper is better to have as field than a local variable due to performance reasons.
+          It is allowed to be declared in fields, constructors and initialization blocks.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="version" value="2.0"/>
+            <property name="xpath">
+                <value>
+<![CDATA[
+//
+(
+Type/ReferenceType (: variable declaration :)
+|
+AllocationExpression (: constr invocation :)
+)
+/ClassOrInterfaceType
+[pmd-java:typeIs('com.fasterxml.jackson.databind.ObjectMapper')]
+[not(
+ancestor::FieldDeclaration (: skip fields :)
+or ancestor::Initializer   (: skip init blocks :)
+or ancestor::ConstructorDeclaration (: skip constructor blocks :)
+)]
+/.. (: violation points to the parent node :)
+]]>
+                </value>
+            </property>
+        </properties>
+        <example>
+<![CDATA[
+import com.fasterxml.jackson.databind.ObjectMapper;
+class Foo {
+    ObjectMapper objectMapper = new ObjectMapper(); //ok
+
+    {
+        objectMapper = new ObjectMapper();  //ok
+    }
+
+    Foo (ObjectMapper om) {                 //ok
+        objectMapper = new ObjectMapper();  //ok
+    }
+
+    void bar(ObjectMapper om) {                                  //violation
+        ObjectMapper mapper = om;                                //violation
+        mapper = new ObjectMapper();                             //violation
+        String str = new ObjectMapper().writeValueAsString(obj); //violation
+    }
+}
+]]>
+        </example>
+    </rule>
+</ruleset>
