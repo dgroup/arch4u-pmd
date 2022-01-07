@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data
+    xmlns="http://pmd.sourceforge.net/rule-tests"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <test-code>
+    <description>[GOOD]: allowed ObjectMapper usage</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+import com.fasterxml.jackson.databind.ObjectMapper;
+public class Foo {
+    ObjectMapper objectMapper = new ObjectMapper();   //ok
+
+    {
+        objectMapper = new ObjectMapper();    //ok
+    }
+
+    Foo (ObjectMapper om) {                   //ok
+        objectMapper = new ObjectMapper();    //ok
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: prohibited ObjectMapper usage</description>
+    <expected-problems>4</expected-problems>
+    <expected-linenumbers>3, 4, 5, 6</expected-linenumbers>
+    <code><![CDATA[
+import com.fasterxml.jackson.databind.ObjectMapper;
+public class Foo {
+    public void bar(ObjectMapper om) {                           //violation
+        ObjectMapper mapper = om;                                //violation
+        mapper = new ObjectMapper();                             //violation
+        String str = new ObjectMapper().writeValueAsString(obj); //violation
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: prohibited JsonMapper (inherited from ObjectMapper) usage</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>4</expected-linenumbers>
+    <code><![CDATA[
+import com.fasterxml.jackson.databind.json.JsonMapper;
+public class Foo {
+    public void bar() {
+        JsonMapper mapper;    //violation
+    }
+}
+        ]]></code>
+  </test-code>
+</test-data>
