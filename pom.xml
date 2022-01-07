@@ -25,7 +25,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- @todo #/DEV Define ruleset with third-party basic PMD rules  -->
   <modelVersion>4.0.0</modelVersion>
+  <!-- @todo #/DEV Define arch4u-pmd ruleset that includes third-party rules and new rules -->
   <groupId>io.github.dgroup</groupId>
   <artifactId>arch4u-pmd</artifactId>
   <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
