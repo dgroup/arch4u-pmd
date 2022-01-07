@@ -1,3 +1,6 @@
+# @todo #/DEV Setup Lock threads as 'Lock' is not supported anymore
+#  https://github.com/marketplace/actions/lock-threads
+
 # Configuration for Lock Threads - https://github.com/dessant/lock-threads-app
 
 # Number of days of inactivity before a closed issue or pull request is locked

@@ -12,10 +12,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 11
+      # @todo #/DEV Set up jdk 1.8 for CI/CD
+      - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 1.8
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
@@ -45,7 +46,6 @@ jobs:
             -Dorg.slf4j.simpleLogger.showDateTime=true
         run: |
           mvn -B -P qulice clean install
-          bash <(curl -s https://codecov.io/bash)
           if [ -n "${{ secrets.SONAR_TOKEN }}" ]; then
             mvn -B -P qulice org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           fi
