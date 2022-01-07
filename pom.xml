@@ -253,6 +253,8 @@
                 <exclude>dependencies:org.llorllale:cactoos-matchers</exclude>
                 <exclude>dependencies:org.openjdk.jmh</exclude>
                 <exclude>org.junit.jupiter:junit-jupiter-api</exclude>
+                <exclude>dependencies:net.sourceforge.pmd:pmd-core</exclude>
+                <exclude>dependencies:net.sourceforge.pmd:pmd-java</exclude>
               </excludes>
             </configuration>
             <executions>
