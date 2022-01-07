@@ -1,0 +1,12 @@
+ errors:
+    - yurii.dubinka@gmail.com
+ alerts:
+   suppress:
+     - on-found-puzzle
+     - on-lost-puzzle
+     - on-scope
+ format:
+   - short-title
+   - title-length=250
+ tags:
+   - pdd

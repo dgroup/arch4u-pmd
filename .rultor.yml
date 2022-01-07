@@ -1,0 +1,40 @@
+docker:
+  image: g4s8/rultor:alpine3.10
+architect:
+  - dgroup
+
+readers:
+  - "urn:github:1651114"
+
+# @todo #/DEV Configure the deployment to dev maven repository in Github in order to work with RC and snapshots.
+#  The dev repo should be Github for master branch + bugfix branches if needed.
+#  As a plan B, we can consider promoting using Nexus+OSSRH:
+#  https://help.sonatype.com/repomanager2/staging-releases/staging-overview
+#  https://help.sonatype.com/repomanager2/staging-releases/configuring-your-project-for-deployment
+#  https://nvie.com/posts/a-successful-git-branching-model
+#  https://github.com/nvie/gitflow
+#  https://gist.github.com/lemiorhan/97b4f827c08aed58a9d8
+#  https://github.com/jgitver/jgitver
+#  https://danielkummer.github.io/git-flow-cheatsheet/index.html
+assets:
+  # @todo #/DEV Replace key by real one, generated for arch4u-pmd project
+  settings.xml: "dgroup/home#settings.xml"
+  pubring.gpg:  "dgroup/home#8B01AA62_arch4u-pmd_pubring.gpg"
+  secring.gpg:  "dgroup/home#8B01AA62_arch4u-pmd_secring.gpg"
+
+merge:
+  env:
+    MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx512m"
+  script:
+    - mvn -Pqulice clean package
+
+release:
+  sensitive:
+    - settings.xml
+    - pubring.gpg
+    - secring.gpg
+  script: |
+    mvn versions:set "-DnewVersion=${tag}"
+    git add pom.xml
+    git commit -am "${tag}"
+    mvn -X -V -Dgpg.homedir="$HOME" -P qulice,ossrh-arch4u-pmd -s ../settings.xml clean deploy
