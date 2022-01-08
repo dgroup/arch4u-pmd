@@ -68,11 +68,11 @@ class Foo {
   <rule name="NoMandatoryConstructorInExceptionClass"
         since="0.2.0"
         language="java"
-        message="Exception class must have at least one constructor with signature `public Ctor(Throwable, String, Object...)` or `public Ctor(String, Object...)`."
+        message="Exception class must have at least one constructor with signature `Ctor(Throwable, String, Object...)` or `Ctor(String, Object...)`."
         class="net.sourceforge.pmd.lang.rule.XPathRule">
     <description>
       Exception class must have at least one constructor with signature
-      `public Ctor(Throwable, String, Object...)` or `public Ctor(String, Object...)`.
+      `Ctor(Throwable, String, Object...)` or `Ctor(String, Object...)`.
     </description>
     <priority>3</priority>
     <properties>
@@ -83,7 +83,7 @@ class Foo {
 //ClassOrInterfaceDeclaration
 [pmd-java:typeIs('java.lang.Exception')] (: extends Exception class :)
 [not(
-./ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/ConstructorDeclaration[@Public=true()]
+./ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/ConstructorDeclaration
 /FormalParameters[
     (: Ctor(Throwable, String, Object...) :)
     (./FormalParameter[1]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Throwable')]
@@ -104,9 +104,9 @@ class Foo {
     <example>
 <![CDATA[
 class MyException extends Exception {
-    public MyException(String pattern, Object... args) {}
+    MyException(String pattern, Object... args) {}
 
-    public MyException(Throwable cause, String pattern, Object... args) {}
+    MyException(Throwable cause, String pattern, Object... args) {}
 }
 ]]>
     </example>

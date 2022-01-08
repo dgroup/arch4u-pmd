@@ -96,6 +96,15 @@ class Foo {
     ]]></code>
   </test-code>
 
+    <test-code>
+    <description>[GOOD]: skip non-exception class</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+class Foo extends Number {
+}
+    ]]></code>
+  </test-code>
+
   <test-code>
     <description>[BAD]: no constructors</description>
     <expected-problems>1</expected-problems>
@@ -150,17 +159,6 @@ class MyException extends Exception {                       //violation
 class MyException extends Exception {                       //violation
     public MyException(Exception cause, String pattern, Object... args) {
     }
-}
-    ]]></code>
-  </test-code>
-
-  <test-code>
-    <description>[BAD]: constructor has non-public modifier</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>1</expected-linenumbers>
-    <code><![CDATA[
-class MyException extends Exception {                       //violation
-    MyException(Throwable cause, String pattern, Object... args) {}
 }
     ]]></code>
   </test-code>
