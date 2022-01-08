@@ -7,7 +7,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      # @todo #/DEV Set up jdk 1.8 for CI/CD
       - name: Set up JDK 1.8
         uses: actions/setup-java@v2
         with:
@@ -20,22 +19,9 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v2.1.7
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v2.1.7
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      - name: Build and analyze
+      - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           MAVEN_OPTS: |
             -Xmx1024m
@@ -43,9 +29,34 @@ jobs:
             -Dorg.slf4j.simpleLogger.showDateTime=true
         run: |
           mvn -B -P qulice clean install
-          if [ -n "${{ secrets.SONAR_TOKEN }}" ]; then
-            mvn -B -P qulice org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar
-          fi
           if [ -n "${{ secrets.CODECOV_TOKEN }}" ]; then
             bash <(curl -s https://codecov.io/bash)
           fi
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+        - name: Set up JDK 11
+          uses: actions/setup-java@v2
+          with:
+            distribution: 'adopt'
+            java-version: '11'
+        - name: Cache SonarCloud packages
+          uses: actions/cache@v2.1.7
+          with:
+            path: ~/.sonar/cache
+            key: ${{ runner.os }}-sonar
+            restore-keys: ${{ runner.os }}-sonar
+        - name: Inspection by SonarQube
+          env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            MAVEN_OPTS: |
+              -Xmx1024m
+              -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS
+              -Dorg.slf4j.simpleLogger.showDateTime=true
+          run: |
+            if [ -n "${{ secrets.SONAR_TOKEN }}" ]; then
+              mvn -B -P qulice org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            fi
