@@ -31,7 +31,7 @@
   <groupId>io.github.dgroup</groupId>
   <artifactId>arch4u-pmd</artifactId>
   <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <!-- @todo #/DEV Setup code code quality 3rd-party services and add badge to the readme.md -->
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
