@@ -160,7 +160,7 @@ class MyException extends Exception {                       //violation
     <expected-linenumbers>1</expected-linenumbers>
     <code><![CDATA[
 class MyException extends Exception {                       //violation
-    MyException(Exception cause, String pattern, Object... args) {}
+    MyException(Throwable cause, String pattern, Object... args) {}
 }
     ]]></code>
   </test-code>
