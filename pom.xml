@@ -32,7 +32,6 @@
   <artifactId>arch4u-pmd</artifactId>
   <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
   <version>0.3.0</version>
-  <!-- @todo #/DEV Setup code code quality 3rd-party services and add badge to the readme.md -->
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
   <description></description>
