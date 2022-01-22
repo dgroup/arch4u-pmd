@@ -18,13 +18,11 @@ jobs:
   build:
     name: Telegram Notification
     runs-on: ubuntu-latest
-
     steps:
-      - name: Send notifications
-        id: send_notifications
-        uses: danilat/externalized-telegram-notifications-action@master
+      - name: Notify channel
+        uses: athul/statusoli@master
+        if: always()
         with:
-          to: ${{ secrets.TELEGRAM_CHAT }}
+          chat: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          content-url: ${{ secrets.CONTENT_URL }}
-          parse_mode: html
+          status: ${{ job.status }}
