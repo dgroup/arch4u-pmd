@@ -29,6 +29,7 @@
   <modelVersion>4.0.0</modelVersion>
   <!-- @todo #/DEV Define arch4u-pmd ruleset that includes third-party rules and new rules -->
   <groupId>io.github.dgroup</groupId>
+  <!-- @todo #/DEV Write an instruction how to add arch4u rules to your gradle and maven projects -->
   <artifactId>arch4u-pmd</artifactId>
   <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
   <version>0.3.0</version>
