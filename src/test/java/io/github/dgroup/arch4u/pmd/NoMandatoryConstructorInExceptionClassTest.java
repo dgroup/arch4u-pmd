@@ -37,7 +37,7 @@ public final class NoMandatoryConstructorInExceptionClassTest extends SimpleAggr
     @Override
     public void setUp() {
         addRule(
-            "io/github/dgroup/arch4u/pmd/default-ruleset.xml",
+            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
             "NoMandatoryConstructorInExceptionClass"
         );
     }

@@ -24,21 +24,18 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import java.util.Objects;
+import java.util.function.Function;
 
 /**
- * Test case for {@code AvoidUsingObjectMapperAsALocalVariable} rule.
+ * The plain interface just to build jar file during CI/CD.
  *
  * @since 0.1.0
+ * @todo #/DEV Remove this class once any API class added to the classpath.
  */
-@SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class AvoidUsingObjectMapperAsALocalVariableTest extends SimpleAggregatorTst {
-
+public final class ToString implements Function<Object, String> {
     @Override
-    public void setUp() {
-        addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
-            "AvoidUsingObjectMapperAsALocalVariable"
-        );
+    public String apply(final Object obj) {
+        return Objects.toString(obj);
     }
 }
