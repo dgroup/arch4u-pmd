@@ -15,7 +15,8 @@
         class="net.sourceforge.pmd.lang.rule.XPathRule">
     <description>
       Avoid to use prohibited classes.
-      See discussion about tips/tricks implementation on Github: https://github.com/pmd/pmd/discussions/3705
+      See discussion about tips/tricks implementation on Github:
+      https://github.com/pmd/pmd/discussions/3705
     </description>
     <priority>3</priority>
     <properties>
@@ -73,6 +74,35 @@
       class Foo {
           private static Logger log = Logger.getLogger(Foo.class);
           Charset cs = Charset.forName(CharEncoding.UTF_8);
+      }
+      ]]>
+    </example>
+  </rule>
+
+  <rule name="AvoidProhibitedMethodInvocation"
+        since="0.4.0"
+        language="java"
+        message="The {0}#{1} invocation is prohibited to use."
+        class="io.github.dgroup.arch4u.pmd.AvoidProhibitedMethodInvocation">
+    <description>
+      Avoid to use prohibited method invocation.
+      See discussion about tips/tricks implementation on Github:
+      https://github.com/pmd/pmd/discussions/TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="class" description="The fully qualified name of the class"
+                value="java.lang.Object"/>
+      <property name="methods" description="List of prohibited methods" value="toString"/>
+      <property name="checkSubtypes" value="false"
+                description="The property matches whether the subtypes should be checked"/>
+    </properties>
+    <example>
+      <![CDATA[
+      class Foo {
+          void bar(Object obj) {
+              String s = obj.toString();
+          }
       }
       ]]>
     </example>
