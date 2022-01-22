@@ -24,10 +24,21 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
+
 /**
- * The plain interface just to build jar file during CI/CD.
+ * Test case for {@link ToString}.
  *
  * @since 0.1.0
+ * @checkstyle MagicNumberCheck (500 lines)
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public interface Tbd {
+public final class ToStringTest {
+
+    @Test
+    public void string() {
+        Assertions.assertThat(new ToString().apply(20))
+            .isEqualTo("20");
+    }
 }
