@@ -85,9 +85,8 @@
         message="The {0}#{1} invocation is prohibited to use."
         class="io.github.dgroup.arch4u.pmd.AvoidProhibitedMethodsUsage">
     <description>
-      Avoid to use prohibited method invocation.
-      See discussion about tips/tricks implementation on Github:
-      https://github.com/pmd/pmd/discussions/TBD
+      Avoid using the prohibited method(s).
+      See the discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/40
     </description>
     <priority>3</priority>
     <properties>
