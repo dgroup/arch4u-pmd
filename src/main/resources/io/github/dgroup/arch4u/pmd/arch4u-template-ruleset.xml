@@ -77,4 +77,30 @@
       ]]>
     </example>
   </rule>
+
+  <rule name="DontCreateStringConstant"
+        since="0.4.0"
+        language="java"
+        message="Don''t create ''{0}'' String constant, use these classes instead: {1}"
+        class="io.github.dgroup.arch4u.pmd.DontCreateStringConstant">
+    <description>
+      Avoid using hardcoded String constants.
+      See discussion about tips/tricks implementation on Github: https://github.com/pmd/pmd/discussions/TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="regexPattern" description="Regular expression of prohibited string"
+                value="(^|\s)application\/json(\s|$)"/>
+      <property name="allowedClasses" value="io.micronaut.http.MediaType#APPLICATION_JSON
+|org.springframework.http.MediaType#APPLICATION_JSON_VALUE
+|javax.ws.rs.core.MediaType#APPLICATION_JSON"/>
+    </properties>
+    <example>
+      <![CDATA[
+      class Foo {
+          String type = "application/json";
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>
