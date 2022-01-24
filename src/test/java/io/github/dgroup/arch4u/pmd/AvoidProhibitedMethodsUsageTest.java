@@ -27,18 +27,18 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
 /**
- * Test case for {@link AvoidProhibitedMethodInvocation} rule.
+ * Test case for {@link AvoidProhibitedMethodsUsage} rule.
  *
  * @since 0.4.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class AvoidProhibitedMethodInvocationTest extends SimpleAggregatorTst {
+public final class AvoidProhibitedMethodsUsageTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
         addRule(
             "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml",
-            "AvoidProhibitedMethodInvocation"
+            "AvoidProhibitedMethodsUsage"
         );
     }
 }

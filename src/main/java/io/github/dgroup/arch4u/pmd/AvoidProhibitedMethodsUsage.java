@@ -44,7 +44,7 @@ import org.apache.commons.lang3.StringUtils;
  * @since 0.4.0
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
-public final class AvoidProhibitedMethodInvocation extends AbstractPoorMethodCall {
+public final class AvoidProhibitedMethodsUsage extends AbstractPoorMethodCall {
 
     /**
      * Property descriptor with test class suffix.
@@ -78,7 +78,7 @@ public final class AvoidProhibitedMethodInvocation extends AbstractPoorMethodCal
      * Constructor for defining property descriptor.
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    public AvoidProhibitedMethodInvocation() {
+    public AvoidProhibitedMethodsUsage() {
         this.definePropertyDescriptor(CLASS);
         this.definePropertyDescriptor(METHODS);
         this.definePropertyDescriptor(CHECK_SUBTYPES);

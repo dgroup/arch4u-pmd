@@ -32,7 +32,7 @@
   <!-- @todo #/DEV Write an instruction how to add arch4u rules to your gradle and maven projects -->
   <artifactId>arch4u-pmd</artifactId>
   <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
-  <version>0.4.0</version>
+  <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
   <description></description>

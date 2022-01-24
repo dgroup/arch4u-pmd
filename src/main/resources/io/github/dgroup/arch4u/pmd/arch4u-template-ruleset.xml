@@ -79,11 +79,11 @@
     </example>
   </rule>
 
-  <rule name="AvoidProhibitedMethodInvocation"
+  <rule name="AvoidProhibitedMethodsUsage"
         since="0.4.0"
         language="java"
         message="The {0}#{1} invocation is prohibited to use."
-        class="io.github.dgroup.arch4u.pmd.AvoidProhibitedMethodInvocation">
+        class="io.github.dgroup.arch4u.pmd.AvoidProhibitedMethodsUsage">
     <description>
       Avoid to use prohibited method invocation.
       See discussion about tips/tricks implementation on Github:
