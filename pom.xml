@@ -158,6 +158,20 @@
       <groupId>net.sourceforge.pmd</groupId>
       <artifactId>pmd-java</artifactId>
       <version>${pmd.rules.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.beust</groupId>
+          <artifactId>jcommander</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.code.gson</groupId>
+          <artifactId>gson</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.pmd</groupId>
