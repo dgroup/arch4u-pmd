@@ -24,7 +24,6 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import java.util.List;
 import java.util.regex.Pattern;
 import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
