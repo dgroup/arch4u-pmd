@@ -34,14 +34,16 @@ import net.sourceforge.pmd.properties.PropertyFactory;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Rule to avoid creating {@code "application/json'} string constants.
+ * Rule to avoid creating string constants for {@code MediaType} values.
+ * Example: {@code "application/json'}
  * Use existing classes.
  *
  * @since 0.4.0
+ * @see <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
  * @checkstyle StringLiteralsConcatenationCheck (200 lines)
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
-public final class DontCreateStringConstant extends AbstractJavaRule {
+public final class UseExistingConstant extends AbstractJavaRule {
 
     /**
      * Regexp property name.
@@ -58,31 +60,16 @@ public final class DontCreateStringConstant extends AbstractJavaRule {
             .build();
 
     /**
-     * Property descriptor with allowed classes.
-     */
-    private static final PropertyDescriptor<List<String>> ALLOWED =
-        PropertyFactory.stringListProperty("allowedClasses")
-            .desc("Classes that should be used instead")
-            .emptyDefaultValue()
-            .build();
-
-    /**
      * Pattern.
      */
     private Pattern pattern;
 
     /**
-     * Allowed classes.
-     */
-    private String allowed;
-
-    /**
      * Constructor for defining property descriptor.
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    public DontCreateStringConstant() {
+    public UseExistingConstant() {
         this.definePropertyDescriptor(REGEX_PROPERTY);
-        this.definePropertyDescriptor(ALLOWED);
         this.addRuleChainVisit(ASTLiteral.class);
     }
 
@@ -93,7 +80,7 @@ public final class DontCreateStringConstant extends AbstractJavaRule {
             String image = node.getTextBlockContent();
             image = image.substring(1, image.length() - 1);
             if (image.length() > 0 && RegexHelper.isMatch(this.pattern, image)) {
-                this.addViolation(data, node, new String[]{image, this.allowed});
+                this.addViolation(data, node);
             }
         }
         return data;
@@ -105,7 +92,6 @@ public final class DontCreateStringConstant extends AbstractJavaRule {
     private void init() {
         if (this.pattern == null) {
             this.pattern = Pattern.compile(this.getProperty(REGEX_PROPERTY));
-            this.allowed = String.join(", ", this.getProperty(ALLOWED));
         }
     }
 }

@@ -27,18 +27,18 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
 /**
- * Test case for {@link DontCreateStringConstant} rule.
+ * Test case for {@link UseExistingConstant} rule.
  *
  * @since 0.4.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class DontCreateStringConstantTest extends SimpleAggregatorTst {
+public final class UseExistingConstantTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
         addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml",
-            "DontCreateStringConstant"
+            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
+            "UseExistingConstant"
         );
     }
 }
