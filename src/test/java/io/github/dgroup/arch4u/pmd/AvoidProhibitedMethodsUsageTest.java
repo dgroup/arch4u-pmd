@@ -24,21 +24,21 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
 /**
- * Test case for {@link ToString}.
+ * Test case for {@link AvoidProhibitedMethodsUsage} rule.
  *
- * @since 0.1.0
- * @checkstyle MagicNumberCheck (500 lines)
- * @checkstyle JavadocMethodCheck (500 lines)
+ * @since 0.4.0
  */
-public final class ToStringTest {
+@SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
+public final class AvoidProhibitedMethodsUsageTest extends SimpleAggregatorTst {
 
-    @Test
-    public void string() {
-        Assertions.assertThat(new ToString().apply(20))
-            .isEqualTo("20");
+    @Override
+    public void setUp() {
+        addRule(
+            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml",
+            "AvoidProhibitedMethodsUsage"
+        );
     }
 }
