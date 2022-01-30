@@ -24,6 +24,7 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
@@ -38,30 +39,25 @@ import org.apache.commons.lang3.StringUtils;
  * Use existing classes.
  *
  * @since 0.4.0
- * @see <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
- * @checkstyle StringLiteralsConcatenationCheck (200 lines)
+ * @see
+ * <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
 public final class UseExistingConstant extends AbstractJavaRule {
 
     /**
-     * Regexp property name.
-     */
-    private static final String PROPERTY_NAME = "regexPattern";
-
-    /**
      * Property descriptor with regexp of prohibited string.
      */
     private static final PropertyDescriptor<String> REGEX_PROPERTY =
-        PropertyFactory.stringProperty(PROPERTY_NAME)
+        PropertyFactory.stringProperty("regexPattern")
             .desc("Regular expression of prohibited string")
             .defaultValue(StringUtils.EMPTY)
             .build();
 
     /**
-     * Pattern.
+     * Pattern supplier.
      */
-    private Pattern pattern;
+    private final Supplier<Pattern> pattern;
 
     /**
      * Constructor for defining property descriptor.
@@ -70,28 +66,20 @@ public final class UseExistingConstant extends AbstractJavaRule {
     public UseExistingConstant() {
         this.definePropertyDescriptor(REGEX_PROPERTY);
         this.addRuleChainVisit(ASTLiteral.class);
+        this.pattern = () -> Pattern.compile(this.getProperty(REGEX_PROPERTY));
     }
 
     @Override
     public Object visit(final ASTLiteral node, final Object data) {
         if (node.isStringLiteral()) {
-            this.init();
             String image = node.getTextBlockContent();
             image = image.substring(1, image.length() - 1);
-            if (image.length() > 0 && RegexHelper.isMatch(this.pattern, image)) {
+            if (image.length() > 0 && RegexHelper.isMatch(this.pattern.get(), image)) {
                 this.addViolation(data, node);
             }
         }
         return data;
     }
 
-    /**
-     * Init.
-     */
-    private void init() {
-        if (this.pattern == null) {
-            this.pattern = Pattern.compile(this.getProperty(REGEX_PROPERTY));
-        }
-    }
 }
 
