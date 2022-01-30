@@ -8,6 +8,9 @@
 
   <description>arch4u rules</description>
 
+  <!-- Third-party rules -->
+  <rule ref="io/github/dgroup/arch4u/pmd/arch4u-recommended-third-party-ruleset.xml"/>
+
   <rule name="AvoidUsingObjectMapperAsALocalVariable"
         since="0.1.0"
         language="java"
