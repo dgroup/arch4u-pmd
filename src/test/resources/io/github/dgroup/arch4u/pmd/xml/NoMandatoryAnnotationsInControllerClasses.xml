@@ -88,6 +88,7 @@ public class MyTypicalRestController {
   <test-code>
     <description>[BAD]: method hasn't @Timed however it has @GetMapping</description>
     <expected-problems>1</expected-problems>
+    <expected-linenumbers>11</expected-linenumbers>
     <code><![CDATA[
 package my.company;
 
@@ -98,8 +99,7 @@ import io.micrometer.core.annotation.Timed;
 @RestController
 public class MyTypicalRestController {
 
-   @Timed
-   @GetMapping("/get")   // ok, @Timed is present for all methods with annotation @GET
+   @GetMapping("/get")
    public Integer get() {
       return null;
    }
