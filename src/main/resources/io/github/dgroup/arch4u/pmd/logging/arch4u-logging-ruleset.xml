@@ -31,7 +31,7 @@
   <description>arch4u rules related to rest api</description>
 
   <rule name="UseExistingConstant"
-        since="0.4.0"
+        since="0.1.0"
         language="java"
         message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
         class="io.github.dgroup.arch4u.pmd.UseExistingConstant">

@@ -29,7 +29,7 @@ import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 /**
  * Test case for {@link UseExistingConstant} rule.
  *
- * @since 0.4.0
+ * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class UseExistingConstantTest extends SimpleAggregatorTst {

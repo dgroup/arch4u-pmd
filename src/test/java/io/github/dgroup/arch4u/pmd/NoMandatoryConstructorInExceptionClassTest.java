@@ -29,7 +29,7 @@ import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 /**
  * Test case for {@code NoMandatoryConstructorInExceptionClass} rule.
  *
- * @since 0.2.0
+ * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class NoMandatoryConstructorInExceptionClassTest extends SimpleAggregatorTst {

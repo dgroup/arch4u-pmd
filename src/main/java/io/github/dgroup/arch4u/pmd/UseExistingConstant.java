@@ -39,7 +39,7 @@ import org.cactoos.scalar.Unchecked;
  * Example: {@code "application/json'}
  * Use existing classes.
  *
- * @since 0.4.0
+ * @since 0.1.0
  * @see
  * <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
  */
