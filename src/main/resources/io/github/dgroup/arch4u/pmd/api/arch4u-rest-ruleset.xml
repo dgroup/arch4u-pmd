@@ -30,4 +30,26 @@
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>arch4u rules related to rest api</description>
 
+  <rule name="UseExistingConstant"
+        since="0.4.0"
+        language="java"
+        message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
+        class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
+    <description>
+      Avoid using hardcoded String constants.
+      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/43
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="regexPattern" description="Regular expression of prohibited string"
+                value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
+    </properties>
+    <example>
+      <![CDATA[
+      class Foo {
+          String type = "application/json";
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>
