@@ -15,4 +15,6 @@
   <rule ref="io/github/dgroup/arch4u/pmd/errorhandling/arch4u-error-handling-ruleset.xml"/>
   <!-- Rules related to rest api -->
   <rule ref="io/github/dgroup/arch4u/pmd/api/arch4u-rest-ruleset.xml"/>
+  <!-- Rules related to logging -->
+  <rule ref="io/github/dgroup/arch4u/pmd/logging/arch4u-logging-ruleset.xml"/>
 </ruleset>
