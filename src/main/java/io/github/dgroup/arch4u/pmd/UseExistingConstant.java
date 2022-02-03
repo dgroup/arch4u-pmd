@@ -24,7 +24,6 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
@@ -32,6 +31,8 @@ import net.sourceforge.pmd.lang.java.rule.regex.RegexHelper;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
 import org.apache.commons.lang3.StringUtils;
+import org.cactoos.scalar.Sticky;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Rule to avoid creating string constants for {@code MediaType} values.
@@ -55,9 +56,9 @@ public final class UseExistingConstant extends AbstractJavaRule {
             .build();
 
     /**
-     * Pattern supplier.
+     * Cached pattern supplier.
      */
-    private final Supplier<Pattern> pattern;
+    private final Unchecked<Pattern> pattern;
 
     /**
      * Constructor for defining property descriptor.
@@ -66,7 +67,11 @@ public final class UseExistingConstant extends AbstractJavaRule {
     public UseExistingConstant() {
         this.definePropertyDescriptor(REGEX_PROPERTY);
         this.addRuleChainVisit(ASTLiteral.class);
-        this.pattern = () -> Pattern.compile(this.getProperty(REGEX_PROPERTY));
+        this.pattern = new Unchecked<>(
+            new Sticky<>(
+                () -> Pattern.compile(this.getProperty(REGEX_PROPERTY))
+            )
+        );
     }
 
     @Override
@@ -74,7 +79,7 @@ public final class UseExistingConstant extends AbstractJavaRule {
         if (node.isStringLiteral()) {
             String image = node.getTextBlockContent();
             image = image.substring(1, image.length() - 1);
-            if (image.length() > 0 && RegexHelper.isMatch(this.pattern.get(), image)) {
+            if (image.length() > 0 && RegexHelper.isMatch(this.pattern.value(), image)) {
                 this.addViolation(data, node);
             }
         }
