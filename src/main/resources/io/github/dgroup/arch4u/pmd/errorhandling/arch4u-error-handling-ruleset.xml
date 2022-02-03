@@ -56,7 +56,7 @@
   <rule name="UseExistingConstant"
         since="0.4.0"
         language="java"
-        message="Use existing constant instead of field, variable or direct string definition: https://github.com/dgroup/arch4u-pmd/discussions/43"
+        message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
         class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
     <description>
       Avoid using hardcoded String constants.
