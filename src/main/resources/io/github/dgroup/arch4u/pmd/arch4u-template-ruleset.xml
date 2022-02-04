@@ -106,4 +106,36 @@
       ]]>
     </example>
   </rule>
+
+  <rule name="CorrectMdcUsage"
+        since="0.1.0"
+        language="java"
+        message="Use Mdc in try-with-resources instead of raw MDC API usage"
+        class="io.github.dgroup.arch4u.pmd.CorrectMdcUsage">
+    <description>It's prohibited to use Mdc not in try with resources statement.</description>
+    <priority>3</priority>
+    <properties>
+      <property name="classes" value="org.apache.log4j.MDC|org.slf4j.MDC|MDC" />
+      <property name="methods" value="remove" />
+    </properties>
+    <example>
+      <![CDATA[
+      import org.slf4j.MDC;
+
+      public class SomeClass {
+         public void process(Order order) {
+             try {
+                 MDC.put("order", order.getId());
+                 MDC.put("customer", order.getCustomerId());
+                 LOG.debug("Order {} initiated for {}", order.geId(), order.getCustomerId());
+                 // .. business logic
+             } finally {
+                 MDC.remove("order");
+                 MDC.remove("customer");
+             }
+        }
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>

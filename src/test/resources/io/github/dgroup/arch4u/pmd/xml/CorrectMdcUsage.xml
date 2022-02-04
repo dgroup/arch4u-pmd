@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"),
+  ~ to deal in the Software without restriction, including without limitation
+  ~ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ~ and/or sell copies of the Software, and to permit persons to whom
+  ~ the Software is  furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+  ~ OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<test-data
+    xmlns="http://pmd.sourceforge.net/rule-tests"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <test-code>
+    <description>[GOOD]: Allowed usage of MDC in try with resources</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+        import org.slf4j.MDC;
+
+        public class SomeClass {
+            public Object execute(final LogicClass obj, final R request) {
+                try (final MDC MDC = new MDC()) {
+                    MDC.put(request, "someValue");
+                    return obj.proceed();
+                }
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: Allowed regular usage of MDC with remove method</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+        import org.slf4j.MDC;
+
+        public class SomeClass {
+             public void process(Order order) {
+                 MDC.put("order", order.getId());
+                 MDC.put("customer", order.getCustomerId());
+                 LOG.debug("Order {} initiated for {}", order.geId(), order.getCustomerId());
+
+                 // .. business logic
+
+                 MDC.remove("order");
+                 MDC.remove("customer");
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: Allowed usage of MDC with try/finally</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+        import org.slf4j.MDC;
+
+        public class SomeClass {
+             public void process(Order order) {
+                 try {
+                     MDC.put("order", order.getId());
+                     MDC.put("customer", order.getCustomerId());
+                     LOG.debug("Order {} initiated for {}", order.geId(), order.getCustomerId());
+
+                     // .. business logic
+                 } finally {
+                     MDC.remove("order");
+                     MDC.remove("customer");
+                 }
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: Not allowed usage of MDC, no remove method or try/finally</description>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
+        import org.slf4j.MDC;
+
+        public class SomeClass {
+            public Object execute(final LogicClass obj, final R request) {
+                final MDC MDC = new MDC();
+                MDC.put(request, "someValue");
+                return obj.proceed();
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: Allowed case with class without any MDC</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+        public class SomeClass {
+            public BigInteger sum(BigInteger b1, BigInteger b2){
+                return b1 + b2;
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: Allowed usage of MDC with full package name</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+        public class SomeClass {
+            public Object execute(final LogicClass obj, final R request) {
+                try (org.slf4j.MDC mdc = new MDC()) {
+                    mdc.put(request, "value");
+                    return obj.proceed();
+                }
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>
+      [GOOD]: Allowed usage of MDC with several try statements in one method
+    </description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+        import org.slf4j.MDC;
+
+        public class SomeClass {
+            public void method(String str, BigInteger num) {
+                try (Connection conn = new Connection()) {
+                    conn.executeStatement(str);
+                }
+                try (MDC MDC = new MDC()) {
+                    MDC.put(str, num);
+                }
+            }
+        }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>
+      [BAD]: Allowed usage of MDC in try and not allowed usage without try
+    </description>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
+        import org.slf4j.MDC;
+
+        public class SomeClass {
+            public void method(String str, BigInteger num) {
+                try (MDC MDC = new MDC()) {
+                    MDC.put(str, num);
+                }
+                MDC MDC2 = new MDC();
+                MDC2.put(str, num);
+            }
+        }
+        ]]></code>
+  </test-code>
+
+</test-data>
