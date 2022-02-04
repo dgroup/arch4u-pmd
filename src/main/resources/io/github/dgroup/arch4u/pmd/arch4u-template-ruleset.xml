@@ -9,7 +9,7 @@
   <description>arch4u template rules that you may use for your own/private use-cases</description>
 
   <rule name="AvoidProhibitedClasses"
-        since="0.3.0"
+        since="0.1.0"
         language="java"
         message="The {0} class is prohibited to use."
         class="net.sourceforge.pmd.lang.rule.XPathRule">
@@ -80,7 +80,7 @@
   </rule>
 
   <rule name="AvoidProhibitedMethodsUsage"
-        since="0.4.0"
+        since="0.1.0"
         language="java"
         message="The {0}#{1} invocation is prohibited to use."
         class="io.github.dgroup.arch4u.pmd.AvoidProhibitedMethodsUsage">
@@ -106,4 +106,5 @@
       ]]>
     </example>
   </rule>
+
 </ruleset>
