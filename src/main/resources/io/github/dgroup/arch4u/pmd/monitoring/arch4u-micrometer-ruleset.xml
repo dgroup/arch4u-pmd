@@ -5,7 +5,52 @@
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>arch4u micrometer rules</description>
-  <!-- @todo #28/DEV Define the rule related to @Timed annotation here.  -->
+
+  <rule name="MissingMandatoryAnnotation"
+        since="0.1.0"
+        language="java"
+        message="TBD"
+        class="io.github.dgroup.arch4u.pmd.MissingMandatoryAnnotation">
+    <description>
+      TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="restAnnotations" type="List[String]" delimiter="|"
+                description="List of the REST endpoint method annotations"
+                value="org.springframework.web.bind.annotation.GetMapping
+|org.springframework.web.bind.annotation.DeleteMapping
+|org.springframework.web.bind.annotation.PatchMapping
+|org.springframework.web.bind.annotation.PostMapping
+|org.springframework.web.bind.annotation.PutMapping
+|org.springframework.web.bind.annotation.RequestMapping"/>
+      <property name="mandatoryAnnotations" type="List[String]" delimiter="|"
+                description="List of the mandatory metric method annotations"
+                value="io.micrometer.core.annotation.Timed"/>
+    </properties>
+    <example>
+      <![CDATA[
+      import org.springframework.web.bind.annotation.RestController;
+      import org.springframework.web.bind.annotation.GetMapping;
+      import io.micrometer.core.annotation.Timed;
+
+      @RestController
+      public class MyTypicalRestController {
+
+         @GetMapping("/foo")    //violation
+         public Foo getFoo() {
+            //...
+         }
+
+         @Timed
+         @GetMapping("/bar")
+         public Foo getBar() {
+            //...
+         }
+      }
+      ]]>
+    </example>
+  </rule>
 
   <!-- @todo #/DEV io.micrometer.core.annotation.Timed should receive metric name as a string constant, not a string literal
         https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-core/src/main/java/io/micrometer/core/annotation/Timed.java-->

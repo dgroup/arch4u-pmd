@@ -39,8 +39,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * A rule that prohibits the using methods of a particular class.
  *
- * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">
- *     https://github.com/dgroup/arch4u-pmd/issues/22</a>
+ * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")

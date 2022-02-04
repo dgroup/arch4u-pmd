@@ -54,7 +54,7 @@ import io.micrometer.core.annotation.Timed;
 @RestController
 public class MyTypicalRestController {
 
-   @PostMapping("/post")
+   @Override
    public String post() {
       return null;
    }
@@ -88,7 +88,7 @@ public class MyTypicalRestController {
   <test-code>
     <description>[BAD]: method hasn't @Timed however it has @GetMapping</description>
     <expected-problems>1</expected-problems>
-    <expected-linenumbers>11</expected-linenumbers>
+    <expected-linenumbers>10</expected-linenumbers>
     <code><![CDATA[
 package my.company;
 
@@ -99,7 +99,7 @@ import io.micrometer.core.annotation.Timed;
 @RestController
 public class MyTypicalRestController {
 
-   @GetMapping("/get")
+   @GetMapping("/get")        //violation
    public Integer get() {
       return null;
    }
