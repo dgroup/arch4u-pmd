@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"),
+  ~ to deal in the Software without restriction, including without limitation
+  ~ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ~ and/or sell copies of the Software, and to permit persons to whom
+  ~ the Software is  furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+  ~ OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<test-data
+    xmlns="http://pmd.sourceforge.net/rule-tests"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <test-code>
+    <description>[BAD]: prohibited class with sensitive data is logged</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.github.dgroup.arch4u.pmd.test_entity.Person;
+class Foo {
+    Logger logger = LoggerFactory.getLogger(Foo.class);
+    Person person;
+
+    void bar() {
+        logger.info("Processing started for customer {}", person);
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: direct `toString` invocation on sensitive data is logged</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.github.dgroup.arch4u.pmd.test_entity.Person;
+class Foo {
+    Logger logger = LoggerFactory.getLogger(Foo.class);
+    Person person;
+
+    void bar() {
+        logger.info("Processing started for customer {}", person.toString());
+    }
+}
+        ]]></code>
+  </test-code>
+
+
+  <test-code>
+    <description>[BAD]: classes are passed as method parameters</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import io.github.dgroup.arch4u.pmd.test_entity.Person;
+class Foo {
+    void bar(Person person, Logger logger) {
+        logger.info("Processing started for customer {}", person);
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[OK]: no logged objects with sensitive data</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+class Foo {
+    Logger logger = LoggerFactory.getLogger(Foo.class);
+
+    void bar(Integer id) {
+        logger.info("Some message");
+        logger.info("Processing started for customer {}", id);
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[OK]: no logged objects with sensitive data</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.github.dgroup.arch4u.pmd.test_entity.Person;
+class Foo {
+    Logger logger = LoggerFactory.getLogger(Foo.class);
+
+    void bar(Person user) {
+        log.debug("User {} not authorized for operation {} ", this.obfuscation.apply(user), operation);
+    }
+}
+        ]]></code>
+  </test-code>
+
+</test-data>

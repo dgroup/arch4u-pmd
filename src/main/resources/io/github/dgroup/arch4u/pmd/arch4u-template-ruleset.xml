@@ -107,4 +107,36 @@
     </example>
   </rule>
 
+  <rule name="ObfuscationRequired"
+        since="0.1.0"
+        language="java"
+        message="TBD"
+        class="io.github.dgroup.arch4u.pmd.ObfuscationRequired">
+    <description>
+      TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="loggerClasses" delimiter="|" value="org.slf4j.Logger
+|java.util.logging.Logger
+|org.apache.log4j.Logger
+|org.apache.logging.log4j.Logger"/>
+      <property name="sensitiveClasses" value="io.github.dgroup.arch4u.pmd.test_entity.Person"/>
+    </properties>
+    <example>
+      <![CDATA[
+      import org.slf4j.Logger;
+      import org.slf4j.LoggerFactory;
+      import io.github.dgroup.arch4u.pmd.test_entity.Person;
+      class Foo {
+          Logger logger = LoggerFactory.getLogger(Foo.class);
+
+          void bar(Person person) {
+              logger.info("Processing started for customer {}", person);
+          }
+      }
+      ]]>
+    </example>
+  </rule>
+
 </ruleset>
