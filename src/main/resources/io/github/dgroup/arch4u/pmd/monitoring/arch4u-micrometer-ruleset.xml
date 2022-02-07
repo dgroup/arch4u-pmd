@@ -52,6 +52,48 @@
     </example>
   </rule>
 
-  <!-- @todo #/DEV io.micrometer.core.annotation.Timed should receive metric name as a string constant, not a string literal
-        https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-core/src/main/java/io/micrometer/core/annotation/Timed.java-->
+  <rule name="UseConstantForMetricAnnotation"
+        since="0.1.0"
+        language="java"
+        message="TBD"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+    <description>
+      TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="metricAnnotations" type="List[String]" delimiter="|"
+                description="List of the metric annotations"
+                value="io.micrometer.core.annotation.Timed"/>
+      <property name="version" value="2.0"/>
+      <property name="xpath">
+        <value>
+          <![CDATA[
+          //Annotation[some $annotation in $metricAnnotations satisfies pmd-java:typeIsExactly($annotation)]
+          [
+          SingleMemberAnnotation/MemberValue/PrimaryExpression/PrimaryPrefix/Literal
+          or
+          NormalAnnotation/MemberValuePairs/MemberValuePair[@Image='value']/MemberValue/PrimaryExpression/PrimaryPrefix/Literal
+          ]
+          ]]>
+        </value>
+      </property>
+    </properties>
+    <example>
+      <![CDATA[
+      import io.micrometer.core.annotation.Timed;
+
+      public class Foo {
+
+         @Timed("value")
+         public void bar() {
+         }
+
+         @Timed(value="value")
+         public void baz() {
+         }
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"),
+  ~ to deal in the Software without restriction, including without limitation
+  ~ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ~ and/or sell copies of the Software, and to permit persons to whom
+  ~ the Software is  furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+  ~ OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<test-data
+    xmlns="http://pmd.sourceforge.net/rule-tests"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <test-code>
+    <description>[BAD]: metric annotations use string literals for `value`</description>
+    <expected-problems>2</expected-problems>
+    <expected-linenumbers>5,9</expected-linenumbers>
+    <code><![CDATA[
+import io.micrometer.core.annotation.Timed;
+
+public class Foo {
+
+   @Timed("value")
+   public void bar() {
+   }
+
+   @Timed(value="value")
+   public void baz() {
+   }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[OK]: metric annotations use string variable</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+import io.micrometer.core.annotation.Timed;
+
+public class Foo {
+
+   String METRIC = "value";
+
+   @Timed(METRIC)
+   public void bar() {
+   }
+
+   @Timed(value=METRIC)
+   public void baz() {
+   }
+}
+        ]]></code>
+  </test-code>
+
+</test-data>
