@@ -9,10 +9,12 @@
   <rule name="MissingMandatoryAnnotation"
         since="0.1.0"
         language="java"
-        message="TBD"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/74"
+        message="REST api endpoint(s) should expose metrics for application monitoring: https://github.com/dgroup/arch4u-pmd/discussions/74"
         class="io.github.dgroup.arch4u.pmd.MissingMandatoryAnnotation">
     <description>
-      TBD
+      Each REST endpoint should expose metrics for application monitoring
+      The default expected framework is https://micrometer.io.
     </description>
     <priority>3</priority>
     <properties>
