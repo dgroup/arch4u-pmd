@@ -29,7 +29,7 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
   <test-code>
-    <description>[GOOD]: MDC is cleaned with `clear` method</description>
+    <description>[GOOD]: MDC is cleared with `clear` method</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
 import org.slf4j.MDC;
@@ -48,7 +48,7 @@ public class Foo {
   </test-code>
 
   <test-code>
-    <description>[GOOD]: MDC is cleaned with `remove` methods</description>
+    <description>[GOOD]: MDC is cleared with `remove` methods</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
 import org.slf4j.MDC;
@@ -67,7 +67,7 @@ public class Foo {
   </test-code>
 
   <test-code>
-    <description>[BAD]: MDC is not cleaned</description>
+    <description>[BAD]: MDC is not cleared</description>
     <expected-problems>2</expected-problems>
     <expected-linenumbers>9,10</expected-linenumbers>
     <code><![CDATA[
@@ -81,6 +81,20 @@ public class Foo {
 
         MDC.put(XXX, order.getId());
         MDC.put("customer", order.getCustomerId());
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: no clear/put/remove methods</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+import org.slf4j.MDC;
+
+public class Foo {
+    public void bar() {
+        Object customer = MDC.get("customer");
     }
 }
         ]]></code>
