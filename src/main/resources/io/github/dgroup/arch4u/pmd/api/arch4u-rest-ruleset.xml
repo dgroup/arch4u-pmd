@@ -52,4 +52,42 @@
       ]]>
     </example>
   </rule>
+
+  <rule name="WrongRestMethodSignature"
+        since="0.1.0"
+        language="java"
+        message="REST endpoint method should be public and has @Override annotation: https://github.com/dgroup/arch4u-pmd/discussions/TBD"
+        class="io.github.dgroup.arch4u.pmd.WrongRestMethodSignature">
+    <description>
+      Each REST endpoint method should be public and has @Override annotation
+      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="restAnnotations" type="List[String]" delimiter="|"
+                description="List of the REST endpoint method annotations"
+                value="org.springframework.web.bind.annotation.GetMapping
+|org.springframework.web.bind.annotation.DeleteMapping
+|org.springframework.web.bind.annotation.PatchMapping
+|org.springframework.web.bind.annotation.PostMapping
+|org.springframework.web.bind.annotation.PutMapping
+|org.springframework.web.bind.annotation.RequestMapping"/>
+    </properties>
+    <example>
+      <![CDATA[
+      import org.springframework.web.bind.annotation.RestController;
+      import org.springframework.web.bind.annotation.GetMapping;
+
+      @RestController
+      public class MyTypicalRestController extends ParentClass {
+         @Override
+         @GetMapping("/get")
+         public String get() {
+            return null;
+         }
+      }
+      ]]>
+    </example>
+  </rule>
+
 </ruleset>
