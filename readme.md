@@ -57,3 +57,4 @@
 
 *   [dgroup](https://github.com/dgroup) as Yurii Dubinka (<yurii.dubinka@gmail.com>)
 *   [dykov](https://github.com/dykov) as Oleksii Dykov (<dykovoleksii@gmail.com>)
+*   [smithros](https://github.com/smithros) as Rostyslav Koval (<kovalr2000@gmail.com>)
