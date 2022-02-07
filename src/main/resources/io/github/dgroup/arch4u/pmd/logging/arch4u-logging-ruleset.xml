@@ -52,4 +52,37 @@
       ]]>
     </example>
   </rule>
+
+  <rule name="MdcIsNotCleared"
+        since="0.1.0"
+        language="java"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/TBD"
+        message="TBD"
+        class="io.github.dgroup.arch4u.pmd.MdcIsNotCleared">
+    <description>
+      TBD
+      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="mdcClasses" value="org.slf4j.MDC"/>
+    </properties>
+    <example>
+      <![CDATA[
+      import org.slf4j.MDC;
+
+      public class Foo {
+          public void bar() {
+              MDC.put(XXX, value);
+              MDC.put("customer", order.getCustomerId());
+
+              // ... business logic
+
+              MDC.remove(XXX);
+              MDC.remove("customer");
+          }
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>
