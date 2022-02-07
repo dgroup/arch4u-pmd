@@ -36,9 +36,6 @@ public final class ObfuscationRequiredTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
-        addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml",
-            "ObfuscationRequired"
-        );
+        addRule("io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml", "ObfuscationRequired");
     }
 }

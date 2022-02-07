@@ -6,13 +6,15 @@
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>arch4u micrometer rules</description>
 
-  <rule name="MissingMandatoryAnnotation"
+  <rule name="RestEndpointsWithoutExposedMetrics"
         since="0.1.0"
         language="java"
-        message="TBD"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/74"
+        message="REST api endpoint(s) should expose metrics for application monitoring: https://github.com/dgroup/arch4u-pmd/discussions/74"
         class="io.github.dgroup.arch4u.pmd.MissingMandatoryAnnotation">
     <description>
-      TBD
+      Each REST endpoint should expose metrics for application monitoring
+      The default expected framework is https://micrometer.io.
     </description>
     <priority>3</priority>
     <properties>
@@ -52,6 +54,52 @@
     </example>
   </rule>
 
-  <!-- @todo #/DEV io.micrometer.core.annotation.Timed should receive metric name as a string constant, not a string literal
-        https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-core/src/main/java/io/micrometer/core/annotation/Timed.java-->
+  <rule name="UseConstantAsMetricName"
+        since="0.1.0"
+        language="java"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/75"
+        message="Use constant for metric name instead of hardcoded string literals: https://github.com/dgroup/arch4u-pmd/discussions/75"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+    <description>
+      The monitoring metric name should be provided into annotation @Timed by constant, not a hardcoded string.
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="metricAnnotations" type="List[String]" delimiter="|"
+                description="List of the metric annotations"
+                value="io.micrometer.core.annotation.Timed"/>
+      <property name="version" value="2.0"/>
+      <property name="xpath">
+        <value>
+          <![CDATA[
+          //Annotation[some $annotation in $metricAnnotations satisfies pmd-java:typeIsExactly($annotation)]
+          [
+          SingleMemberAnnotation/MemberValue/PrimaryExpression/PrimaryPrefix/Literal
+          or
+          NormalAnnotation/MemberValuePairs/MemberValuePair[@Image='value']/MemberValue/PrimaryExpression/PrimaryPrefix/Literal
+          ]
+          ]]>
+        </value>
+      </property>
+    </properties>
+    <example>
+      <![CDATA[
+      import io.micrometer.core.annotation.Timed;
+
+      @RestController
+      public class MyController {
+
+         @Timed(Metrics.ORDER_PROCESSING_DURATION)   // ok
+         public X process(Order order) {
+            ...
+         }
+
+        @Timed("order_processing_duration")         // violation
+        public X process(Order order) {
+           ...
+         }
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>

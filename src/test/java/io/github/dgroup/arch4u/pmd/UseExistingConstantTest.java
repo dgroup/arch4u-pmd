@@ -36,9 +36,6 @@ public final class UseExistingConstantTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
-        addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
-            "UseExistingConstant"
-        );
+        addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseExistingConstant");
     }
 }

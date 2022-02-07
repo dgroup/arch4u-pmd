@@ -8,6 +8,7 @@
   <rule name="NoMandatoryConstructorInExceptionClass"
         since="0.1.0"
         language="java"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/31"
         message="Exception class must have at least one constructor with signature `public Ctor(Throwable, String, Object...)` or `public Ctor(String, Object...)`: https://github.com/dgroup/arch4u-pmd/discussions/31"
         class="net.sourceforge.pmd.lang.rule.XPathRule">
     <description>

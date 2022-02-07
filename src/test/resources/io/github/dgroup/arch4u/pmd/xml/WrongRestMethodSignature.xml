@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"),
+  ~ to deal in the Software without restriction, including without limitation
+  ~ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ~ and/or sell copies of the Software, and to permit persons to whom
+  ~ the Software is  furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+  ~ OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<test-data
+    xmlns="http://pmd.sourceforge.net/rule-tests"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <test-code>
+    <description>[GOOD]: no REST method has</description>
+    <rule-property name="restAnnotations">org.springframework.web.bind.annotation.GetMapping</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+package my.company;
+
+public class Foo {
+   public void bar() {
+   }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: method has no REST annotation</description>
+    <rule-property name="restAnnotations">org.springframework.web.bind.annotation.GetMapping</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+package my.company;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyTypicalRestController {
+
+   @Override
+   public String post() {
+      return null;
+   }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[GOOD]: REST method has right signature</description>
+    <rule-property name="restAnnotations">org.springframework.web.bind.annotation.GetMapping</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+package my.company;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@RestController
+public class MyTypicalRestController extends ParentClass {
+
+   @Override
+   @GetMapping("/get")
+   public String get() {
+      return null;
+   }
+
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: REST method has no @java.lang.Override annotation</description>
+    <rule-property name="restAnnotations">org.springframework.web.bind.annotation.GetMapping</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>10</expected-linenumbers>
+    <code><![CDATA[
+package my.company;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@RestController
+public class MyTypicalRestController extends ParentClass {
+
+   @GetMapping("/get")
+   public String get() {
+      return null;
+   }
+
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: REST method has wrong access modifier</description>
+    <rule-property name="restAnnotations">org.springframework.web.bind.annotation.GetMapping</rule-property>
+    <expected-problems>3</expected-problems>
+    <expected-linenumbers>11,17,23</expected-linenumbers>
+    <code><![CDATA[
+package my.company;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@RestController
+public class MyTypicalRestController extends ParentClass {
+
+    @Override
+    @GetMapping("/getFoo")
+    private String getFoo() {
+        return null;
+    }
+
+    @Override
+    @GetMapping("/getBar")
+    String getBar() {
+        return null;
+    }
+
+    @Override
+    @GetMapping("/getBazz")
+    protected String getBazz() {
+        return null;
+    }
+
+}
+        ]]></code>
+  </test-code>
+</test-data>

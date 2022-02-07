@@ -27,17 +27,15 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
 /**
- * Test case for {@code AvoidProhibitedClasses} rule.
+ * Test case for {@link WrongRestMethodSignature} rule.
  *
  * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class AvoidProhibitedClassesTest extends SimpleAggregatorTst {
+public final class WrongRestMethodSignatureTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
-        addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml", "AvoidProhibitedClasses"
-        );
+        addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "WrongRestMethodSignature");
     }
 }
