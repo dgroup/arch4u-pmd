@@ -31,18 +31,95 @@
 
 **arch4u-pmd** is a ...
 
+### How to use?
+#### Maven
+1. Enable arch4u-pmd rules in `pom.xml`
+    ```xml
+    ...
+    <build>
+      <plugins>
+         ...
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.15.0</version>
+            <executions>
+               <execution>
+                  <phase>test</phase>
+                  <goals>
+                     <goal>check</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <printFailingErrors>true</printFailingErrors>
+               <rulesets>
+                  ...
+                  <ruleset>io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml</ruleset>
+                  ... 
+               </rulesets>
+               <excludeRoots>
+                  <excludeRoot>target/generated-sources/</excludeRoot>
+               </excludeRoots>
+            </configuration>
+            <dependencies>
+              <!-- Latest arch4u-rules -->
+              <dependency>
+                <groupId>io.github.dgroup</groupId>
+                <artifactId>arch4u-pmd</artifactId>
+                <version>${version}</version>
+              </dependency>
+            </dependencies>
+         </plugin>
+         ...
+      </plugins>
+    </build>
+    ...
+    ```
+#### Gradle
+1. Activate pmd plugin in `build.gradle`
+    ```groovy
+    apply plugin: 'pmd'
+    
+    dependencies {
+        ...
+        pmd "io.github.dgroup:arch4u-pmd:${version}"    // use latest arch4u-pmd rules version
+        pmd "commons-io:commons-io:2.11.0"              // required dependency by pmd engine
+        ...
+    }
+    
+    pmd {
+        consoleOutput = true
+        ruleSetFiles = files("your-pmd-ruleset.xml")
+        ruleSets = []                                   // Keep it as is, workaround for pmd
+    }
+    ```
+2. Configure `your-pmd-ruleset.xml`
+   ```xml
+   <?xml version="1.0"?>
+   <ruleset name="Your pmd rules"
+     xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    
+     ...
+     <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml"/>
+     ...
+
+   </ruleset>
+   ```
 
 ### How to contribute?
 
 [![EO badge](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org/#principles)
 
 1. Pull requests are welcome! Don't forget to add your name to contribution section and run this,
-    beforehand:
+   beforehand:
     ```bash
     mvn -Pqulice clean install
     ```
 2. Everyone interacting in this project’s codebases, issue trackers, chat rooms is expected to
-    follow the [code of conduct](.github/code_of_conduct.md).
+   follow the [code of conduct](.github/code_of_conduct.md).
 3. Latest maven coordinates [here](https://github.com/dgroup/arch4u-pmd/releases):
     ```xml
     <dependency>

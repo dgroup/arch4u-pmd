@@ -27,7 +27,6 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.dgroup</groupId>
-  <!-- @todo #/DEV Write an instruction how to add arch4u rules to your gradle and maven projects -->
   <artifactId>arch4u-pmd</artifactId>
   <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
   <version>0.0.0</version>
