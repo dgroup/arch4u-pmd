@@ -25,8 +25,9 @@
 package io.github.dgroup.arch4u.pmd;
 
 import java.util.List;
-import net.sourceforge.pmd.lang.ast.Node;
+import net.sourceforge.pmd.lang.java.ast.ASTType;
 import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
+import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.rule.AbstractPoorMethodCall;
 import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
 import net.sourceforge.pmd.lang.java.xpath.TypeIsExactlyFunction;
@@ -38,12 +39,13 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * A rule that prohibits the using methods of a particular class.
+ * Also, see {@link AbstractPoorMethodCall}.
  *
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
-public final class AvoidProhibitedMethodsUsage extends AbstractPoorMethodCall {
+public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
 
     /**
      * Property descriptor with test class suffix.
@@ -85,13 +87,13 @@ public final class AvoidProhibitedMethodsUsage extends AbstractPoorMethodCall {
 
     @Override
     public Object visit(final ASTVariableDeclaratorId node, final Object data) {
-        if (node.getNameDeclaration() != null && this.hasNotedClass(node)) {
+        if (this.hasNotedClass(node)) {
             for (final NameOccurrence usage : node.getUsages()) {
                 final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;
                 if (this.isNotedMethod(occurrence.getNameForWhichThisIsAQualifier())) {
                     this.addViolation(
                         data, occurrence.getLocation(), new String[]{
-                            this.targetTypename(),
+                            this.getProperty(CLASS),
                             occurrence.getNameForWhichThisIsAQualifier().getImage(),
                         }
                     );
@@ -101,21 +103,6 @@ public final class AvoidProhibitedMethodsUsage extends AbstractPoorMethodCall {
         return data;
     }
 
-    @Override
-    public String targetTypename() {
-        return this.getProperty(CLASS);
-    }
-
-    @Override
-    public String[] methodNames() {
-        return this.getProperty(METHODS).toArray(new String[0]);
-    }
-
-    @Override
-    public boolean isViolationArgument(final Node node) {
-        throw new UnsupportedOperationException();
-    }
-
     /**
      * Checks if the class of the variable is specified in the rule properties.
      * @param node Variable declarator node.
@@ -123,10 +110,12 @@ public final class AvoidProhibitedMethodsUsage extends AbstractPoorMethodCall {
      */
     private boolean hasNotedClass(final ASTVariableDeclaratorId node) {
         final boolean noted;
+        final String typename = this.getProperty(CLASS);
+        final ASTType typenode = node.getTypeNode();
         if (this.getProperty(CHECK_SUBTYPES)) {
-            noted = TypeIsFunction.typeIs(node.getTypeNode(), this.targetTypename());
+            noted = TypeIsFunction.typeIs(typenode, typename);
         } else {
-            noted = TypeIsExactlyFunction.typeIsExactly(node.getTypeNode(), this.targetTypename());
+            noted = TypeIsExactlyFunction.typeIsExactly(typenode, typename);
         }
         return noted;
     }
