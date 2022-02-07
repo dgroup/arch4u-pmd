@@ -54,13 +54,14 @@
     </example>
   </rule>
 
-  <rule name="UseConstantForMetricAnnotation"
+  <rule name="UseConstantAsMetricName"
         since="0.1.0"
         language="java"
-        message="TBD"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/75"
+        message="Use constant for metric name instead of hardcoded string literals: https://github.com/dgroup/arch4u-pmd/discussions/75"
         class="net.sourceforge.pmd.lang.rule.XPathRule">
     <description>
-      TBD
+      The monitoring metric name should be provided into annotation @Timed by constant, not a hardcoded string.
     </description>
     <priority>3</priority>
     <properties>
@@ -85,14 +86,17 @@
       <![CDATA[
       import io.micrometer.core.annotation.Timed;
 
-      public class Foo {
+      @RestController
+      public class MyController {
 
-         @Timed("value")
-         public void bar() {
+         @Timed(Metrics.ORDER_PROCESSING_DURATION)   // ok
+         public X process(Order order) {
+            ...
          }
 
-         @Timed(value="value")
-         public void baz() {
+        @Timed("order_processing_duration")         // violation
+        public X process(Order order) {
+           ...
          }
       }
       ]]>
