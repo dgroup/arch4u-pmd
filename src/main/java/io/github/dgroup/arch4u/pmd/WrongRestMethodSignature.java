@@ -31,7 +31,8 @@ import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
 
 /**
- * A rule that prohibits the using methods of a particular class.
+ * The rule checks if the method with the REST endpoint annotation
+ * has {@code public} access modifier and {@link java.lang.Override} annotation.
  *
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/54">https://github.com/dgroup/arch4u-pmd/issues/54</a>
  * @since 0.1.0
@@ -49,7 +50,7 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
             .build();
 
     /**
-     * Constructor for defining property descriptor.
+     * Constructor.
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public WrongRestMethodSignature() {
