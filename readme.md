@@ -36,14 +36,14 @@
 
 [![EO badge](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org/#principles)
 
-1.  Pull requests are welcome! Don't forget to add your name to contribution section and run this,
+1. Pull requests are welcome! Don't forget to add your name to contribution section and run this,
     beforehand:
     ```bash
     mvn -Pqulice clean install
     ```
-2.  Everyone interacting in this project’s codebases, issue trackers, chat rooms is expected to
-    follow the [code of conduct](.github/CODE_OF_CONDUCT.md).
-3.  Latest maven coordinates [here](https://github.com/dgroup/arch4u-pmd/releases):
+2. Everyone interacting in this project’s codebases, issue trackers, chat rooms is expected to
+    follow the [code of conduct](.github/code_of_conduct.md).
+3. Latest maven coordinates [here](https://github.com/dgroup/arch4u-pmd/releases):
     ```xml
     <dependency>
         <groupId>io.github.dgroup</groupId>
@@ -51,6 +51,7 @@
         <version>${version}</version>
     </dependency>
     ```
+4. Download pmd rule designer - https://pmd.github.io/latest/pmd_userdocs_extending_designer_reference.html
 
 ### Contributors
 

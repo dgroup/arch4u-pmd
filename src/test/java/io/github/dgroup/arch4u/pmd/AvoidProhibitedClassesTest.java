@@ -37,8 +37,7 @@ public final class AvoidProhibitedClassesTest extends SimpleAggregatorTst {
     @Override
     public void setUp() {
         addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml",
-            "AvoidProhibitedClasses"
+            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml", "AvoidProhibitedClasses"
         );
     }
 }
