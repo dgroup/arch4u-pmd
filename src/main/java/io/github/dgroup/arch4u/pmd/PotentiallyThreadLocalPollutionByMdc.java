@@ -50,7 +50,7 @@ import net.sourceforge.pmd.properties.PropertyFactory;
  * @since 0.1.0
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
-public final class MdcIsNotCleared extends AbstractJavaRule {
+public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
 
     /**
      * Property descriptor.
@@ -70,7 +70,7 @@ public final class MdcIsNotCleared extends AbstractJavaRule {
      * Constructor for defining property descriptor.
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    public MdcIsNotCleared() {
+    public PotentiallyThreadLocalPollutionByMdc() {
         this.keymap = new HashMap<>();
         this.definePropertyDescriptor(MDC_CLASSES);
     }

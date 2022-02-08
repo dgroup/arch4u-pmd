@@ -23,45 +23,21 @@
   ~ OR OTHER DEALINGS IN THE SOFTWARE.
   -->
 
-<ruleset name="arch4u-api-rest"
+<ruleset name="arch4u-logging"
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
-  <description>arch4u rules related to rest api</description>
-  <rule name="UseExistingConstant"
+  <description>arch4u rules related to logging</description>
+  <rule name="PotentiallyThreadLocalPollutionByMdc"
         since="0.1.0"
         language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/43"
-        message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
-        class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/88"
+        message="Potentially thread local pollution by MDC: https://github.com/dgroup/arch4u-pmd/discussions/88"
+        class="io.github.dgroup.arch4u.pmd.PotentiallyThreadLocalPollutionByMdc">
     <description>
-      Avoid using hardcoded String constants.
-      See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/43
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="regexPattern" description="Regular expression of prohibited string"
-                value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
-    </properties>
-    <example>
-      <![CDATA[
-      class Foo {
-          String type = "application/json";
-      }
-      ]]>
-    </example>
-  </rule>
-
-  <rule name="MdcIsNotCleared"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/TBD"
-        message="TBD"
-        class="io.github.dgroup.arch4u.pmd.MdcIsNotCleared">
-    <description>
-      TBD
-      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/TBD
+      The MDC usage requires a deep understanding of how it works and gives additional side effects that might not be transparent for regular java developers.
+      See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/88
     </description>
     <priority>3</priority>
     <properties>
@@ -86,15 +62,15 @@
     </example>
   </rule>
 
-  <rule name="MdcOutsideTryStatement"
+  <rule name="AvoidMdcOutsideTryStatement"
         since="0.1.0"
         language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/TBD"
-        message="TBD"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/86"
+        message="MDC API should always be used within the try/finally statement: https://github.com/dgroup/arch4u-pmd/discussions/86"
         class="net.sourceforge.pmd.lang.rule.XPathRule">
   <description>
-      TBD
-      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/TBD
+    MDC API should always be used within the try/finally statement.
+    See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/86
     </description>
     <priority>3</priority>
     <properties>

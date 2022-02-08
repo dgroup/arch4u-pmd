@@ -47,6 +47,7 @@
 
   <rule ref="category/java/codestyle.xml">
     <exclude name="AtLeastOneConstructor"/>
+    <exclude name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
   <rule ref="category/java/codestyle.xml/AtLeastOneConstructor">
     <properties>
@@ -54,6 +55,7 @@
     </properties>
   </rule>
 
+  <!-- @todo #27/DEV category/java/design.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/design.xml">
     <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
@@ -78,6 +80,7 @@
     </properties>
   </rule>
 
+  <!-- @todo #27/DEV category/java/documentation.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/documentation.xml">
     <exclude name="CommentSize"/>
   </rule>
@@ -89,14 +92,18 @@
     </properties>
   </rule>
 
+  <!-- @todo #27/DEV category/java/multithreading.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/multithreading.xml">
     <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
 
+  <!-- @todo #27/DEV category/java/performance.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/performance.xml"/>
 
+  <!-- @todo #27/DEV category/java/security.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/security.xml"/>
 
+  <!-- @todo #27/DEV category/java/errorprone.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/errorprone.xml">
     <exclude name="BeanMembersShouldSerialize"/> <!-- @todo #/DEV BeanMembersShouldSerialize: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->

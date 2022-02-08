@@ -36,6 +36,9 @@ public final class WrongRestMethodSignatureTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
-        addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "WrongRestMethodSignature");
+        addRule(
+            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
+            "UsePublicMethodsWithOverrideAnnotationInRestEndpoints"
+        );
     }
 }

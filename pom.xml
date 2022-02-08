@@ -25,15 +25,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- @todo #/DEV Define format for all GitHub discussion items and change all existing in order to follow defined standard. -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.dgroup</groupId>
   <artifactId>arch4u-pmd</artifactId>
-  <!-- @todo #/DEV Write minimalistic/laconic project overview in readme.md -->
   <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
-  <description></description>
-  <url>http://github.com/dgroup/arch4u-pmd</url>
+  <description>Library with pmd rules that bring new regulations related to known problems in REST API, logging, monitoring, etc., including reconfigured default/out of box pmd rules considering well-known frameworks like Spring, Quarkus, etc.</description>
+  <url>https://github.com/dgroup/arch4u-pmd</url>
   <licenses>
     <license>
       <name>${project.licence}</name>
@@ -114,7 +114,8 @@
     <sonar.coverage.exclusions>
       **/*Exception.java,**/*Fake*.java,**/*.Fake*.java,**/**.Fake*.java
     </sonar.coverage.exclusions>
-    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
   </properties>
   <dependencies>
     <dependency>
