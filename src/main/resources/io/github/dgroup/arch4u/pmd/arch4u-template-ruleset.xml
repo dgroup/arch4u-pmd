@@ -139,4 +139,32 @@
     </example>
   </rule>
 
+  <rule name="JUnitAssertionsShouldIncludeMessage"
+        since="0.1.0"
+        language="java"
+        message="TBD"
+        class="io.github.dgroup.arch4u.pmd.JUnitAssertionsShouldIncludeMessage">
+    <description>
+      JUnit assert methods should contain a message, but not assertEquals
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="methods" delimiter="|"
+  value="assertArrayEquals-2|assertFalse-1|assertNotNull-1|assertNotSame-2|
+  assertNull-1|assertSame-2|assertThat-2|assertTrue-1|fail-0"/>
+      <property name="packages" delimiter="|" value="junit.framework|org.junit"/>
+    </properties>
+    <example>
+      <![CDATA[
+      import junit.framework.TestCase;
+
+      public class Foo extends TestCase {
+          public void test1() {
+              assertArrayEquals("[1] != [1]", new int[] {1}, new int[] {1});
+          }
+      }
+      ]]>
+    </example>
+  </rule>
+
 </ruleset>

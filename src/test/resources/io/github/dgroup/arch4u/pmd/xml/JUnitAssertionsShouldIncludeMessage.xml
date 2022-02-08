@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"),
+  ~ to deal in the Software without restriction, including without limitation
+  ~ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ~ and/or sell copies of the Software, and to permit persons to whom
+  ~ the Software is  furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+  ~ OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<test-data
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+    <test-code>
+        <description>[GOOD]: assertArrayEquals with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertArrayEquals("[1] != [1]", new int[] {1}, new int[] {1});
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertArrayEquals without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertArrayEquals(new int[] {1}, new int[] {1});
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals has message, but it is not mandatory</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertEquals("1 != 1", 1, 1);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>
+            [GOOD]: assertEquals with string variable as message, but its not mandatory
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        String s = "1 != 1";
+        assertEquals(s, 1, 1);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals with delta and message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertEquals("foo", 1, 2, 3);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals without message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertEquals(1, 1);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals with delta without message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertEquals(1, 2, 3);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals with number as variable</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        double d = 1;
+        assertEquals(d, 1, 1);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertFalse with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void testBar() {
+        assertFalse("foo!", "foo".equals("foo"));
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertFalse without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void testBar() {
+        assertFalse("foo".equals("foo"));
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertNotNull with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertNotNull("foo", null);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertNotNull without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertNotNull(null);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertNotSame with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertNotSame("1 == 2", 1, 2);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertNotSame without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertNotSame(1, 2);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertNull with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertNull("it's not null", null);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertNull without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertNull(null);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertSame with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertSame("not same!", null, null);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertSame without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertSame(null, null);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertThat with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertThat("Zero is one", 0, is(not(1)));
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertThat without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertThat(0, is(not(1)));
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertTrue with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertTrue("foo", "foo".equals("foo"));
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: assertTrue without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        assertTrue("foo".equals("foo"));
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: fail with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        fail("foo");
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[BAD]: fail without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        fail();
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: extended TestCase</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import junit.framework.TestCase;
+public class Foo extends TestCase {
+    public void test1() {
+        this.test1("foo");
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: Not a JUnit test - assertEquals</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void test1() {
+        assertEquals(1, 1);
+    }
+    private void assertEquals(int x, int y) {
+        if (x != y) throw new AssertionError();
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: JUnit 4 - assertEquals without message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import org.junit.Test;
+import static org.junit.Assert.*;
+public class Foo {
+    @Test
+    public void foo() {
+        assertEquals(1, 1);
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+class SimpleTest {
+    @Test
+    public void simpleMethod() {
+        assertEquals(0, 1, "Not equals 0 != 1");
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[GOOD]: assertEquals with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+class SimpleTest {
+    @Test
+    public void simpleMethod() {
+        assertEquals(0, Integer.compare(0, 0), "Not equals 0 != 1");
+    }
+}
+        ]]></code>
+    </test-code>
+
+</test-data>
