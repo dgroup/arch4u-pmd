@@ -27,18 +27,18 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
 /**
- * Test case for {@code AvoidProhibitedClasses} rule.
+ * Test case for {@code JUnitAssertionsShouldIncludeMessage} rule.
  *
  * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class AvoidProhibitedClassesTest extends SimpleAggregatorTst {
+public final class JUnitAssertionsShouldIncludeMessageTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
         addRule(
-            "io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml",
-            "AvoidProhibitedClasses"
+            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
+            "JUnitAssertionsShouldIncludeMessage"
         );
     }
 }
