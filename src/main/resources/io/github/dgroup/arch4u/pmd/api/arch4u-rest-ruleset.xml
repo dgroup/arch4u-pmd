@@ -53,7 +53,7 @@
     </example>
   </rule>
 
-  <rule name="UsePublicMethodsWithOverrideAnnotationInRestEndpoints"
+  <rule name="UseOpenApiInRestEndpoints"
         since="0.1.0"
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/73"

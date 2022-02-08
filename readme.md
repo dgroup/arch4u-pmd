@@ -43,7 +43,7 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | PMD rule                                                                                                     |  Provider  | Since  | Status | Spring | Quarkus |
 |:-------------------------------------------------------------------------------------------------------------|:----------:|:------:|:-------:|:------:|:-------:|
 | [UseExistingMediaTypeConstant](https://github.com/dgroup/arch4u-pmd/discussions/43)                          | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
-| [UsePublicMethodsWithOverrideAnnotationInRestEndpoints](https://github.com/dgroup/arch4u-pmd/discussions/73) | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
+| [UseOpenApiInRestEndpoints](https://github.com/dgroup/arch4u-pmd/discussions/73) | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
 | [RestEndpointsWithoutExposedMetrics](https://github.com/dgroup/arch4u-pmd/discussions/74)                    | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
 | [UseConstantAsMetricName](https://github.com/dgroup/arch4u-pmd/discussions/75)                               | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
 | [NoMandatoryConstructorInExceptionClass](https://github.com/dgroup/arch4u-pmd/discussions/31)                | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
