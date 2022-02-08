@@ -48,6 +48,26 @@ public class Foo {
   </test-code>
 
   <test-code>
+    <description>
+      [GOOD]: ObjectMapper is used as a variable in the method with the allowed annotation
+    </description>
+    <rule-property name="annotations">javax.annotation.PostConstruct</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+import javax.annotation.PostConstruct;
+import com.fasterxml.jackson.databind.ObjectMapper;
+public class Foo {
+    ObjectMapper mapper;
+
+    @PostConstruct
+    void init() {
+        this.mapper = new ObjectMapper();
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
     <description>[BAD]: prohibited ObjectMapper usage</description>
     <expected-problems>4</expected-problems>
     <expected-linenumbers>3, 4, 5, 6</expected-linenumbers>

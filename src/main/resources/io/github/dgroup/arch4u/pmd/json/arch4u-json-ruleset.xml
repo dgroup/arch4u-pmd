@@ -18,6 +18,9 @@
     </description>
     <priority>3</priority>
     <properties>
+      <property name="annotations" type="List[String]" delimiter="|"
+                description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field"
+                value="javax.annotation.PostConstruct"/>
       <property name="version" value="2.0"/>
       <property name="xpath">
         <value>
@@ -34,6 +37,10 @@
           ancestor::FieldDeclaration (: skip fields :)
           or ancestor::Initializer   (: skip init blocks :)
           or ancestor::ConstructorDeclaration (: skip constructor blocks :)
+          or ancestor::MethodDeclaration    (: skip methods with specified annotations :)
+            [preceding-sibling::Annotation
+              [some $annotation in $annotations satisfies pmd-java:typeIs($annotation)]
+            ]
           )]
           /.. (: violation points to the parent node :)
           ]]>
