@@ -34,7 +34,11 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 
 *Legend*
 
-🚴🏽 - in-progress, ⌛ - planned for review considering framework architecture, ✅ - enabled in `arch4u-ruleset.xml`, 🌵 - reconfigured in `arch4u-ruleset.xml`, ❌ - disabled/not planned in `arch4u-ruleset.xml`.
+🚴🏽 - in-progress, 
+⌛ - planned for review considering framework architecture, 
+✅ - enabled in `arch4u-ruleset.xml`, 
+🌵 - reconfigured in `arch4u-ruleset.xml`, 
+❌ - disabled/not planned in `arch4u-ruleset.xml`
 
 | PMD rule                                                                                                     |  Provider  | Since  | Status | Spring | Quarkus |
 |:-------------------------------------------------------------------------------------------------------------|:----------:|:------:|:-------:|:------:|:-------:|
@@ -101,7 +105,7 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | UseCollectionIsEmpty                                                                                         |  pmd-java  |  3.9   |    ✅    |   ⌛    |    ⌛    |
 | UseVarargs                                                                                                   |  pmd-java  |  5.0   |    ✅    |   ⌛    |    ⌛    |
 | AbstractNaming                                                                                               |  pmd-java  |  1.4   |    ✅    |   ⌛    |    ⌛    |
-| AtLeastOneConstructor                                                                                        |  pmd-java  |  1.04  |   🌵    |   ⌛    |    ⌛    |
+| AtLeastOneConstructor                                                                                        |  pmd-java  |  1.04  |   🌵    |   ✅    |    ⌛    |
 | AvoidDollarSigns                                                                                             |  pmd-java  |  1.4   |    ✅    |   ⌛    |    ⌛    |
 | AvoidFinalLocalVariable                                                                                      |  pmd-java  |  4.1   |    ✅    |   ⌛    |    ⌛    |
 | AvoidPrefixingMethodParameters                                                                               |  pmd-java  |  5.0   |    ✅    |   ⌛    |    ⌛    |
