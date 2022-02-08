@@ -41,7 +41,14 @@
     </properties>
   </rule>
 
-  <rule ref="category/java/codestyle.xml"/>
+  <rule ref="category/java/codestyle.xml">
+    <exclude name="AtLeastOneConstructor"/>
+  </rule>
+  <rule ref="category/java/codestyle.xml/AtLeastOneConstructor">
+    <properties>
+      <property name="ignoredAnnotations" value="lombok.Data|lombok.Value|lombok.Builder|lombok.NoArgsConstructor|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|org.springframework.context.annotation.Configuration|org.springframework.web.bind.annotation.ControllerAdvice|org.springframework.web.bind.annotation.RestController|lombok.experimental.SuperBuilder|org.springframework.stereotype.Component|org.springframework.stereotype.Service|org.springframework.stereotype.Repository|org.springframework.boot.context.properties.ConfigurationProperties|org.mapstruct.Mapper|javax.xml.bind.annotation.XmlRootElement" />
+    </properties>
+  </rule>
 
   <rule ref="category/java/design.xml">
     <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
