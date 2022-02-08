@@ -36,7 +36,7 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 
 🚴🏽 - in-progress, ⌛ - planned for review considering framework architecture, ✅ - enabled in `arch4u-ruleset.xml`, 🌵 - reconfigured in `arch4u-ruleset.xml`, ❌ - disabled/not planned in `arch4u-ruleset.xml`.
 
-| PMD rule                                                                                                     |  Provider  | Since  | Enabled | Spring | Quarkus |
+| PMD rule                                                                                                     |  Provider  | Since  | Status | Spring | Quarkus |
 |:-------------------------------------------------------------------------------------------------------------|:----------:|:------:|:-------:|:------:|:-------:|
 | [UseExistingMediaTypeConstant](https://github.com/dgroup/arch4u-pmd/discussions/43)                          | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
 | [UsePublicMethodsWithOverrideAnnotationInRestEndpoints](https://github.com/dgroup/arch4u-pmd/discussions/73) | arch4u-pmd | 0.1.0  |    ✅    |   ⌛    |    ⌛    |
