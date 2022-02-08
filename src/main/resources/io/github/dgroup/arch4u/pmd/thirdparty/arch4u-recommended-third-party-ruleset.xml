@@ -33,11 +33,15 @@
   <rule ref="category/java/bestpractices.xml">
     <exclude name="GuardLogStatement"/> <!-- @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="UnusedPrivateMethod"/>
-    <exclude name="JUnitAssertionsShouldIncludeMessage"/> <!-- @todo #/DEV JUnitAssertionsShouldIncludeMessage: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
   <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
     <properties>
       <property name="ignoredAnnotations" value="javax.annotation.PostConstruct"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage">
+    <properties>
+      <property name="violationSuppressXPath" value=".[ends-with(@Image,'assertEquals')]"/>
     </properties>
   </rule>
 
