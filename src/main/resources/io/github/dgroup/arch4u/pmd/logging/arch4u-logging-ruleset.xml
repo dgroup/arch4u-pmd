@@ -85,4 +85,53 @@
       ]]>
     </example>
   </rule>
+
+  <rule name="MdcOutsideTryStatement"
+        since="0.1.0"
+        language="java"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/TBD"
+        message="TBD"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+  <description>
+      TBD
+      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/TBD
+    </description>
+    <priority>3</priority>
+    <properties>
+      <property name="mdcClasses" type="List[String]" delimiter="|"
+                description="Full name of the MDC classes"
+                value="org.slf4j.MDC"/>
+      <property name="version" value="2.0"/>
+      <property name="xpath">
+        <value>
+          <![CDATA[
+          //PrimaryPrefix
+          [some $class in $mdcClasses satisfies pmd-java:typeIsExactly($class)]
+          [
+          ./*[ends-with(@Image,'.put') and not(ancestor::TryStatement)]
+          or
+          ./*[(ends-with(@Image,'.remove') or ends-with(@Image,'.clear')) and not(ancestor::FinallyStatement)]
+          ]
+          ]]>
+        </value>
+      </property>
+    </properties>
+    <example>
+      <![CDATA[
+      import org.slf4j.MDC;
+
+      public class Foo {
+          public void bar() {
+              try {
+                  MDC.put(request, "someValue");
+                  // ... business logic
+              } finally {
+                  MDC.remove(request);
+                  // or MDC.clear();
+              }
+          }
+      }
+      ]]>
+    </example>
+  </rule>
 </ruleset>
