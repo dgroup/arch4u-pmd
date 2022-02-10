@@ -97,8 +97,13 @@
     <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
 
-  <!-- @todo #27/DEV category/java/performance.xml - add rules details in table defined in readme.md -->
-  <rule ref="category/java/performance.xml"/>
+  <rule ref="category/java/performance.xml">
+    <exclude name="BooleanInstantiation"/>
+    <exclude name="ByteInstantiation"/>
+    <exclude name="IntegerInstantiation"/>
+    <exclude name="LongInstantiation"/>
+    <exclude name="ShortInstantiation"/>
+  </rule>
 
   <!-- @todo #27/DEV category/java/security.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/security.xml"/>
