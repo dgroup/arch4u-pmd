@@ -55,7 +55,6 @@
     </properties>
   </rule>
 
-  <!-- @todo #27/DEV category/java/design.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/design.xml">
     <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
@@ -63,6 +62,7 @@
     <exclude name="SignatureDeclareThrowsException"/> <!-- @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
   </rule>
   <rule ref="category/java/design.xml/CouplingBetweenObjects">
     <properties>
@@ -102,7 +102,7 @@
     <exclude name="ByteInstantiation"/>
     <exclude name="IntegerInstantiation"/>
     <exclude name="LongInstantiation"/>
-    <exclude name="ShortInstantiation"/>
+    <exclude name="ShortInstantiation"/>˚
   </rule>
 
   <!-- @todo #27/DEV category/java/security.xml - add rules details in table defined in readme.md -->
