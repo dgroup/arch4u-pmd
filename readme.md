@@ -199,6 +199,17 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | [UselessStringValueOf](https://pmd.github.io/latest/pmd_rules_java_performance.html#uselessstringvalueof)                                   |  pmd-java  |  3.8   |   ✅    |   ⌛    |    ⌛    |
 | [UseStringBufferForStringAppends](https://pmd.github.io/latest/pmd_rules_java_performance.html#usestringbufferforstringappends)             |  pmd-java  |  3.1   |   ✅    |   ⌛    |    ⌛    |
 | [UseStringBufferLength](https://pmd.github.io/latest/pmd_rules_java_performance.html#usestringbufferlength)                                 |  pmd-java  |  3.4   |   ✅    |   ⌛    |    ⌛    |
+| [AvoidSynchronizedAtMethodLevel](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#avoidsynchronizedatmethodlevel)            |  pmd-java  |  3.0   |   ✅    |   ⌛    |    ⌛    |
+| [AvoidThreadGroup](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#avoidthreadgroup)                                        |  pmd-java  |  3.6   |   ✅    |   ⌛    |    ⌛    |
+| [AvoidUsingVolatile](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#avoidusingvolatile)                                    |  pmd-java  |  3.0   |   ✅    |   ⌛    |    ⌛    |
+| [DoNotUseThreads](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#donotusethreads)                                          |  pmd-java  |  4.1   |   ✅    |   ⌛    |    ⌛    |
+| [DontCallThreadRun](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#dontcallthreadrun)                                      |  pmd-java  |  3.0   |   ✅    |   ⌛    |    ⌛    |
+| [DoubleCheckedLocking](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#doublecheckedlocking)                                |  pmd-java  |  1.04  |   ✅    |   ⌛    |    ⌛    |
+| [NonThreadSafeSingleton](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#nonthreadsafesingleton)                            |  pmd-java  |  3.4   |   ✅    |   ⌛    |    ⌛    |
+| [UnsynchronizedStaticDateFormatter](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#unsynchronizedstaticdateformatter)      |  pmd-java  |  3.6   |   ❌    |   ⌛    |    ⌛    |
+| [UnsynchronizedStaticFormatter](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#unsynchronizedstaticformatter)              |  pmd-java  |  3.0   |   ✅    |   ⌛    |    ⌛    |
+| [UseConcurrentHashMap](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#unsynchronizedstaticformatter)                       |  pmd-java  | 4.2.6  |   ❌    |   ⌛    |    ⌛    |
+| [UseNotifyAllInsteadOfNotify](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#usenotifyallinsteadofnotify)                  |  pmd-java  |  3.0   |   ❌    |   ⌛    |    ⌛    |
 
 ### How to use?
 #### Maven (pom.xml)

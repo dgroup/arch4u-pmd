@@ -92,9 +92,9 @@
     </properties>
   </rule>
 
-  <!-- @todo #27/DEV category/java/multithreading.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/multithreading.xml">
     <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude name="UnsynchronizedStaticDateFormatter" /> <!-- deprecated -->
   </rule>
 
   <rule ref="category/java/performance.xml">
