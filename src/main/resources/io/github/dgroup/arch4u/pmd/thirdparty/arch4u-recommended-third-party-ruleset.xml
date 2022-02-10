@@ -80,9 +80,9 @@
     </properties>
   </rule>
 
-  <!-- @todo #27/DEV category/java/documentation.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/documentation.xml">
     <exclude name="CommentSize"/>
+    <exclude name="CommentRequired"/>
   </rule>
   <rule ref="category/java/documentation.xml/CommentRequired">
     <properties>

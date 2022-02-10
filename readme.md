@@ -209,7 +209,11 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | [UnsynchronizedStaticDateFormatter](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#unsynchronizedstaticdateformatter)      |  pmd-java  |  3.6   |   ❌    |   ⌛    |    ⌛    |
 | [UnsynchronizedStaticFormatter](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#unsynchronizedstaticformatter)              |  pmd-java  |  3.0   |   ✅    |   ⌛    |    ⌛    |
 | [UseConcurrentHashMap](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#unsynchronizedstaticformatter)                       |  pmd-java  | 4.2.6  |   ❌    |   ⌛    |    ⌛    |
-| [UseNotifyAllInsteadOfNotify](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#usenotifyallinsteadofnotify)                  |  pmd-java  |  3.0   |   ❌    |   ⌛    |    ⌛    |
+| [UseNotifyAllInsteadOfNotify](https://pmd.github.io/latest/pmd_rules_java_multithreading.html#usenotifyallinsteadofnotify)                  |  pmd-java  |  3.0   |   ✅    |   ⌛    |    ⌛    |
+| [CommentContent](https://pmd.github.io/latest/pmd_rules_java_documentation.html#ntcontent)                                                  |  pmd-java  |  5.0   |   ❌    |   ⌛    |    ⌛    |
+| [CommentRequired](https://pmd.github.io/latest/pmd_rules_java_documentation.html#commentrequired)                                           |  pmd-java  |  5.1   |   🌵   |   ⌛    |    ⌛    |
+| [UncommentedEmptyConstructor](https://pmd.github.io/latest/pmd_rules_java_documentation.html#uncommentedemptyconstructor)                   |  pmd-java  |  3.4   |   ✅    |   ⌛    |    ⌛    |
+| [UncommentedEmptyMethodBody](https://pmd.github.io/latest/pmd_rules_java_documentation.html#uncommentedemptymethodbody)                     |  pmd-java  |  3.4   |   ✅    |   ⌛    |    ⌛    |
 
 ### How to use?
 #### Maven (pom.xml)
