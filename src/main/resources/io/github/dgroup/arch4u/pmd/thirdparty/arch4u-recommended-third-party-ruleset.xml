@@ -98,11 +98,13 @@
   </rule>
 
   <rule ref="category/java/performance.xml">
+    <exclude name="AvoidUsingShortType"/>
     <exclude name="BooleanInstantiation"/>
     <exclude name="ByteInstantiation"/>
     <exclude name="IntegerInstantiation"/>
     <exclude name="LongInstantiation"/>
     <exclude name="ShortInstantiation"/>
+    <exclude name="SimplifyStartsWith"/>
   </rule>
 
   <!-- @todo #27/DEV category/java/security.xml - add rules details in table defined in readme.md -->
