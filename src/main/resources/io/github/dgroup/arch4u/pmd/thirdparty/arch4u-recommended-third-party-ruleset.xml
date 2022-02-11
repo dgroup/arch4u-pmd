@@ -105,7 +105,6 @@
     <exclude name="ShortInstantiation"/>˚
   </rule>
 
-  <!-- @todo #27/DEV category/java/security.xml - add rules details in table defined in readme.md -->
   <rule ref="category/java/security.xml"/>
 
   <!-- @todo #27/DEV category/java/errorprone.xml - add rules details in table defined in readme.md -->

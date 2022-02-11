@@ -262,6 +262,8 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                               |  pmd-java  | 4.2.6  |   ❌    |   ⌛    |    ⌛    |
 | [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                                             |  pmd-java  |  0.3   |   ✅    |   ⌛    |    ⌛    |
 | [MutableStaticState](https://pmd.github.io/latest/pmd_rules_java_design.html#mutablestaticstate)                                                       |  pmd-java  | 6.35.0 |   ✅    |   ⌛    |    ⌛    |
+| [HardCodedCryptoKey](https://pmd.github.io/latest/pmd_rules_java_security.html#hardcodedcryptokey)                                                     |  pmd-java  | 6.4.0  |   ✅    |   ⌛    |    ⌛    |
+| [InsecureCryptoIv](https://pmd.github.io/latest/pmd_rules_java_security.html#insecurecryptoiv)                                                         |  pmd-java  | 6.3.0  |   ✅    |   ⌛    |    ⌛    |
 
 ### How to use?
 #### Maven (pom.xml)
