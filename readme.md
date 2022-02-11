@@ -187,7 +187,7 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | [OptimizableToArrayCall](https://pmd.github.io/latest/pmd_rules_java_performance.html#optimizabletoarraycall)                                          |  pmd-java  |  1.8   |   ✅    |   ⌛    |    ⌛    |
 | [RedundantFieldInitializer](https://pmd.github.io/latest/pmd_rules_java_performance.html#redundantfieldinitializer)                                    |  pmd-java  |  5.0   |   ✅    |   ⌛    |    ⌛    |
 | [ShortInstantiation](https://pmd.github.io/latest/pmd_rules_java_performance.html#shortinstantiation)                                                  |  pmd-java  |  4.0   |   ❌    |   ⌛    |    ⌛    |
-| [SimplifyStartsWith](https://pmd.github.io/latest/pmd_rules_java_performance.html#simplifystartswith)                                                  |  pmd-java  |  3.1   |   ✅    |   ⌛    |    ⌛    |
+| [SimplifyStartsWith](https://pmd.github.io/latest/pmd_rules_java_performance.html#simplifystartswith)                                                  |  pmd-java  |  3.1   |   ❌    |   ⌛    |    ⌛    |
 | [StringInstantiation](https://pmd.github.io/latest/pmd_rules_java_performance.html#stringinstantiation)                                                |  pmd-java  |  1.0   |   ✅    |   ⌛    |    ⌛    |
 | [StringToString](https://pmd.github.io/latest/pmd_rules_java_performance.html#stringtostring)                                                          |  pmd-java  |  1.0   |   ✅    |   ⌛    |    ⌛    |
 | [TooFewBranchesForASwitchStatement](https://pmd.github.io/latest/pmd_rules_java_performance.html#toofewbranchesforaswitchstatement)                    |  pmd-java  |  4.2   |   ✅    |   ⌛    |    ⌛    |
@@ -365,6 +365,8 @@ We are using the latest stable pmd-java version which is `6.42.0` as a start poi
 | [UselessOperationOnImmutable](https://pmd.github.io/latest/pmd_rules_java_errorprone.html#uselessoperationonimmutable)                                 |  pmd-java  |  3.5   |   ✅    |   ⌛    |    ⌛    |
 | [UseLocaleWithCaseConversions](https://pmd.github.io/latest/pmd_rules_java_errorprone.html#uselocalewithcaseconversions)                               |  pmd-java  |  2.0   |   ✅    |   ⌛    |    ⌛    |
 | [UseProperClassLoader](https://pmd.github.io/latest/pmd_rules_java_errorprone.html#useproperclassloader)                                               |  pmd-java  |  3.7   |   ✅    |   ⌛    |    ⌛    |
+| [HardCodedCryptoKey](https://pmd.github.io/latest/pmd_rules_java_security.html#hardcodedcryptokey)                                                     |  pmd-java  | 6.4.0  |   ✅    |   ⌛    |    ⌛    |
+| [InsecureCryptoIv](https://pmd.github.io/latest/pmd_rules_java_security.html#insecurecryptoiv)                                                         |  pmd-java  | 6.3.0  |   ✅    |   ⌛    |    ⌛    |
 
 ### How to use?
 #### Maven (pom.xml)
