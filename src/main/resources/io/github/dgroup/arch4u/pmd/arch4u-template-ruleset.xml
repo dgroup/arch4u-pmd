@@ -16,7 +16,8 @@
     <description>
       Avoid to use prohibited classes.
       See discussion about tips/tricks implementation on Github:
-      https://github.com/pmd/pmd/discussions/3705
+      - https://github.com/pmd/pmd/discussions/3705
+      - https://github.com/dgroup/arch4u-pmd/discussions/101
     </description>
     <priority>3</priority>
     <properties>
@@ -110,11 +111,9 @@
   <rule name="ObfuscationRequired"
         since="0.1.0"
         language="java"
-        message="TBD"
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/64"
+        message="Sensitive data might be exposed to the logs: https://github.com/dgroup/arch4u-pmd/discussions/64"
         class="io.github.dgroup.arch4u.pmd.ObfuscationRequired">
-    <description>
-      TBD
-    </description>
     <priority>3</priority>
     <properties>
       <property name="loggerClasses" delimiter="|" value="org.slf4j.Logger

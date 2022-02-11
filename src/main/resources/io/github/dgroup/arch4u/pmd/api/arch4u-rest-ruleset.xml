@@ -80,9 +80,8 @@
       import org.springframework.web.bind.annotation.GetMapping;
 
       @RestController
-      public class MyTypicalRestController extends ParentClass {
+      public class MyTypicalRestController implements TypicalRestApiGeneratedByOpenApi {
          @Override
-         @GetMapping("/get")
          public String get() {
             return null;
          }
