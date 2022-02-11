@@ -20,11 +20,8 @@
 [![Codecov](https://codecov.io/gh/dgroup/arch4u-pmd/branch/master/graph/badge.svg)](https://codecov.io/gh/dgroup/arch4u-pmd)
 
 *   [Overview](#overview)
-
 *   [How to use?](#how-to-use)
-
 *   [How to contribute?](#how-to-contribute)
-
 *   [Contributors](#contributors)
 
 ### Overview
