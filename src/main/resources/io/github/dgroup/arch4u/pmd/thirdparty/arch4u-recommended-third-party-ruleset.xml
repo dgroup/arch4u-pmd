@@ -110,13 +110,9 @@
   <rule ref="category/java/security.xml"/>
 
   <rule ref="category/java/errorprone.xml">
-    <exclude name="BadComparison"/> <!-- deprecated -->
     <exclude name="DataflowAnomalyAnalysis"/> <!-- deprecated -->
-    <exclude name="DoNotCallSystemExit"/> <!-- deprecated -->
     <exclude name="ImportFromSamePackage"/> <!-- deprecated -->
-    <exclude name="InvalidSlf4jMessageFormat"/> <!-- deprecated -->
     <exclude name="LoggerIsNotStaticFinal"/> <!-- deprecated -->
-    <exclude name="MissingBreakInSwitch"/> <!-- deprecated -->
     <exclude name="ReturnEmptyArrayRatherThanNull"/> <!-- deprecated -->
     <exclude name="BeanMembersShouldSerialize"/> <!-- @todo #/DEV BeanMembersShouldSerialize: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
