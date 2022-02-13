@@ -23,6 +23,7 @@ release:
     - pubring.gpg
     - secring.gpg
   script: |
+    set -e
     mvn versions:set "-DnewVersion=${tag}"
     git add pom.xml
     git commit -am "${tag}"
