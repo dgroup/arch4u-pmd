@@ -117,7 +117,34 @@ class Foo {
     Logger logger = LoggerFactory.getLogger(Foo.class);
 
     void bar(Person user) {
-        log.debug("User {} not authorized for operation {} ", this.obfuscation.apply(user), operation);
+        logger.debug("User {} not authorized for operation {} ", this.obfuscation.apply(user), operation);
+    }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: prohibited package and subpackage</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">java.lang.Integer</rule-property>
+    <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity.secret</rule-property>
+    <expected-problems>2</expected-problems>
+    <expected-linenumbers>10, 14</expected-linenumbers>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.github.dgroup.arch4u.pmd.test_entity.Person;
+import io.github.dgroup.arch4u.pmd.test_entity.secret.Client;
+import io.github.dgroup.arch4u.pmd.test_entity.secret.credentials.Login; // subpackage
+class Foo {
+    Logger logger = LoggerFactory.getLogger(Foo.class);
+
+    void bar(Client user, Login login, Person allowed) {
+        logger.debug("User {} not authorized for operation {} ", user, operation);    // violation
+
+        logger.debug("User {} not authorized for operation {} ", allowed, operation); // Person is allowed
+
+        logger.debug("Login = {} ", login);    // violation
     }
 }
         ]]></code>

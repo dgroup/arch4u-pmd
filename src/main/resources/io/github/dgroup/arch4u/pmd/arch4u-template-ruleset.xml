@@ -121,6 +121,7 @@
 |org.apache.log4j.Logger
 |org.apache.logging.log4j.Logger"/>
       <property name="sensitiveClasses" value="io.github.dgroup.arch4u.pmd.test_entity.Person"/>
+      <property name="sensitivePackages" value="io.github.dgroup.arch4u.pmd.test_entity.secret"/>
     </properties>
     <example>
       <![CDATA[
