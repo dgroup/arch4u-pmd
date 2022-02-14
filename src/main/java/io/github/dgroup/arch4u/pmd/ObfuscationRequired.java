@@ -119,7 +119,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      */
     private boolean isLogger(final ASTType type) {
         final boolean matches;
-        if (type != null) {
+        if (type == null) {
             matches = false;
         } else {
             matches = this.getProperty(LOGGERS)
