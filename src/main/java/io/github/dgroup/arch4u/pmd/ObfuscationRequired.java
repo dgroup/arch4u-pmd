@@ -38,6 +38,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimarySuffix;
 import net.sourceforge.pmd.lang.java.ast.ASTType;
 import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
+import net.sourceforge.pmd.lang.java.ast.TypeNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
 import net.sourceforge.pmd.lang.java.xpath.TypeIsFunction;
@@ -69,11 +70,20 @@ public final class ObfuscationRequired extends AbstractJavaRule {
             .build();
 
     /**
-     * Property descriptor with the list of the prohibited methods.
+     * Property descriptor with the list of the prohibited classes.
      */
-    private static final PropertyDescriptor<List<String>> SENSITIVE =
+    private static final PropertyDescriptor<List<String>> CLASSES =
         PropertyFactory.stringListProperty("sensitiveClasses")
             .desc("List of prohibited methods")
+            .emptyDefaultValue()
+            .build();
+
+    /**
+     * Property descriptor with the list of the prohibited packages.
+     */
+    private static final PropertyDescriptor<List<String>> PACKAGES =
+        PropertyFactory.stringListProperty("sensitivePackages")
+            .desc("List of prohibited packages")
             .emptyDefaultValue()
             .build();
 
@@ -83,7 +93,8 @@ public final class ObfuscationRequired extends AbstractJavaRule {
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public ObfuscationRequired() {
         this.definePropertyDescriptor(LOGGERS);
-        this.definePropertyDescriptor(SENSITIVE);
+        this.definePropertyDescriptor(CLASSES);
+        this.definePropertyDescriptor(PACKAGES);
     }
 
     @Override
@@ -93,7 +104,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
                 final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;
                 getArguments(occurrence)
                     .stream()
-                    .filter(this::isSensitiveData)
+                    .filter(this::hasSensitiveData)
                     .forEach(arg -> this.addViolation(data, arg));
             }
         }
@@ -127,6 +138,16 @@ public final class ObfuscationRequired extends AbstractJavaRule {
     }
 
     /**
+     * Checks if the argument is a class with sensitive data
+     * or if it contains in the prohibited package with such classes.
+     * @param argument Expression node, logger argument.
+     * @return True if there is sensitive data.
+     */
+    private boolean hasSensitiveData(final ASTExpression argument) {
+        return this.isSensitiveData(argument) || this.isInProhibitedPackage(argument);
+    }
+
+    /**
      * Checks if the object has sensitive data. In this case it's not allowed
      * to log it without applying obfuscation.
      * @param argument Expression node, logger argument.
@@ -140,7 +161,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
         } else {
             node = argument;
         }
-        return this.getProperty(SENSITIVE)
+        return this.getProperty(CLASSES)
             .stream()
             .anyMatch(clss -> TypeIsFunction.typeIs(node, clss));
     }
@@ -158,6 +179,19 @@ public final class ObfuscationRequired extends AbstractJavaRule {
             .map(AbstractNode::getImage)
             .filter(img -> img.endsWith(".toString"))
             .isPresent();
+    }
+
+    /**
+     * Checks if the argument contains in the prohibited package.
+     * @param node Expression node, logger argument.
+     * @return True if the argument contains in the prohibited package.
+     */
+    private boolean isInProhibitedPackage(final TypeNode node) {
+        final String fulltypename = Optional.ofNullable(node.getType())
+            .map(Class::getTypeName)
+            .orElse(null);
+        return fulltypename != null
+            && this.getProperty(PACKAGES).stream().anyMatch(fulltypename::startsWith);
     }
 
 }
