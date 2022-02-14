@@ -94,26 +94,11 @@
 
   <rule ref="category/java/multithreading.xml">
     <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="UnsynchronizedStaticDateFormatter" /> <!-- deprecated -->
   </rule>
 
-  <rule ref="category/java/performance.xml">
-    <exclude name="AvoidUsingShortType"/>
-    <exclude name="BooleanInstantiation"/>
-    <exclude name="ByteInstantiation"/>
-    <exclude name="IntegerInstantiation"/>
-    <exclude name="LongInstantiation"/>
-    <exclude name="ShortInstantiation"/>
-    <exclude name="SimplifyStartsWith"/>
-  </rule>
-
+  <rule ref="category/java/performance.xml"/>
   <rule ref="category/java/security.xml"/>
-
   <rule ref="category/java/errorprone.xml">
-    <exclude name="DataflowAnomalyAnalysis"/> <!-- deprecated -->
-    <exclude name="ImportFromSamePackage"/> <!-- deprecated -->
-    <exclude name="LoggerIsNotStaticFinal"/> <!-- deprecated -->
-    <exclude name="ReturnEmptyArrayRatherThanNull"/> <!-- deprecated -->
     <exclude name="BeanMembersShouldSerialize"/> <!-- @todo #/DEV BeanMembersShouldSerialize: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
