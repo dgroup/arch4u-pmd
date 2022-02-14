@@ -38,6 +38,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimarySuffix;
 import net.sourceforge.pmd.lang.java.ast.ASTType;
 import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
+import net.sourceforge.pmd.lang.java.ast.TypeNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
 import net.sourceforge.pmd.lang.java.xpath.TypeIsFunction;
@@ -185,7 +186,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      * @param node Expression node, logger argument.
      * @return True if the argument contains in the prohibited package.
      */
-    private boolean isInProhibitedPackage(final net.sourceforge.pmd.lang.java.ast.TypeNode node) {
+    private boolean isInProhibitedPackage(final TypeNode node) {
         final String fulltypename = Optional.ofNullable(node.getType())
             .map(Class::getTypeName)
             .orElse(null);
