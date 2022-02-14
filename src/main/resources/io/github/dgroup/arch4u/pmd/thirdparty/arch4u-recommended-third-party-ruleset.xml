@@ -51,7 +51,7 @@
   </rule>
   <rule ref="category/java/codestyle.xml/AtLeastOneConstructor">
     <properties>
-      <property name="ignoredAnnotations" value="lombok.Data|lombok.Value|lombok.Builder|lombok.NoArgsConstructor|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|org.springframework.context.annotation.Configuration|org.springframework.web.bind.annotation.ControllerAdvice|org.springframework.web.bind.annotation.RestController|lombok.experimental.SuperBuilder|org.springframework.stereotype.Component|org.springframework.stereotype.Service|org.springframework.stereotype.Repository|org.springframework.boot.context.properties.ConfigurationProperties|org.mapstruct.Mapper|javax.xml.bind.annotation.XmlRootElement" />
+      <property name="ignoredAnnotations" value="lombok.Data|lombok.Value|lombok.Builder|lombok.NoArgsConstructor|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|org.springframework.context.annotation.Configuration|org.springframework.web.bind.annotation.ControllerAdvice|org.springframework.web.bind.annotation.RestController|lombok.experimental.SuperBuilder|org.springframework.stereotype.Component|org.springframework.stereotype.Service|org.springframework.stereotype.Repository|org.springframework.boot.context.properties.ConfigurationProperties|org.mapstruct.Mapper|javax.xml.bind.annotation.XmlRootElement|org.junit.jupiter.api.extension.ExtendWith|org.mockserver.junit.jupiter.MockServerSettings|org.springframework.test.context.ContextConfiguration|org.springframework.test.context.web.WebAppConfiguration|org.junit.runner.RunWith" />
     </properties>
   </rule>
 
