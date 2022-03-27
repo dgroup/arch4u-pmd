@@ -38,7 +38,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     # @todo #/DEV Setup java8 for inspection during CI/CD by CodeQL tool
     - name: Setup Java
       uses: actions/setup-java@v2.5.0
