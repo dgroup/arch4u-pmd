@@ -35,9 +35,10 @@ In addition to our custom/reconfigured rules we are using the latest stable pmd-
 
 *Legend*
 
-⌛ - planned for review considering framework(s) architecture, ✅ - included
-in `arch4u-ruleset.xml`, 🌵 - temporary disabled or reconfigured in `arch4u-ruleset.xml`, ❌ -
-disabled/not planned in `arch4u-ruleset.xml`
+- ✅ included in `arch4u-ruleset.xml`
+- ⌛ planned for review considering framework(s) architecture
+- 🌵 temporary disabled or reconfigured in `arch4u-ruleset.xml`
+- ❌ disabled/not planned in `arch4u-ruleset.xml`
 
 | PMD rule                                                                                                                               |      Provider      | Status | Spring | Quarkus |
 |:------------------------------------------------------------------------------------------------------------------------------------------|:------------------:|:------:|:------:|:-------:|
