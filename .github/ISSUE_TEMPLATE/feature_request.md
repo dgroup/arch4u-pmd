@@ -1,20 +1,36 @@
----
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+### Summary
+| Key            |  Value |
+|:---------------|:------|
+| Rule           | ...   |
+| Ruleset        | [io/github/dgroup/arch4u/pmd/....xml](https://github.com/dgroup/arch4u-pmd/blob/master/src/main/resources/io/github/dgroup/arch4u/pmd/....xml)|
+| Category       | Best Practices, Code Style, Design, Documentation, Error Prone, Multithreading, Performance, Security |
+| Framework      | ... |
+| Since          |    0.2.0    |
+| Incidents in past at my experience | 10+ |
+| Template       | true/false |
 
----
+### Rule definition
+```xml
+<rule name="..."
+      since="0.2.0"
+      language="java"
+      externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/..."
+      message="...: https://github.com/dgroup/arch4u-pmd/discussions/..."
+      class="io.github.dgroup.arch4u.pmd....">
+    <priority>3</priority>
+    <properties>
+      <property name="..." delimiter="|" value="...|...|...|..."/>
+      <property name="..." value="...|..."/>
+    </properties>
+</rule>
+```
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+### Why?
+...
+```java
+// TBD
+```
+...
+```java
+TBD
+```
