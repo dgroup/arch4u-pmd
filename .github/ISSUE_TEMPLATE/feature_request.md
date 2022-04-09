@@ -1,8 +1,8 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
-labels: ''
+title: 'New rule: <describe your rule here>'
+labels: new rule
 assignees: dgroup
 
 ---
