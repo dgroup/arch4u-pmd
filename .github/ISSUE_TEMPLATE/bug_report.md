@@ -1,38 +1,36 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+### Summary
+| Key            |  Value |
+|:---------------|:------|
+| Rule           | ...   |
+| Ruleset        | [io/github/dgroup/arch4u/pmd/....xml](https://github.com/dgroup/arch4u-pmd/blob/master/src/main/resources/io/github/dgroup/arch4u/pmd/....xml)|
+| Category       | Best Practices, Code Style, Design, Documentation, Error Prone, Multithreading, Performance, Security |
+| Framework      | ... |
+| Since          |    0.2.0    |
+| Incidents in past at my experience | 10+ |
+| Template       | true/false |
 
----
+### Rule definition
+```xml
+<rule name="..."
+      since="0.2.0"
+      language="java"
+      externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/..."
+      message="...: https://github.com/dgroup/arch4u-pmd/discussions/..."
+      class="io.github.dgroup.arch4u.pmd....">
+    <priority>3</priority>
+    <properties>
+      <property name="..." delimiter="|" value="...|...|...|..."/>
+      <property name="..." value="...|..."/>
+    </properties>
+</rule>
+```
 
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+### Why?
+...
+```java
+// TBD
+```
+...
+```java
+TBD
+```
