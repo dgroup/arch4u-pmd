@@ -1,15 +1,19 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: dgroup
+
+---
+
 ### Summary
 | Key            |  Value |
 |:---------------|:------|
 | Rule           | ...   |
-| Ruleset        | [io/github/dgroup/arch4u/pmd/....xml](https://github.com/dgroup/arch4u-pmd/blob/master/src/main/resources/io/github/dgroup/arch4u/pmd/....xml)|
-| Category       | Best Practices, Code Style, Design, Documentation, Error Prone, Multithreading, Performance, Security |
-| Framework      | ... |
-| Since          |    0.2.0    |
-| Incidents in past at my experience | 10+ |
-| Template       | true/false |
+| arch4u version       | 0.1.1 or your version |
 
-### Rule definition
+### Your rule definition
 ```xml
 <rule name="..."
       since="0.2.0"
@@ -25,7 +29,7 @@
 </rule>
 ```
 
-### Why?
+### Describe the defect or false/positive rule violation
 ...
 ```java
 // TBD
