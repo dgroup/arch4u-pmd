@@ -31,7 +31,10 @@
   <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
-  <description>Library with pmd rules that bring new regulations related to known problems in REST API, logging, monitoring, etc., including reconfigured default/out of box pmd rules considering well-known frameworks like Spring, Quarkus, etc.</description>
+  <description>Library with pmd rules that bring new regulations related to known problems in REST
+    API, logging, monitoring, etc., including reconfigured default/out of box pmd rules considering
+    well-known frameworks like Spring, Quarkus, etc.
+  </description>
   <url>https://github.com/dgroup/arch4u-pmd</url>
   <licenses>
     <license>
@@ -138,7 +141,7 @@
       <groupId>org.llorllale</groupId>
       <artifactId>cactoos-matchers</artifactId>
       <version>${cactoos-matchers.version}</version>
-      <scope>compile</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
@@ -228,7 +231,7 @@
           </execution>
         </executions>
         <configuration>
-          <additionalparam>-Xdoclint:none</additionalparam>
+          <doclint>none</doclint>
         </configuration>
       </plugin>
       <plugin>

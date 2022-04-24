@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"),
+  ~ to deal in the Software without restriction, including without limitation
+  ~ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ~ and/or sell copies of the Software, and to permit persons to whom
+  ~ the Software is  furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+  ~ OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<test-data
+  xmlns="http://pmd.sourceforge.net/rule-tests"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <test-code>
+    <description>No todo's found at all</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+public class User {
+
+  /**
+   * The user name.
+   */
+  private final String name;
+
+  public User() {
+    this("Tom");
+  }
+
+  /**
+   * This is a plan javadoc.
+   * @param name The user name.
+   */
+  public User(String name) {
+    this.name = name;
+  }
+
+  public String name() {
+     return this.name;
+  }
+}
+]]></code>
+  </test-code>
+
+  <test-code>
+    <description>Multiple todos have proper format and aren't causing the violations</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
+    package org.arch;
+
+    /**
+     * TODO The subject 1
+     *  1st line in the description.
+     *  2nd line in the description.
+     *  3rd line in the description.
+     *  assignees: dgroup, dykov
+     *  labels: new-rule
+     *  milestone: 2
+     */
+    public class User {
+
+       /**
+        * TODO The subject 2
+        *  1st line in the description.
+        *  2nd line in the description.
+        *  3rd line in the description.
+        *  assignees: dgroup, dykov
+        *  labels: new-rule
+        *  milestone: 2
+        */
+       private final String name;
+
+       /**
+        * TODO The subject 3
+        *  1st line in the description.
+        *  2nd line in the description.
+        *  3rd line in the description.
+        *  assignees: dgroup, dykov
+        *  labels: new-rule
+        *  milestone: 2
+        */
+       public User() {
+          //
+          //  TODO The subject 4
+          //   1st line in the description.
+          //   2nd line in the description.
+          //   3rd line in the description.
+          //   assignees: dgroup, dykov
+          //   labels: new-rule
+          //   milestone: 2
+          //
+          this("Tom");
+       }
+
+       /**
+        * TODO The subject 5
+        *  1st line in the description.
+        *  2nd line in the description.
+        *  3rd line in the description.
+        *  assignees: dgroup, dykov
+        *  labels: new-rule
+        *  milestone: 2
+        */
+       public User(String name) {
+         /*
+            TODO The subject 6
+             1st line in the description.
+             2nd line in the description.
+             3rd line in the description.
+             assignees: dgroup, dykov
+             labels: new-rule
+             milestone: 2
+          */
+          this.name = name;
+       }
+
+       /**
+        * TODO The subject 7
+        *  1st line in the description.
+        *  2nd line in the description.
+        *  3rd line in the description.
+        *  assignees: dgroup, dykov
+        *  labels: new-rule
+        *  milestone: 2
+        */
+       public String name() {
+          /*
+           * TODO The subject 8
+           *  1st line in the description.
+           *  2nd line in the description.
+           *  3rd line in the description.
+           *  assignees: dgroup, dykov
+           *  labels: new-rule
+           *  milestone: 2
+           */
+           return this.name;
+       }
+    }
+            ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>Invalid character before TODO causing violation</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>10</expected-linenumbers>
+    <expected-messages>
+      <message>The TODO subject " - TODO Wrong subject" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+    </expected-messages>
+    <code><![CDATA[
+public class User {
+   private final String name;
+   public User() {
+      this("Tom");
+   }
+   public User(String name) {
+      this.name = name;
+   }
+   /**
+    * - TODO Wrong subject
+    *    1st line in the description.
+    *    2nd line in the description.
+    *    3rd line in the description.
+    *    assignees: dgroup, dykov
+    *    labels: new-rule
+    *    milestone: 2
+    */
+   public String name() {
+      /*
+         TODO The subject 7
+          1st line in the description.
+          2nd line in the description.
+          3rd line in the description.
+          assignees: alstr, bouteillerAlan, hbjydev
+          labels: new-rule
+          milestone: 2
+       */
+       return this.name;
+   }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>Empty TODO causing violation</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>10</expected-linenumbers>
+    <expected-messages>
+      <message>The TODO subject " - TODO" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+    </expected-messages>
+    <code><![CDATA[
+public class User {
+   private final String name;
+   public User() {
+      this("Tom");
+   }
+   public User(String name) {
+      this.name = name;
+   }
+   /**
+    * - TODO
+    *    1st line in the description.
+    *    2nd line in the description.
+    *    3rd line in the description.
+    *    assignees: dgroup, dykov
+    *    labels: new-rule
+    *    milestone: 2
+    */
+   public String name() {
+       return this.name;
+   }
+}
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>Subject in TODO is bigger than allowed 5 symbols</description>
+    <rule-property name="maxSubjectSymbols">5</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>2</expected-linenumbers>
+    <expected-messages>
+      <message>The TODO subject " TODO Subject is too big and more than 5 symbols allowed" should start from TODO, non-blank and less or equal 5: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+    </expected-messages>
+    <code><![CDATA[
+    /**
+     * TODO Subject is too big and more than 5 symbols allowed
+     *  1st line in the description.
+     *  2nd line in the description.
+     *  3rd line in the description.
+     *  assignees: dgroup, dykov
+     *  labels: new-rule
+     *  milestone: 2
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>The TODO description lines have wrong indentation</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>3</expected-linenumbers>
+    <code><![CDATA[
+    /**
+     * TODO Subject with several symbols.
+     *  1st line in the description.
+     *   2nd line in the description.
+     *   3rd line in the description.
+     *  assignees: dgroup, dykov
+     *  labels: new-rule
+     *  milestone: 2
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>The TODO description has less than expected words</description>
+    <rule-property name="minWords">5</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>3</expected-linenumbers>
+    <expected-messages>
+      <message>The TODO description "[  1st line,   2nd line]" should be aligned and has at least 5 or more words: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+    </expected-messages>
+    <code><![CDATA[
+    /**
+     * TODO with 4 words in description divided in 2 lines
+     *  1st line
+     *  2nd line
+     *  assignees: dgroup, dykov
+     *  labels: new-rule
+     *  milestone: 2
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>The TODO labels have wrong indentation</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>7</expected-linenumbers>
+    <code><![CDATA[
+    /**
+     * TODO Subject with several symbols.
+     *  1st line in the description.
+     *  2nd line in the description.
+     *  3rd line in the description.
+     *  assignees: dgroup, dykov
+     *   labels: new-rule,
+     *  milestone: 2
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>The TODO labels are missing, but expected</description>
+    <rule-property name="labels">true</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>2</expected-linenumbers>
+    <code><![CDATA[
+    /**
+     * TODO Subject with several symbols.
+     *  1st line in the description.
+     *  2nd line in the description.
+     *  3rd line in the description.
+     *  assignees: dgroup, dykov
+     *  milestone: 2
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>The TODO milestone has wrong indentation</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>8</expected-linenumbers>
+    <code><![CDATA[
+    /**
+     * TODO Subject with several symbols.
+     *  1st line in the description.
+     *  2nd line in the description.
+     *  3rd line in the description.
+     *  assignees: dgroup, dykov
+     *  labels: new-rule,
+     *    milestone: 2
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>The TODO milestone is missing, but expected</description>
+    <rule-property name="milestone">true</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>2</expected-linenumbers>
+    <code><![CDATA[
+    /**
+     * TODO Subject with several symbols.
+     *  1st line in the description.
+     *  2nd line in the description.
+     *  3rd line in the description.
+     *  assignees: dgroup, dykov
+     */
+    public class User {}
+    ]]></code>
+  </test-code>
+</test-data>
