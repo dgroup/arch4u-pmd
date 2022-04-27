@@ -47,7 +47,13 @@
 
   <rule ref="category/java/codestyle.xml">
     <exclude name="AtLeastOneConstructor"/>
+    <exclude name="ShortClassName"/>
     <exclude name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+  </rule>
+  <rule ref="category/java/codestyle.xml/ShortClassName">
+    <properties>
+      <property name="minimum" value="3" />
+    </properties>
   </rule>
 
   <rule ref="category/java/design.xml">
