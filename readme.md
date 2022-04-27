@@ -65,6 +65,7 @@ In addition to our custom/reconfigured rules we are using the latest stable pmd-
 | [TooManyMethods](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanymethods)                                                  | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
 | [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                  | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
 | [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
+| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ⌛    |
 
 ### How to use?
 

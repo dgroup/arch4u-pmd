@@ -58,6 +58,7 @@
     <exclude name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
+    <exclude name="UseUtilityClass" />
   </rule>
   <rule ref="category/java/design.xml/CouplingBetweenObjects">
     <properties>
@@ -72,6 +73,11 @@
   <rule ref="category/java/design.xml/TooManyFields">
     <properties>
       <property name="maxfields" value="25"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml/UseUtilityClass">
+    <properties>
+      <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass|org.springframework.boot.autoconfigure.SpringBootApplication" />
     </properties>
   </rule>
 
