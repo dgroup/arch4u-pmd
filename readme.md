@@ -5,7 +5,6 @@
 [![Hits-of-Code](https://hitsofcode.com/github/dgroup/arch4u-pmd)](https://hitsofcode.com/view/github/dgroup/arch4u-pmd)
 
 [![CI](https://github.com/dgroup/arch4u-pmd/actions/workflows/build.yml/badge.svg)](https://github.com/dgroup/arch4u-pmd/actions/workflows/build.yml)
-[![0pdd](http://www.0pdd.com/svg?name=dgroup/arch4u-pmd)](http://www.0pdd.com/p?name=dgroup/arch4u-pmd)
 [![Dependency Status](https://requires.io/github/dgroup/arch4u-pmd/requirements.svg?branch=master)](https://requires.io/github/dgroup/arch4u-pmd/requirements/?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/dgroup/arch4u-pmd/badge.svg)](https://app.snyk.io/org/dgroup/project/c8b51bb3-7683-41c8-9a4e-b32a6f9069b6)
 
@@ -29,7 +28,7 @@ violations during usage of well-known frameworks like Spring, Quarkus, etc.
 
 In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.44.0` with more than [320+ rules](https://pmd.github.io/pmd-6.44.0/pmd_rules_java.html) with default configuration.
 
-*Legend*
+Legend:
 
 - ✅ included in `arch4u-ruleset.xml`
 - ⌛ planned for review considering framework(s) architecture
