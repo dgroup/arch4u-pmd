@@ -51,8 +51,9 @@
        *  milestone: 2
        *
        * Other javadoc elements
+       * @return The id of created entity.
        */
-      public ResponseEntity<Employee> create(@Valid @RequestBody Employee employee) {
+      public Long create(@Valid @RequestBody Employee employee) {
            // ...
       }
     </example>
