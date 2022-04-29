@@ -160,7 +160,7 @@ public class User {
     <expected-problems>1</expected-problems>
     <expected-linenumbers>10</expected-linenumbers>
     <expected-messages>
-      <message>The TODO subject " - TODO Wrong subject" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+      <message>The TODO subject " - TODO Wrong subject" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
     </expected-messages>
     <code><![CDATA[
 public class User {
@@ -201,7 +201,7 @@ public class User {
     <expected-problems>1</expected-problems>
     <expected-linenumbers>10</expected-linenumbers>
     <expected-messages>
-      <message>The TODO subject " - TODO" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+      <message>The TODO subject " - TODO" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
     </expected-messages>
     <code><![CDATA[
 public class User {
@@ -234,7 +234,7 @@ public class User {
     <expected-problems>1</expected-problems>
     <expected-linenumbers>2</expected-linenumbers>
     <expected-messages>
-      <message>The TODO subject " TODO Subject is too big and more than 5 symbols allowed" should start from TODO, non-blank and less or equal 5: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+      <message>The TODO subject " TODO Subject is too big and more than 5 symbols allowed" should start from TODO, non-blank and less or equal 5: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
     </expected-messages>
     <code><![CDATA[
     /**
@@ -274,7 +274,7 @@ public class User {
     <expected-problems>1</expected-problems>
     <expected-linenumbers>3</expected-linenumbers>
     <expected-messages>
-      <message>The TODO description "[  1st line,   2nd line]" should be aligned and has at least 5 or more words: https://github.com/dgroup/arch4u-pmd/discussions/...</message>
+      <message>The TODO description "[  1st line,   2nd line]" should be aligned and has at least 5 or more words: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
     </expected-messages>
     <code><![CDATA[
     /**

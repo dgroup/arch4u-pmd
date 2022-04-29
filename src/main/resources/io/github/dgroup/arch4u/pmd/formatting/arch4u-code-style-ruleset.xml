@@ -29,21 +29,33 @@
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>arch4u rules related to code style</description>
-  <!-- @todo #113/DEV TodoFormat: Add reference to the discussions from 'message' and 'externalInfoUrl'. -->
   <rule name="TodoFormat"
         since="0.2.0"
         language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/..."
-        message="Use single format of TODO items within your codebase: https://github.com/dgroup/arch4u-pmd/discussions/..."
+        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/137"
+        message="Use single format of TODO items within your codebase: https://github.com/dgroup/arch4u-pmd/discussions/137"
         class="io.github.dgroup.arch4u.pmd.TodoFormat">
-    <!-- @todo #113/DEV TodoFormat: Make proper description and example for this rule -->
     <description>
-      ...
-      Read more: https://github.com/dgroup/arch4u-pmd/discussions/...
+      Use single format of TODO items within your codebase.
+      Read more: https://github.com/dgroup/arch4u-pmd/discussions/137
     </description>
     <priority>3</priority>
     <example>
-      ...
+      /**
+       * ...
+       * TODO Add REST API endpoint that supports OpenAPI and Web-Flux
+       *  We need a way how to generate OpenAPI specifications that supports Web-Flux.
+       *  Ensure that ....
+       *  labels: enhancement, help wanted
+       *  assignees: dgroup
+       *  milestone: 2
+       *
+       * Other javadoc elements
+       * @return The id of created entity.
+       */
+      public Long create(@Valid @RequestBody Employee employee) {
+           // ...
+      }
     </example>
   </rule>
 </ruleset>
