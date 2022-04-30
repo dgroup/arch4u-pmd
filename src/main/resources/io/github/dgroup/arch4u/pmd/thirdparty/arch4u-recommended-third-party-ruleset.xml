@@ -65,6 +65,7 @@
     <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
     <exclude name="UseUtilityClass" />
+    <exclude name="ImmutableField" />
   </rule>
   <rule ref="category/java/design.xml/CouplingBetweenObjects">
     <properties>
@@ -84,6 +85,12 @@
   <rule ref="category/java/design.xml/UseUtilityClass">
     <properties>
       <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass|org.springframework.boot.autoconfigure.SpringBootApplication" />
+    </properties>
+  </rule>
+  <rule ref="category/java/design.xml/ImmutableField">
+    <properties>
+      <property name="ignoredAnnotations"
+                value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject" />
     </properties>
   </rule>
 
