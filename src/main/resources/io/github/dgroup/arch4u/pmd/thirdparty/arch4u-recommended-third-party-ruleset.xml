@@ -90,7 +90,7 @@
   <rule ref="category/java/design.xml/ImmutableField">
     <properties>
       <property name="ignoredAnnotations"
-                value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject" />
+                value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject|org.apache.camel.EndpointInject" />
     </properties>
   </rule>
 
