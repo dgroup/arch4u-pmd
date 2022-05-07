@@ -20,7 +20,7 @@
     <properties>
       <property name="annotations" type="List[String]" delimiter="|"
                 description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field"
-                value="javax.annotation.PostConstruct"/>
+                value="javax.annotation.PostConstruct|org.springframework.context.annotation.Bean"/>
       <property name="version" value="2.0"/>
       <property name="xpath">
         <value>
