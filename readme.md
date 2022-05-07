@@ -69,6 +69,7 @@ Legend:
 | [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ⌛    |
 | [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
 | [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
+| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
 
 ### How to use?
 
