@@ -16,6 +16,12 @@
 
 * [Overview](#overview)
 * [How to use?](#how-to-use)
+    * [Maven (pom.xml)](#maven-pomxml)
+    * [Gradle (build.gradle)](#gradle-buildgradle)
+    * [Include arch4u-pmd rules into your existing custom ruleset](#include-arch4u-pmd-rules-into-your-existing-custom-ruleset)
+    * [Exclude particular rule](#exclude-particular-rule)
+    * [Reconfigure a rule](#reconfigure-a-rule)
+    * [Exclude particular folder from inspection](#exclude-particular-folder-from-inspection)
 * [How to contribute?](#how-to-contribute)
 * [Contributors](#contributors)
 
@@ -185,6 +191,21 @@ pmd {
                 value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
     </properties>
   </rule>
+  ...
+</ruleset>
+```
+
+#### Exclude particular folder from inspection
+
+```xml
+<?xml version="1.0"?>
+<ruleset name="pmd ruleset with your rules">
+  ...
+  <!-- Exclude target folder that may contain generated sources -->
+  <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
+  <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
+  <!-- Exclude test folder -->
+  <exclude-pattern>.*/src/test/java/org/tbd/tbd/tbd/.*</exclude-pattern>
   ...
 </ruleset>
 ```

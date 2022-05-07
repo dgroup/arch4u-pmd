@@ -5,6 +5,11 @@
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>All arch4u rules</description>
+
+  <!-- Exclude target folder that may contain generated sources -->
+  <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
+  <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
+
   <!-- Third-party rules -->
   <rule ref="io/github/dgroup/arch4u/pmd/thirdparty/arch4u-recommended-third-party-ruleset.xml"/>
   <!-- Rules related to application monitoring -->
