@@ -28,7 +28,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.dgroup</groupId>
   <artifactId>arch4u-pmd</artifactId>
-  <version>0.2.4</version>
+  <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
   <description>Library with pmd rules that bring new regulations related to known problems in REST
