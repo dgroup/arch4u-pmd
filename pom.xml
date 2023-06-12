@@ -96,7 +96,7 @@
     <commons-logging.version>1.2</commons-logging.version>
     <!-- General dependencies -->
     <pmd.rules.version>6.45.0</pmd.rules.version>
-    <cactoos.version>0.50</cactoos.version>
+    <cactoos.version>0.50.1</cactoos.version>
     <!-- Testing -->
     <hamcrest.version>2.2</hamcrest.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
