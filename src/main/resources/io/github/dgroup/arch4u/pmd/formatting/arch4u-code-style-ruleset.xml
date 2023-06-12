@@ -22,7 +22,7 @@
   ~ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
   ~ OR OTHER DEALINGS IN THE SOFTWARE.
   -->
-
+<!-- @todo #/DEV Remove the rule as this approach isn't relevant for other file types -->
 <ruleset name="arch4u-code-style"
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

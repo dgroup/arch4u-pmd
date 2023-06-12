@@ -36,6 +36,9 @@ public final class TodoFormatTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
-        addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "TodoFormat");
+        addRule(
+            "io/github/dgroup/arch4u/pmd/formatting/arch4u-code-style-ruleset.xml",
+            "TodoFormat"
+        );
     }
 }
