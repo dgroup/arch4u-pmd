@@ -25,23 +25,20 @@
 package io.github.dgroup.arch4u.pmd;
 
 import java.util.regex.Pattern;
+import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.java.rule.regex.RegexHelper;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
 import org.apache.commons.lang3.StringUtils;
-import org.cactoos.scalar.Sticky;
-import org.cactoos.scalar.Unchecked;
 
 /**
  * Rule to avoid creating string constants for {@code MediaType} values.
  * Example: {@code "application/json'}
  * Use existing classes.
  *
+ * @see <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
  * @since 0.1.0
- * @see
- * <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
 public final class UseExistingConstant extends AbstractJavaRule {
@@ -56,9 +53,9 @@ public final class UseExistingConstant extends AbstractJavaRule {
             .build();
 
     /**
-     * Cached pattern supplier.
+     * Pattern to match string text/literal that should be replaced by constant.
      */
-    private final Unchecked<Pattern> pattern;
+    private Pattern pattern;
 
     /**
      * Constructor for defining property descriptor.
@@ -67,11 +64,12 @@ public final class UseExistingConstant extends AbstractJavaRule {
     public UseExistingConstant() {
         this.definePropertyDescriptor(REGEX_PROPERTY);
         this.addRuleChainVisit(ASTLiteral.class);
-        this.pattern = new Unchecked<>(
-            new Sticky<>(
-                () -> Pattern.compile(this.getProperty(REGEX_PROPERTY))
-            )
-        );
+    }
+
+    @Override
+    public void start(final RuleContext ctx) {
+        super.start(ctx);
+        this.pattern = Pattern.compile(this.getProperty(REGEX_PROPERTY));
     }
 
     @Override
@@ -79,11 +77,10 @@ public final class UseExistingConstant extends AbstractJavaRule {
         if (node.isStringLiteral()) {
             String image = node.getTextBlockContent();
             image = image.substring(1, image.length() - 1);
-            if (image.length() > 0 && RegexHelper.isMatch(this.pattern.value(), image)) {
+            if (image.length() > 0 && this.pattern.matcher(image).find()) {
                 this.addViolation(data, node);
             }
         }
         return data;
     }
-
 }

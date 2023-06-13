@@ -31,10 +31,7 @@
   <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
-  <description>Library with pmd rules that bring new regulations related to known problems in REST
-    API, logging, monitoring, etc., including reconfigured default/out of box pmd rules considering
-    well-known frameworks like Spring, Quarkus, etc.
-  </description>
+  <description>Linting rules for Java frameworks like Spring, Quarkus, Jackson, SLF4J, etc., to avoid known problems in REST API, logging, observability, performance, and general best practices.</description>
   <url>https://github.com/dgroup/arch4u-pmd</url>
   <licenses>
     <license>
@@ -96,7 +93,6 @@
     <commons-logging.version>1.2</commons-logging.version>
     <!-- General dependencies -->
     <pmd.rules.version>6.46.0</pmd.rules.version>
-    <cactoos.version>0.50.1</cactoos.version>
     <!-- Testing -->
     <hamcrest.version>2.2</hamcrest.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
@@ -120,11 +116,6 @@
     </sonar.coverage.jacoco.xmlReportPaths>
   </properties>
   <dependencies>
-    <dependency>
-      <groupId>org.cactoos</groupId>
-      <artifactId>cactoos</artifactId>
-      <version>${cactoos.version}</version>
-    </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
