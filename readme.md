@@ -31,7 +31,7 @@ REST API, logging, monitoring, etc., including reconfigured default pmd
 rules to decrease false-positive
 violations during usage of well-known frameworks like Spring, Quarkus, etc.
 
-In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.44.0` with more than [320+ rules](https://pmd.github.io/pmd-6.44.0/pmd_rules_java.html) with default configuration.
+In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.55.0` with more than [320+ rules](https://pmd.github.io/pmd-6.55.0/pmd_rules_java.html) with default configuration.
 
 Legend:
 

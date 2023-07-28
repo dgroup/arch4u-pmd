@@ -461,7 +461,6 @@
   <rule ref="category/java/performance.xml"/>
   <rule ref="category/java/security.xml"/>
   <rule ref="category/java/errorprone.xml">
-    <exclude name="BeanMembersShouldSerialize"/> <!-- @todo #/DEV BeanMembersShouldSerialize: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
