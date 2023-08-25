@@ -97,7 +97,7 @@
     <hamcrest.version>2.2</hamcrest.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
     <assertj.version>3.22.0</assertj.version>
-    <jmh.version>1.36</jmh.version>
+    <jmh.version>1.37</jmh.version>
     <jmh.suite.name>arch4u-pmd-benchmarks</jmh.suite.name>
     <!-- Code quality -->
     <code.cvrg.classes-without-tests>3</code.cvrg.classes-without-tests>
