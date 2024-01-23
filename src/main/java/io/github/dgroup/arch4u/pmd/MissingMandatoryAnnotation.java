@@ -75,7 +75,7 @@ public final class MissingMandatoryAnnotation extends AbstractJavaRule {
     public Object visit(final ASTMethodDeclaration mthd, final Object data) {
         final Optional<ASTAnnotation> restannot = this.getRestAnnotation(mthd);
         if (restannot.isPresent() && this.hasNoMandatoryAnnotation(mthd)) {
-            this.addViolation(data, restannot.get());
+            asCtx(data).addViolation(restannot.get());
         }
         return super.visit(mthd, data);
     }
