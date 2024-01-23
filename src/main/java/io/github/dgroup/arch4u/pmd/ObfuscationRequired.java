@@ -106,7 +106,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
                 getArguments(occurrence)
                     .stream()
                     .filter(this::hasSensitiveData)
-                    .forEach(arg -> this.addViolation(data, arg));
+                    .forEach(arg -> asCtx(data).addViolation(arg));
             }
         }
         return data;
