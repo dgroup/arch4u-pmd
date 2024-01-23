@@ -39,6 +39,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimarySuffix;
 import net.sourceforge.pmd.lang.java.ast.JavaNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
+import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.lang.java.xpath.TypeIsFunction;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
@@ -82,7 +83,7 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
             .filter(this::isMdc)
             .forEach(this::updateMap);
         for (final ASTPrimaryExpression expression : this.keymap.values()) {
-            this.addViolation(data, expression);
+            asCtx(data).addViolation(expression);
         }
         return data;
     }
@@ -95,7 +96,7 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
     private boolean isMdc(final ASTPrimaryPrefix prefix) {
         return this.getProperty(MDC_CLASSES)
             .stream()
-            .anyMatch(mdc -> TypeIsFunction.typeIs(prefix, mdc));
+            .anyMatch(mdc -> TypeTestUtil.isA(mdc, prefix));
     }
 
     /**
