@@ -90,9 +90,10 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
             for (final NameOccurrence usage : node.getUsages()) {
                 final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;
                 if (this.isNotedMethod(occurrence.getNameForWhichThisIsAQualifier())) {
-                    this.asCtx(data).addViolation(occurrence.getLocation(),
-                            this.getProperty(CLASS),
-                            occurrence.getNameForWhichThisIsAQualifier().getImage()
+                    this.asCtx(data).addViolation(
+                        occurrence.getLocation(),
+                        this.getProperty(CLASS),
+                        occurrence.getNameForWhichThisIsAQualifier().getImage()
                     );
                 }
             }
