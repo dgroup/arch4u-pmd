@@ -78,7 +78,7 @@ public final class UseExistingConstant extends AbstractJavaRule {
             String image = node.getTextBlockContent();
             image = image.substring(1, image.length() - 1);
             if (image.length() > 0 && this.pattern.matcher(image).find()) {
-                this.addViolation(data, node);
+                asCtx(data).addViolation(node);
             }
         }
         return data;

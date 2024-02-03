@@ -30,8 +30,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.rule.AbstractPoorMethodCall;
 import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
-import net.sourceforge.pmd.lang.java.xpath.TypeIsExactlyFunction;
-import net.sourceforge.pmd.lang.java.xpath.TypeIsFunction;
+import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.lang.symboltable.NameOccurrence;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
@@ -91,11 +90,10 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
             for (final NameOccurrence usage : node.getUsages()) {
                 final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;
                 if (this.isNotedMethod(occurrence.getNameForWhichThisIsAQualifier())) {
-                    this.addViolation(
-                        data, occurrence.getLocation(), new String[]{
-                            this.getProperty(CLASS),
-                            occurrence.getNameForWhichThisIsAQualifier().getImage(),
-                        }
+                    this.asCtx(data).addViolation(
+                        occurrence.getLocation(),
+                        this.getProperty(CLASS),
+                        occurrence.getNameForWhichThisIsAQualifier().getImage()
                     );
                 }
             }
@@ -113,9 +111,9 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
         final String typename = this.getProperty(CLASS);
         final ASTType typenode = node.getTypeNode();
         if (this.getProperty(CHECK_SUBTYPES)) {
-            noted = TypeIsFunction.typeIs(typenode, typename);
+            noted = TypeTestUtil.isA(typename, typenode);
         } else {
-            noted = TypeIsExactlyFunction.typeIsExactly(typenode, typename);
+            noted = TypeTestUtil.isExactlyA(typename, typenode);
         }
         return noted;
     }

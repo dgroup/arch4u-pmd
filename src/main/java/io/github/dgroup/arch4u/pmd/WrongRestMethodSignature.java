@@ -60,7 +60,7 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
     @Override
     public Object visit(final ASTMethodDeclaration mthd, final Object data) {
         if (this.isRestMethod(mthd) && hasWrongSignature(mthd)) {
-            this.addViolation(data, mthd);
+            asCtx(data).addViolation(mthd);
         }
         return super.visit(mthd, data);
     }
