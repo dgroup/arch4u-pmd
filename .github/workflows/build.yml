@@ -39,7 +39,7 @@ jobs:
           fi
       - name: Notify Telegram group
         uses: yanzay/notify-telegram@v0.1.0
-        if: always()
+        if:  success() && github.ref == 'refs/heads/master'
         with:
           chat: ${{ secrets.TELEGRAM_CHAT }} # user id or channel name secret
           token: ${{ secrets.TELEGRAM_TOKEN }} # token secret
