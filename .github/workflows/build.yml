@@ -1,5 +1,10 @@
 name: CI
-on: push
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 jobs:
   build:
     runs-on: ubuntu-latest
