@@ -41,7 +41,7 @@ jobs:
       uses: actions/checkout@v4
     # @todo #/DEV Setup java8 for inspection during CI/CD by CodeQL tool
     - name: Setup Java
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '${{ env.java }}'
         distribution: 'adopt'
