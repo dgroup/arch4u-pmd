@@ -92,7 +92,7 @@
     <sonar.version>3.4.0.905</sonar.version>
     <commons-logging.version>1.2</commons-logging.version>
     <!-- General dependencies -->
-    <pmd.rules.version>6.55.0</pmd.rules.version>
+    <pmd.rules.version>7.4.0</pmd.rules.version>
     <!-- Testing -->
     <hamcrest.version>2.2</hamcrest.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
