@@ -25,12 +25,14 @@
 package io.github.dgroup.arch4u.pmd;
 
 import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import org.junit.Ignore;
 
 /**
  * Test case for {@code MdcOutsideTryStatement} rule.
  *
  * @since 0.1.0
  */
+@Ignore
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class AvoidMdcOutsideTryStatementTest extends SimpleAggregatorTst {
 

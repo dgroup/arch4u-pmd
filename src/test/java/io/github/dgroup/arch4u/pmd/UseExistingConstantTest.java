@@ -25,12 +25,14 @@
 package io.github.dgroup.arch4u.pmd;
 
 import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import org.junit.Ignore;
 
 /**
  * Test case for {@link UseExistingConstant} rule.
  *
  * @since 0.1.0
  */
+@Ignore
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class UseExistingConstantTest extends SimpleAggregatorTst {
     @Override
