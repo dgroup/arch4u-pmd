@@ -93,7 +93,7 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
                             asCtx(data).addViolation(node, prohibitedClassName, methodName);
                         }
                     } else if (isExactClass(prohibitedClassName, className)) {
-                        this.asCtx(data).addViolation(node, prohibitedClassName, methodName);
+                        asCtx(data).addViolation(node, prohibitedClassName, methodName);
                     }
                 }
             }

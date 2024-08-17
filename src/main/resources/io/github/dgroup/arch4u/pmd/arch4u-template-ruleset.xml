@@ -6,12 +6,12 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
   <description>arch4u template rules that you may use for your own/private use-cases</description>
-<!--
+
   <rule name="AvoidProhibitedClasses"
         since="0.1.0"
         language="java"
         message="The {0} class is prohibited to use."
-        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
+        class="io.github.dgroup.arch4u.pmd.AvoidProhibitedClasses">
     <description>
       Avoid to use prohibited classes.
       See discussion about tips/tricks implementation on Github:
@@ -20,51 +20,11 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="fullName" type="List[String]" delimiter="|"
-                description="Full name of prohibited classes"
-                value="org.apache.commons.codec.CharEncoding|org.apache.commons.lang3.CharEncoding|org.apache.commons.lang.CharEncoding|org.apache.log4j.Logger"/>
-      <property name="shortName" type="List[String]" delimiter="|"
-                description="Short name of prohibited classes"
-                value="CharEncoding|Logger"/>
-      <property name="version" value="2.0"/>
-      <property name="xpath">
-        <value>
-          <![CDATA[
-          (: check type :)
-          //Name
-          [not(parent::ImportDeclaration)]
-          [some $class in $fullName satisfies pmd-java:typeIsExactly($class)]
-          |
-          //ClassOrInterfaceType
-          [some $class in $fullName satisfies pmd-java:typeIsExactly($class)]
-          |
-          (: import + usage :)
-          //Name
-          [
-              //ImportDeclaration/Name
-              [some $class in $fullName satisfies starts-with(@Image, $class)]
-          ]
-          [some $class in $shortName satisfies starts-with(@Image, $class)]
-          |
-          (: FQN usage :)
-          //Name
-          [not(parent::ImportDeclaration)]
-          [some $class in $fullName satisfies starts-with(@Image, $class)]
-          |
-          (: static import + usage :)
-          //Name
-          [not(parent::ImportDeclaration)]
-          [
-            (: bind the context node to a variable :)
-            some $name in (.) satisfies
-            //ImportDeclaration[@Static = true()]
-              /Name
-              [some $class in $fullName satisfies starts-with(@Image, $class)]
-              [ends-with(@Image, $name/@Image)]
-          ]
-          ]]>
-        </value>
-      </property>
+      <property name="checkSubtypes" value="false"
+                description="The property matches whether the subtypes should be checked"/>
+      <property name="fullNames"
+                description="Full name of prohibited classes. Use a comma (,) as a delimiter."
+                value="org.apache.commons.codec.CharEncoding,org.apache.commons.lang3.CharEncoding,org.apache.commons.lang.CharEncoding,org.apache.log4j.Logger"/>
     </properties>
     <example>
       <![CDATA[
@@ -77,7 +37,7 @@
       }
       ]]>
     </example>
-  </rule>-->
+  </rule>
 
   <rule name="AvoidProhibitedMethodsUsage"
         since="0.1.0"
@@ -92,7 +52,8 @@
     <properties>
       <property name="class" description="The fully qualified name of the class"
                 value="java.lang.Object"/>
-      <property name="methods" description="List of prohibited methods" value="toString"/>
+      <property name="methods" description="List of prohibited methods. Use a comma (,) as a delimiter."
+                value="toString"/>
       <property name="checkSubtypes" value="false"
                 description="The property matches whether the subtypes should be checked"/>
     </properties>
