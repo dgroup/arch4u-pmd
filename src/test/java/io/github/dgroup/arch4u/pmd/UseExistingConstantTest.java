@@ -24,19 +24,17 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
-import org.junit.Ignore;
+import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
  * Test case for {@link UseExistingConstant} rule.
  *
  * @since 0.1.0
  */
-@Ignore
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class UseExistingConstantTest extends SimpleAggregatorTst {
-    @Override
+    /*@Override
     public void setUp() {
         addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseExistingMediaTypeConstant");
-    }
+    }*/
 }

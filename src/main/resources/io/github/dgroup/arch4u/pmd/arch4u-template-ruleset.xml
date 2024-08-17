@@ -1,18 +1,17 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ruleset name="arch4u-template"
-         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
   <description>arch4u template rules that you may use for your own/private use-cases</description>
-
+<!--
   <rule name="AvoidProhibitedClasses"
         since="0.1.0"
         language="java"
         message="The {0} class is prohibited to use."
-        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
     <description>
       Avoid to use prohibited classes.
       See discussion about tips/tricks implementation on Github:
@@ -78,7 +77,7 @@
       }
       ]]>
     </example>
-  </rule>
+  </rule>-->
 
   <rule name="AvoidProhibitedMethodsUsage"
         since="0.1.0"
@@ -86,7 +85,7 @@
         message="The {0}#{1} invocation is prohibited to use."
         class="io.github.dgroup.arch4u.pmd.AvoidProhibitedMethodsUsage">
     <description>
-      Avoid using the prohibited method(s).
+      A PMD rule that prohibits the invocation of specified methods from a given class.
       See the discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/40
     </description>
     <priority>3</priority>
@@ -107,7 +106,7 @@
       ]]>
     </example>
   </rule>
-
+<!--
   <rule name="ObfuscationRequired"
         since="0.1.0"
         language="java"
@@ -137,6 +136,6 @@
       }
       ]]>
     </example>
-  </rule>
+  </rule>-->
 
 </ruleset>

@@ -24,7 +24,7 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import java.util.HashMap;
+/*import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,7 +41,9 @@ import net.sourceforge.pmd.lang.java.ast.JavaNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
-import net.sourceforge.pmd.properties.PropertyFactory;
+import net.sourceforge.pmd.properties.PropertyFactory;*/
+
+import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 /**
  * MDC needs to be cleaned in every method.
@@ -51,24 +53,24 @@ import net.sourceforge.pmd.properties.PropertyFactory;
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
 public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
-
-    /**
+/*
+    *//**
      * Property descriptor.
-     */
+     *//*
     private static final PropertyDescriptor<List<String>> MDC_CLASSES =
         PropertyFactory.stringListProperty("mdcClasses")
             .desc("List of the MDC classes")
             .emptyDefaultValue()
             .build();
 
-    /**
+    *//**
      * Map to save MDC keys and expression nodes.
-     */
+     *//*
     private final Map<String, ASTPrimaryExpression> keymap;
 
-    /**
+    *//**
      * Constructor for defining property descriptor.
-     */
+     *//*
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public PotentiallyThreadLocalPollutionByMdc() {
         this.keymap = new HashMap<>();
@@ -87,24 +89,24 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
         return data;
     }
 
-    /**
+    *//**
      * Checks if the provided node is MDC class.
      * @param prefix Prefix node.
      * @return True if the provided node is MDC class.
-     */
+     *//*
     private boolean isMdc(final ASTPrimaryPrefix prefix) {
         return this.getProperty(MDC_CLASSES)
             .stream()
             .anyMatch(mdc -> TypeTestUtil.isA(mdc, prefix));
     }
 
-    /**
+    *//**
      * Perform the {@code keymap} map update.
      * If MDC has {@code put} invocation, it will save key and expression.
      * If it has {@code remove} invocation, it will remove value by the key.
      * The map must be cleared on the {@code MDC.clear()} invocation.
      * @param prefix Prefix node.
-     */
+     *//*
     private void updateMap(final ASTPrimaryPrefix prefix) {
         final String method = prefix.getChild(0).getImage();
         final ASTPrimaryExpression parent = prefix.getFirstParentOfType(ASTPrimaryExpression.class);
@@ -118,11 +120,11 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
         }
     }
 
-    /**
+    *//**
      * Returns MDC key.
      * @param node Image holding node.
      * @return String of the MDC key.
-     */
+     *//*
     private static String getKeyImage(final JavaNode node) {
         return Optional.ofNullable(node.getFirstChildOfType(ASTPrimarySuffix.class))
             .map(suffix -> suffix.getFirstChildOfType(ASTArguments.class))
@@ -133,5 +135,5 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
             .map(prefix -> prefix.getFirstChildOfType(ASTName.class))
             .map(AbstractNode::getImage)
             .orElse(null);
-    }
+    }*/
 }

@@ -26,6 +26,7 @@ package io.github.dgroup.arch4u.pmd;
 
 import java.util.List;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
+import net.sourceforge.pmd.lang.java.ast.JModifier;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
@@ -82,6 +83,6 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
      * @return True if the method has prohibited signature.
      */
     private static boolean hasWrongSignature(final ASTMethodDeclaration mthd) {
-        return !mthd.isAnnotationPresent("java.lang.Override") || !mthd.isPublic();
+        return !mthd.isAnnotationPresent("java.lang.Override") || !mthd.hasModifiers(JModifier.PUBLIC);
     }
 }
