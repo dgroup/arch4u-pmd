@@ -67,7 +67,7 @@
       ]]>
     </example>
   </rule>
-<!--
+
   <rule name="ObfuscationRequired"
         since="0.1.0"
         language="java"
@@ -76,12 +76,13 @@
         class="io.github.dgroup.arch4u.pmd.ObfuscationRequired">
     <priority>3</priority>
     <properties>
-      <property name="loggerClasses" delimiter="|" value="org.slf4j.Logger
-|java.util.logging.Logger
-|org.apache.log4j.Logger
-|org.apache.logging.log4j.Logger"/>
-      <property name="sensitiveClasses" value="io.github.dgroup.arch4u.pmd.test_entity.Person"/>
-      <property name="sensitivePackages" value="io.github.dgroup.arch4u.pmd.test_entity.secret"/>
+      <property name="loggerClasses" description="Use a comma (,) as a delimiter.">
+                <value>org.slf4j.Logger,java.util.logging.Logger,org.apache.log4j.Logger,org.apache.logging.log4j.Logger</value>
+      </property>
+      <property name="sensitiveClasses" description="Use a comma (,) as a delimiter."
+                value="io.github.dgroup.arch4u.pmd.test_entity.Person"/>
+      <property name="sensitivePackages" description="Use a comma (,) as a delimiter."
+                value="io.github.dgroup.arch4u.pmd.test_entity.secret"/>
     </properties>
     <example>
       <![CDATA[
@@ -97,6 +98,6 @@
       }
       ]]>
     </example>
-  </rule>-->
+  </rule>
 
 </ruleset>

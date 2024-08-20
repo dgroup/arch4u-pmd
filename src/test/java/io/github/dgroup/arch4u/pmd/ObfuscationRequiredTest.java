@@ -34,8 +34,8 @@ import net.sourceforge.pmd.test.SimpleAggregatorTst;
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class ObfuscationRequiredTest extends SimpleAggregatorTst {
 
-    /*@Override
+    @Override
     public void setUp() {
         addRule("io/github/dgroup/arch4u/pmd/arch4u-template-ruleset.xml", "ObfuscationRequired");
     }
-*/}
+}
