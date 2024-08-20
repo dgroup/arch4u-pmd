@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <ruleset name="arch4u"
-         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
   <description>All arch4u rules</description>
 
   <!-- Exclude target folder that may contain generated sources -->
   <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
   <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
 
-  <!-- Rules related to logging -->
+  <!-- Rules related to logging --> <!--
   <rule name="PotentiallyThreadLocalPollutionByMdc"
         since="0.1.0"
         language="java"
@@ -43,36 +43,28 @@
       ]]>
     </example>
   </rule>
-
+-->
   <rule name="AvoidMdcOutsideTryStatement"
         since="0.1.0"
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/86"
         message="MDC API should always be used within the try/finally statement: https://github.com/dgroup/arch4u-pmd/discussions/86"
-        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
+        class="io.github.dgroup.arch4u.pmd.AvoidMdcOutsideTryStatement">
     <description>
       MDC API should always be used within the try/finally statement.
       See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/86
     </description>
     <priority>3</priority>
     <properties>
-      <property name="mdcClasses" type="List[String]" delimiter="|"
-                description="Full name of the MDC classes"
+      <property name="mdcClasses"
+                description="Full name of the MDC classes. Use a comma (,) as a delimiter."
                 value="org.slf4j.MDC"/>
-      <property name="version" value="2.0"/>
-      <property name="xpath">
-        <value>
-          <![CDATA[
-          //PrimaryPrefix
-          [some $class in $mdcClasses satisfies pmd-java:typeIsExactly($class)]
-          [
-          ./*[ends-with(@Image,'.put') and not(ancestor::TryStatement)]
-          or
-          ./*[(ends-with(@Image,'.remove') or ends-with(@Image,'.clear')) and not(ancestor::FinallyStatement)]
-          ]
-          ]]>
-        </value>
-      </property>
+      <property name="tryMethodNames"
+                description="Method names that should be within a Try statement. Use a comma (,) as a delimiter."
+                value="put"/>
+      <property name="finallyMethodNames"
+                description="Method names that should be within a Finally clause. Use a comma (,) as a delimiter."
+                value="remove,clear"/>
     </properties>
     <example>
       <![CDATA[
@@ -95,7 +87,7 @@
 
 
 
-  <!-- Rules related to JSON processing -->
+  <!-- Rules related to JSON processing --> <!--
   <rule name="AvoidUsingObjectMapperAsALocalVariable"
         since="0.1.0"
         language="java"
@@ -161,10 +153,10 @@
       ]]>
     </example>
   </rule>
+-->
 
 
-
-  <!-- Rules related to application monitoring -->
+  <!-- Rules related to application monitoring --> <!--
   <rule name="RestEndpointsWithoutExposedMetrics"
         since="0.1.0"
         language="java"
@@ -260,10 +252,10 @@
       }
       ]]>
     </example>
-  </rule>
+  </rule> -->
 
 
-  <!-- Rules related to error handling -->
+  <!-- Rules related to error handling --> <!--
   <rule name="NoMandatoryConstructorInExceptionClass"
         since="0.1.0"
         language="java"
@@ -311,9 +303,9 @@
           }
           ]]>
     </example>
-  </rule>
+  </rule> -->
 
-  <!-- Rules related to rest api -->
+  <!-- Rules related to rest api --> <!--
   <rule name="UseExistingMediaTypeConstant"
         since="0.1.0"
         language="java"
@@ -375,10 +367,10 @@
     </example>
   </rule>
 
-
+-->
   <!-- Third-party rules -->
-  <rule ref="category/java/bestpractices.xml">
-    <exclude name="GuardLogStatement"/> <!-- @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+<!--  <rule ref="category/java/bestpractices.xml">
+    <exclude name="GuardLogStatement"/> &lt;!&ndash; @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
@@ -394,7 +386,7 @@
   <rule ref="category/java/codestyle.xml">
     <exclude name="AtLeastOneConstructor"/>
     <exclude name="ShortClassName"/>
-    <exclude name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude name="OnlyOneReturn"/> &lt;!&ndash; @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
     <exclude name="LongVariable"/>
   </rule>
   <rule ref="category/java/codestyle.xml/ShortClassName">
@@ -408,13 +400,13 @@
     </properties>
   </rule>
   <rule ref="category/java/design.xml">
-    <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="AvoidCatchingGenericException"/> <!-- @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="SignatureDeclareThrowsException"/> <!-- @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
+    <exclude name="LawOfDemeter"/>  &lt;!&ndash; @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="UseObjectForClearerAPI"/> &lt;!&ndash; @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="AvoidCatchingGenericException"/> &lt;!&ndash; @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="SignatureDeclareThrowsException"/> &lt;!&ndash; @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="ExcessiveImports"/> &lt;!&ndash; @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="LoosePackageCoupling"/> &lt;!&ndash; @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="StdCyclomaticComplexity" /> &lt;!&ndash; deprecated &ndash;&gt;
     <exclude name="UseUtilityClass" />
     <exclude name="ImmutableField" />
   </rule>
@@ -456,12 +448,12 @@
     </properties>
   </rule>
   <rule ref="category/java/multithreading.xml">
-    <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude name="UseConcurrentHashMap"/> &lt;!&ndash; @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
   </rule>
   <rule ref="category/java/performance.xml"/>
   <rule ref="category/java/security.xml"/>
   <rule ref="category/java/errorprone.xml">
-    <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-  </rule>
+    <exclude name="AvoidDuplicateLiterals"/> &lt;!&ndash; @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+    <exclude name="MissingSerialVersionUID"/> &lt;!&ndash; @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+  </rule>-->
 </ruleset>
