@@ -27,15 +27,15 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
- * Test case for {@code UseConstantForMetricAnnotation} rule.
+ * Test case for {@link UseConstantAsMetricName} rule.
  *
  * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class UseConstantAsMetricNameTest extends SimpleAggregatorTst {
 
-    /*@Override
+    @Override
     public void setUp() {
         addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseConstantAsMetricName");
     }
-*/}
+}

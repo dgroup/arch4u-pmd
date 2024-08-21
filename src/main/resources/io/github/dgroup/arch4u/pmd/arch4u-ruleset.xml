@@ -158,7 +158,7 @@
     <priority>3</priority>
     <properties>
       <property name="restAnnotations"
-                description="List of the REST endpoint method annotations"
+                description="List of the REST endpoint method annotations. Use a comma (,) as a delimiter."
                 value="org.springframework.web.bind.annotation.GetMapping,
                 org.springframework.web.bind.annotation.DeleteMapping,
                 org.springframework.web.bind.annotation.PatchMapping,
@@ -166,7 +166,7 @@
                 org.springframework.web.bind.annotation.PutMapping,
                 org.springframework.web.bind.annotation.RequestMapping"/>
       <property name="mandatoryAnnotations"
-                description="List of the mandatory metric method annotations"
+                description="List of the mandatory metric method annotations. Use a comma (,) as a delimiter."
                 value="io.micrometer.core.annotation.Timed"/>
     </properties>
     <example>
@@ -191,35 +191,22 @@
       }
       ]]>
     </example>
-  </rule><!--
+  </rule>
 
   <rule name="UseConstantAsMetricName"
         since="0.1.0"
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/75"
         message="Use constant for metric name instead of hardcoded string literals: https://github.com/dgroup/arch4u-pmd/discussions/75"
-        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
+        class="io.github.dgroup.arch4u.pmd.UseConstantAsMetricName">
     <description>
       The monitoring metric name should be provided into annotation @Timed by constant, not a hardcoded string.
     </description>
     <priority>3</priority>
     <properties>
-      <property name="metricAnnotations" type="List[String]" delimiter="|"
-                description="List of the metric annotations"
+      <property name="metricAnnotations"
+                description="List of the metric annotations. Use a comma (,) as a delimiter."
                 value="io.micrometer.core.annotation.Timed"/>
-      <property name="version" value="2.0"/>
-      <property name="xpath">
-        <value>
-          <![CDATA[
-          //Annotation[some $annotation in $metricAnnotations satisfies pmd-java:typeIsExactly($annotation)]
-          [
-          SingleMemberAnnotation/MemberValue/PrimaryExpression/PrimaryPrefix/Literal
-          or
-          NormalAnnotation/MemberValuePairs/MemberValuePair[@Image='value']/MemberValue/PrimaryExpression/PrimaryPrefix/Literal
-          ]
-          ]]>
-        </value>
-      </property>
     </properties>
     <example>
       <![CDATA[
@@ -240,7 +227,7 @@
       }
       ]]>
     </example>
-  </rule> -->
+  </rule>
 
 
   <!-- Rules related to error handling --> <!--
