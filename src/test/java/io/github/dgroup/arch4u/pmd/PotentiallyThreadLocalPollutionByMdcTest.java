@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -34,11 +34,11 @@ import net.sourceforge.pmd.test.SimpleAggregatorTst;
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class PotentiallyThreadLocalPollutionByMdcTest extends SimpleAggregatorTst {
 
-/*    @Override
+    @Override
     public void setUp() {
         addRule(
             "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
             "PotentiallyThreadLocalPollutionByMdc"
         );
-    }*/
+    }
 }

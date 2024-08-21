@@ -10,12 +10,12 @@
   <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
   <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
 
-  <!-- Rules related to logging --> <!--
+  <!-- Rules related to logging -->
   <rule name="PotentiallyThreadLocalPollutionByMdc"
         since="0.1.0"
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/88"
-        message="Potentially thread local pollution by MDC: https://github.com/dgroup/arch4u-pmd/discussions/88"
+        message="MDC key {0} was added but not removed. Potentially thread local pollution by MDC."
         class="io.github.dgroup.arch4u.pmd.PotentiallyThreadLocalPollutionByMdc">
     <description>
       The MDC usage requires a deep understanding of how it works and gives additional side effects that might not be transparent for regular java developers.
@@ -23,7 +23,14 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="mdcClasses" value="org.slf4j.MDC"/>
+      <property name="mdcClasses" value="org.slf4j.MDC"
+                description="Full name of the MDC classes. Use a comma (,) as a delimiter."/>
+      <property name="putMethods" value="put"
+                description="Names of methods that add entries to the MDC. Use a comma (,) as a delimiter."/>
+      <property name="removeMethods" value="remove"
+                description="Names of methods that remove the MDC entries by key. Use a comma (,) as a delimiter."/>
+      <property name="clearMethods" value="clean"
+                description="Names of methods that clear the MDC. Use a comma (,) as a delimiter."/>
     </properties>
     <example>
       <![CDATA[
@@ -43,7 +50,7 @@
       ]]>
     </example>
   </rule>
--->
+
   <rule name="AvoidMdcOutsideTryStatement"
         since="0.1.0"
         language="java"
