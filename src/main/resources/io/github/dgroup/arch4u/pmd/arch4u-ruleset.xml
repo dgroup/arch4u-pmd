@@ -94,13 +94,13 @@
 
 
 
-  <!-- Rules related to JSON processing --> <!--
+  <!-- Rules related to JSON processing -->
   <rule name="AvoidUsingObjectMapperAsALocalVariable"
         since="0.1.0"
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/30"
         message="ObjectMapper is better to have as a field rather than a local variable: https://github.com/dgroup/arch4u-pmd/discussions/30"
-        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
+        class="io.github.dgroup.arch4u.pmd.AvoidUsingObjectMapperAsALocalVariable">
     <description>
       ObjectMapper is better to have as a field rather than a local variable due to performance reasons.
       It is allowed to be declared in fields, constructors, and initialization blocks.
@@ -108,34 +108,15 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="annotations" type="List[String]" delimiter="|"
-                description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field"
-                value="javax.annotation.PostConstruct|org.springframework.context.annotation.Bean"/>
-      <property name="version" value="2.0"/>
-      <property name="xpath">
-        <value>
-          <![CDATA[
-          //
-          (
-          Type/ReferenceType (: variable declaration :)
-          |
-          AllocationExpression (: constr invocation :)
-          )
-          /ClassOrInterfaceType
-          [pmd-java:typeIs('com.fasterxml.jackson.databind.ObjectMapper')]
-          [not(
-          ancestor::FieldDeclaration (: skip fields :)
-          or ancestor::Initializer   (: skip init blocks :)
-          or ancestor::ConstructorDeclaration (: skip constructor blocks :)
-          or ancestor::MethodDeclaration    (: skip methods with specified annotations :)
-            [preceding-sibling::Annotation
-              [some $annotation in $annotations satisfies pmd-java:typeIs($annotation)]
-            ]
-          )]
-          /.. (: violation points to the parent node :)
-          ]]>
-        </value>
-      </property>
+      <property name="objectMapperClasses"
+                description="Full names of the ObjectMapper classes. Use a comma (,) as a delimiter."
+                value="com.fasterxml.jackson.databind.ObjectMapper"/>
+      <property name="annotations"
+                description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field.
+                Use a comma (,) as a delimiter."
+                value="javax.annotation.PostConstruct,org.springframework.context.annotation.Bean"/>
+      <property name="checkSubtypes" value="true"
+                description="The property matches whether the ObjectMapper subtypes should be checked"/>
     </properties>
     <example>
       <![CDATA[
@@ -160,7 +141,7 @@
       ]]>
     </example>
   </rule>
--->
+
 
 
   <!-- Rules related to application monitoring --> <!--
