@@ -144,7 +144,7 @@
 
 
 
-  <!-- Rules related to application monitoring --> <!--
+  <!-- Rules related to application monitoring -->
   <rule name="RestEndpointsWithoutExposedMetrics"
         since="0.1.0"
         language="java"
@@ -157,15 +157,15 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="restAnnotations" type="List[String]" delimiter="|"
+      <property name="restAnnotations"
                 description="List of the REST endpoint method annotations"
-                value="org.springframework.web.bind.annotation.GetMapping
-|org.springframework.web.bind.annotation.DeleteMapping
-|org.springframework.web.bind.annotation.PatchMapping
-|org.springframework.web.bind.annotation.PostMapping
-|org.springframework.web.bind.annotation.PutMapping
-|org.springframework.web.bind.annotation.RequestMapping"/>
-      <property name="mandatoryAnnotations" type="List[String]" delimiter="|"
+                value="org.springframework.web.bind.annotation.GetMapping,
+                org.springframework.web.bind.annotation.DeleteMapping,
+                org.springframework.web.bind.annotation.PatchMapping,
+                org.springframework.web.bind.annotation.PostMapping,
+                org.springframework.web.bind.annotation.PutMapping,
+                org.springframework.web.bind.annotation.RequestMapping"/>
+      <property name="mandatoryAnnotations"
                 description="List of the mandatory metric method annotations"
                 value="io.micrometer.core.annotation.Timed"/>
     </properties>
@@ -191,7 +191,7 @@
       }
       ]]>
     </example>
-  </rule>
+  </rule><!--
 
   <rule name="UseConstantAsMetricName"
         since="0.1.0"
