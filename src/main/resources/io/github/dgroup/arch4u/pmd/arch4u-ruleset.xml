@@ -1,99 +1,8 @@
-<?xml version="1.0"?>
-<ruleset name="arch4u"
-         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+<ruleset name="Custom Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/3.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/3.0.0 https://pmd.sourceforge.io/ruleset_3_0_0.xsd">
   <description>All arch4u rules</description>
-
-  <!-- Exclude target folder that may contain generated sources -->
-  <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
-  <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
-
-  <!-- Rules related to logging -->
-  <rule name="PotentiallyThreadLocalPollutionByMdc"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/88"
-        message="Potentially thread local pollution by MDC: https://github.com/dgroup/arch4u-pmd/discussions/88"
-        class="io.github.dgroup.arch4u.pmd.PotentiallyThreadLocalPollutionByMdc">
-    <description>
-      The MDC usage requires a deep understanding of how it works and gives additional side effects that might not be transparent for regular java developers.
-      See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/88
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="mdcClasses" value="org.slf4j.MDC"/>
-    </properties>
-    <example>
-      <![CDATA[
-      import org.slf4j.MDC;
-
-      public class Foo {
-          public void bar() {
-              MDC.put(XXX, value);
-              MDC.put("customer", order.getCustomerId());
-
-              // ... business logic
-
-              MDC.remove(XXX);
-              MDC.remove("customer");
-          }
-      }
-      ]]>
-    </example>
-  </rule>
-
-  <rule name="AvoidMdcOutsideTryStatement"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/86"
-        message="MDC API should always be used within the try/finally statement: https://github.com/dgroup/arch4u-pmd/discussions/86"
-        class="net.sourceforge.pmd.lang.rule.XPathRule">
-    <description>
-      MDC API should always be used within the try/finally statement.
-      See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/86
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="mdcClasses" type="List[String]" delimiter="|"
-                description="Full name of the MDC classes"
-                value="org.slf4j.MDC"/>
-      <property name="version" value="2.0"/>
-      <property name="xpath">
-        <value>
-          <![CDATA[
-          //PrimaryPrefix
-          [some $class in $mdcClasses satisfies pmd-java:typeIsExactly($class)]
-          [
-          ./*[ends-with(@Image,'.put') and not(ancestor::TryStatement)]
-          or
-          ./*[(ends-with(@Image,'.remove') or ends-with(@Image,'.clear')) and not(ancestor::FinallyStatement)]
-          ]
-          ]]>
-        </value>
-      </property>
-    </properties>
-    <example>
-      <![CDATA[
-      import org.slf4j.MDC;
-
-      public class Foo {
-          public void bar() {
-              try {
-                  MDC.put(request, "someValue");
-                  // ... business logic
-              } finally {
-                  MDC.remove(request);
-                  // or MDC.clear();
-              }
-          }
-      }
-      ]]>
-    </example>
-  </rule>
-
-
 
   <!-- Rules related to JSON processing -->
   <rule name="AvoidUsingObjectMapperAsALocalVariable"
@@ -101,133 +10,60 @@
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/30"
         message="ObjectMapper is better to have as a field rather than a local variable: https://github.com/dgroup/arch4u-pmd/discussions/30"
-        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
+
     <description>
       ObjectMapper is better to have as a field rather than a local variable due to performance reasons.
       It is allowed to be declared in fields, constructors, and initialization blocks.
       Read more: https://github.com/dgroup/arch4u-pmd/discussions/30
     </description>
+
     <priority>3</priority>
+
     <properties>
-      <property name="annotations" type="List[String]" delimiter="|"
+      <property name="annotations" type="List[String]"
                 description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field"
                 value="javax.annotation.PostConstruct|org.springframework.context.annotation.Bean"/>
-      <property name="version" value="2.0"/>
+
       <property name="xpath">
         <value>
           <![CDATA[
-          //
-          (
-          Type/ReferenceType (: variable declaration :)
-          |
-          AllocationExpression (: constr invocation :)
-          )
-          /ClassOrInterfaceType
-          [pmd-java:typeIs('com.fasterxml.jackson.databind.ObjectMapper')]
-          [not(
-          ancestor::FieldDeclaration (: skip fields :)
-          or ancestor::Initializer   (: skip init blocks :)
-          or ancestor::ConstructorDeclaration (: skip constructor blocks :)
-          or ancestor::MethodDeclaration    (: skip methods with specified annotations :)
-            [preceding-sibling::Annotation
-              [some $annotation in $annotations satisfies pmd-java:typeIs($annotation)]
-            ]
-          )]
-          /.. (: violation points to the parent node :)
-          ]]>
+                //
+                (Type/ReferenceType | AllocationExpression)/ClassType
+                [pmd-java:typeIs('com.fasterxml.jackson.databind.ObjectMapper')]
+                [not(
+                    ancestor::FieldDeclaration
+                    or ancestor::Initializer
+                    or ancestor::ConstructorDeclaration
+                    or ancestor::MethodDeclaration
+                    [preceding-sibling::Annotation
+                        [some $annotation in $annotations satisfies pmd-java:typeIs($annotation)]
+                    ]
+                )]
+                /..
+                ]]>
         </value>
       </property>
     </properties>
-    <example>
-      <![CDATA[
-      import com.fasterxml.jackson.databind.ObjectMapper;
-      class Foo {
-          ObjectMapper objectMapper = new ObjectMapper(); //ok
 
-          {
-              objectMapper = new ObjectMapper();  //ok
-          }
-
-          Foo (ObjectMapper om) {                 //ok
-              objectMapper = new ObjectMapper();  //ok
-          }
-
-          void bar(ObjectMapper om) {                                  //violation
-              ObjectMapper mapper = om;                                //violation
-              mapper = new ObjectMapper();                             //violation
-              String str = new ObjectMapper().writeValueAsString(obj); //violation
-          }
-      }
-      ]]>
-    </example>
   </rule>
-
 
 
   <!-- Rules related to application monitoring -->
-  <rule name="RestEndpointsWithoutExposedMetrics"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/74"
-        message="REST api endpoint(s) should expose metrics for application monitoring: https://github.com/dgroup/arch4u-pmd/discussions/74"
-        class="io.github.dgroup.arch4u.pmd.MissingMandatoryAnnotation">
-    <description>
-      Each REST endpoint should expose metrics for application monitoring
-      The default expected framework is https://micrometer.io.
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="restAnnotations" type="List[String]" delimiter="|"
-                description="List of the REST endpoint method annotations"
-                value="org.springframework.web.bind.annotation.GetMapping
-|org.springframework.web.bind.annotation.DeleteMapping
-|org.springframework.web.bind.annotation.PatchMapping
-|org.springframework.web.bind.annotation.PostMapping
-|org.springframework.web.bind.annotation.PutMapping
-|org.springframework.web.bind.annotation.RequestMapping"/>
-      <property name="mandatoryAnnotations" type="List[String]" delimiter="|"
-                description="List of the mandatory metric method annotations"
-                value="io.micrometer.core.annotation.Timed"/>
-    </properties>
-    <example>
-      <![CDATA[
-      import org.springframework.web.bind.annotation.RestController;
-      import org.springframework.web.bind.annotation.GetMapping;
-      import io.micrometer.core.annotation.Timed;
-
-      @RestController
-      public class MyTypicalRestController {
-
-         @GetMapping("/foo")    //violation
-         public Foo getFoo() {
-            //...
-         }
-
-         @Timed
-         @GetMapping("/bar")
-         public Foo getBar() {
-            //...
-         }
-      }
-      ]]>
-    </example>
-  </rule>
-
   <rule name="UseConstantAsMetricName"
         since="0.1.0"
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/75"
         message="Use constant for metric name instead of hardcoded string literals: https://github.com/dgroup/arch4u-pmd/discussions/75"
-        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
     <description>
       The monitoring metric name should be provided into annotation @Timed by constant, not a hardcoded string.
     </description>
     <priority>3</priority>
     <properties>
-      <property name="metricAnnotations" type="List[String]" delimiter="|"
+      <property name="metricAnnotations" type="List[String]"
                 description="List of the metric annotations"
                 value="io.micrometer.core.annotation.Timed"/>
-      <property name="version" value="2.0"/>
       <property name="xpath">
         <value>
           <![CDATA[
@@ -241,27 +77,7 @@
         </value>
       </property>
     </properties>
-    <example>
-      <![CDATA[
-      import io.micrometer.core.annotation.Timed;
-
-      @RestController
-      public class MyController {
-
-         @Timed(Metrics.ORDER_PROCESSING_DURATION)   // ok
-         public X process(Order order) {
-            ...
-         }
-
-        @Timed("order_processing_duration")         // violation
-        public X process(Order order) {
-           ...
-         }
-      }
-      ]]>
-    </example>
   </rule>
-
 
   <!-- Rules related to error handling -->
   <rule name="NoMandatoryConstructorInExceptionClass"
@@ -269,121 +85,47 @@
         language="java"
         externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/31"
         message="Exception class must have at least one constructor with signature `public Ctor(Throwable, String, Object...)` or `public Ctor(String, Object...)`: https://github.com/dgroup/arch4u-pmd/discussions/31"
-        class="net.sourceforge.pmd.lang.rule.XPathRule">
+        class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
     <description>
       Exception class must have at least one constructor with signature
       `public Ctor(Throwable, String, Object...)` or `public Ctor(String, Object...)`.
-      Read more: https://github.com/dgroup/arch4u-pmd/discussions/31
     </description>
     <priority>3</priority>
     <properties>
-      <property name="version" value="2.0"/>
       <property name="xpath">
         <value>
           <![CDATA[
           //ClassOrInterfaceDeclaration
-          [pmd-java:typeIs('java.lang.Exception')] (: extends Exception class :)
+          [pmd-java:typeIs('java.lang.Exception')]
           [not(
           ./ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/ConstructorDeclaration[@Public=true()]
           /FormalParameters[
-              (: Ctor(Throwable, String, Object...) :)
-              (./FormalParameter[1]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Throwable')]
+              (./FormalParameter[1]/Type/ReferenceType/ClassType[pmd-java:typeIsExactly('java.lang.Throwable')]
               and
-              ./FormalParameter[2]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIs('java.lang.String')]
+              ./FormalParameter[2]/Type/ReferenceType/ClassType[pmd-java:typeIs('java.lang.String')]
               and
-              ./FormalParameter[3][@Varargs=true()]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Object')])
+              ./FormalParameter[3][@Varargs=true()]/Type/ReferenceType/ClassType[pmd-java:typeIsExactly('java.lang.Object')])
               or
-              (: Ctor(String, Object...) :)
-              (./FormalParameter[1]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIs('java.lang.String')]
+              (./FormalParameter[1]/Type/ReferenceType/ClassType[pmd-java:typeIs('java.lang.String')]
               and
-              ./FormalParameter[2][@Varargs=true()]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Object')])]
+              ./FormalParameter[2][@Varargs=true()]/Type/ReferenceType/ClassType[pmd-java:typeIsExactly('java.lang.Object')])]
           )]
           ]]>
         </value>
       </property>
     </properties>
-    <example>
-      <![CDATA[
-          class MyException extends Exception {
-              public MyException(String pattern, Object... args) {}
-
-              public MyException(Throwable cause, String pattern, Object... args) {}
-          }
-          ]]>
-    </example>
   </rule>
-
-  <!-- Rules related to rest api -->
-  <rule name="UseExistingMediaTypeConstant"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/43"
-        message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
-        class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
-    <description>
-      Avoid using hardcoded String constants.
-      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/43
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="regexPattern" description="Regular expression of prohibited string"
-                value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
-    </properties>
-    <example>
-      <![CDATA[
-      class Foo {
-          String type = "application/json";
-      }
-      ]]>
-    </example>
-  </rule>
-
-  <rule name="UseOpenApiInRestEndpoints"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/73"
-        message="Public method(s) in REST endpoint(s) should have @Override annotation: https://github.com/dgroup/arch4u-pmd/discussions/73"
-        class="io.github.dgroup.arch4u.pmd.WrongRestMethodSignature">
-    <description>
-      Each REST endpoint method should be public and has @Override annotation
-      See discussion about implementation tips/tricks on Github: https://github.com/dgroup/arch4u-pmd/discussions/TBD
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="restAnnotations" type="List[String]" delimiter="|"
-                description="List of the REST endpoint method annotations"
-                value="org.springframework.web.bind.annotation.GetMapping
-|org.springframework.web.bind.annotation.DeleteMapping
-|org.springframework.web.bind.annotation.PatchMapping
-|org.springframework.web.bind.annotation.PostMapping
-|org.springframework.web.bind.annotation.PutMapping
-|org.springframework.web.bind.annotation.RequestMapping"/>
-    </properties>
-    <example>
-      <![CDATA[
-      import org.springframework.web.bind.annotation.RestController;
-      import org.springframework.web.bind.annotation.GetMapping;
-
-      @RestController
-      public class MyTypicalRestController implements TypicalRestApiGeneratedByOpenApi {
-         @Override
-         public String get() {
-            return null;
-         }
-      }
-      ]]>
-    </example>
-  </rule>
-
 
   <!-- Third-party rules -->
   <rule ref="category/java/bestpractices.xml">
-    <exclude name="GuardLogStatement"/> <!-- @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="GuardLogStatement"/> <!-- @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
     <properties>
-      <property name="ignoredAnnotations" value="javax.annotation.PostConstruct"/>
+      <property name="violationSuppressXPath"
+                value="//ClassOrInterfaceDeclaration//Annotation/ClassType[@SimpleName='PostConstruct']"/>
     </properties>
   </rule>
   <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage">
@@ -394,29 +136,35 @@
   <rule ref="category/java/codestyle.xml">
     <exclude name="AtLeastOneConstructor"/>
     <exclude name="ShortClassName"/>
-    <exclude name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
     <exclude name="LongVariable"/>
   </rule>
   <rule ref="category/java/codestyle.xml/ShortClassName">
     <properties>
-      <property name="minimum" value="3" />
+      <property name="minimum" value="3"/>
     </properties>
   </rule>
   <rule ref="category/java/codestyle.xml/LongVariable">
     <properties>
-      <property name="minimum" value="25" />
+      <property name="minimum" value="25"/>
     </properties>
   </rule>
   <rule ref="category/java/design.xml">
-    <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="AvoidCatchingGenericException"/> <!-- @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="SignatureDeclareThrowsException"/> <!-- @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
-    <exclude name="UseUtilityClass" />
-    <exclude name="ImmutableField" />
+    <exclude
+            name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="AvoidCatchingGenericException"/> <!-- @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="SignatureDeclareThrowsException"/> <!-- @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude name="UseUtilityClass"/>
+    <exclude name="ImmutableField"/>
   </rule>
   <rule ref="category/java/design.xml/CouplingBetweenObjects">
     <properties>
@@ -435,13 +183,14 @@
   </rule>
   <rule ref="category/java/design.xml/UseUtilityClass">
     <properties>
-      <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass|org.springframework.boot.autoconfigure.SpringBootApplication" />
+      <property name="violationSuppressXPath"
+                value="//ClassDeclaration/ModifierList/Annotation[@SimpleName='SpringBootApplication']"/>
     </properties>
   </rule>
   <rule ref="category/java/design.xml/ImmutableField">
     <properties>
-      <property name="ignoredAnnotations"
-                value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject|org.apache.camel.EndpointInject" />
+      <property name="violationSuppressXPath"
+                value="//ClassDeclaration/ModifierList/Annotation[@SimpleName='Entity' or @SimpleName='MappedSuperclass']"/>
     </properties>
   </rule>
   <rule ref="category/java/documentation.xml">
@@ -456,12 +205,15 @@
     </properties>
   </rule>
   <rule ref="category/java/multithreading.xml">
-    <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
   <rule ref="category/java/performance.xml"/>
   <rule ref="category/java/security.xml"/>
   <rule ref="category/java/errorprone.xml">
-    <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
-    <exclude name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    <exclude
+            name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
   </rule>
 </ruleset>

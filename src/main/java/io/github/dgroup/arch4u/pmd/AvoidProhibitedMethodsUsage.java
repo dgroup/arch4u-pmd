@@ -25,10 +25,10 @@
 package io.github.dgroup.arch4u.pmd;
 
 import java.util.List;
+
 import net.sourceforge.pmd.lang.java.ast.ASTType;
-import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
+import net.sourceforge.pmd.lang.java.ast.ASTVariableId;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.java.rule.AbstractPoorMethodCall;
 import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.lang.symboltable.NameOccurrence;
@@ -85,7 +85,7 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
     }
 
     @Override
-    public Object visit(final ASTVariableDeclaratorId node, final Object data) {
+    public Object visit(final ASTVariableId node, final Object data) {
         if (this.hasNotedClass(node)) {
             for (final NameOccurrence usage : node.getUsages()) {
                 final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;
@@ -106,7 +106,7 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
      * @param node Variable declarator node.
      * @return True if the node class is specified.
      */
-    private boolean hasNotedClass(final ASTVariableDeclaratorId node) {
+    private boolean hasNotedClass(final ASTVariableId node) {
         final boolean noted;
         final String typename = this.getProperty(CLASS);
         final ASTType typenode = node.getTypeNode();

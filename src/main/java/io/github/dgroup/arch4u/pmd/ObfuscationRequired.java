@@ -27,6 +27,7 @@ package io.github.dgroup.arch4u.pmd;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import net.sourceforge.pmd.lang.ast.AbstractNode;
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTArgumentList;
@@ -37,11 +38,11 @@ import net.sourceforge.pmd.lang.java.ast.ASTPrimaryExpression;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimarySuffix;
 import net.sourceforge.pmd.lang.java.ast.ASTType;
-import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
+import net.sourceforge.pmd.lang.java.ast.ASTVariableId;
 import net.sourceforge.pmd.lang.java.ast.TypeNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
+import net.sourceforge.pmd.lang.java.rule.xpath.internal.TypeIsFunction;
 import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
-import net.sourceforge.pmd.lang.java.xpath.TypeIsFunction;
 import net.sourceforge.pmd.lang.symboltable.NameOccurrence;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
@@ -99,7 +100,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
     }
 
     @Override
-    public Object visit(final ASTVariableDeclaratorId vardecl, final Object data) {
+    public Object visit(final ASTVariableId vardecl, final Object data) {
         if (this.isLogger(vardecl.getTypeNode())) {
             for (final NameOccurrence usage : vardecl.getUsages()) {
                 final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;

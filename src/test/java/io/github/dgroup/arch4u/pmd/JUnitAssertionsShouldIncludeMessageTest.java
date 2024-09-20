@@ -24,7 +24,7 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
  * Test case for {@code JUnitAssertionsShouldIncludeMessage} rule.

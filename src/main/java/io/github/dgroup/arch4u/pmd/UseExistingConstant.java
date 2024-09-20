@@ -25,11 +25,12 @@
 package io.github.dgroup.arch4u.pmd;
 
 import java.util.regex.Pattern;
-import net.sourceforge.pmd.RuleContext;
+
 import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
+import net.sourceforge.pmd.reporting.RuleContext;
 import org.apache.commons.lang3.StringUtils;
 
 /**
