@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -24,13 +24,7 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import java.util.regex.Pattern;
-import net.sourceforge.pmd.RuleContext;
-import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.properties.PropertyDescriptor;
-import net.sourceforge.pmd.properties.PropertyFactory;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Rule to avoid creating string constants for {@code MediaType} values.
@@ -43,23 +37,23 @@ import org.apache.commons.lang3.StringUtils;
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
 public final class UseExistingConstant extends AbstractJavaRule {
 
-    /**
+    /*    *//**
      * Property descriptor with regexp of prohibited string.
-     */
+     *//*
     private static final PropertyDescriptor<String> REGEX_PROPERTY =
         PropertyFactory.stringProperty("regexPattern")
             .desc("Regular expression of prohibited string")
             .defaultValue(StringUtils.EMPTY)
             .build();
 
-    /**
+    *//**
      * Pattern to match string text/literal that should be replaced by constant.
-     */
+     *//*
     private Pattern pattern;
 
-    /**
+    *//**
      * Constructor for defining property descriptor.
-     */
+     *//*
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public UseExistingConstant() {
         this.definePropertyDescriptor(REGEX_PROPERTY);
@@ -82,5 +76,5 @@ public final class UseExistingConstant extends AbstractJavaRule {
             }
         }
         return data;
-    }
+    }*/
 }

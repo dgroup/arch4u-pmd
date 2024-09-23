@@ -2,7 +2,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~ Copyright (c) 2019-2024 Yurii Dubinka
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"),
@@ -24,15 +24,15 @@
   -->
 
 <test-data
-    xmlns="http://pmd.sourceforge.net/rule-tests"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-  <test-code>
-    <description>[BAD]: metric annotations use string literals for `value`</description>
-    <expected-problems>2</expected-problems>
-    <expected-linenumbers>5,9</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: metric annotations use string literals for `value`</description>
+        <expected-problems>2</expected-problems>
+        <expected-linenumbers>5,9</expected-linenumbers>
+        <code><![CDATA[
 import io.micrometer.core.annotation.Timed;
 
 public class Foo {
@@ -46,12 +46,12 @@ public class Foo {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[OK]: metric annotations use string variable</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[OK]: metric annotations use string variable</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import io.micrometer.core.annotation.Timed;
 
 public class Foo {
@@ -67,6 +67,40 @@ public class Foo {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
+
+    <test-code>
+        <description>[OK]: default annotation value</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import io.micrometer.core.annotation.Timed;
+
+public class Foo {
+   @Timed
+   public void bar() {
+   }
+
+   @Timed()
+   public void foo() {
+   }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>[OK]: the annotation has several params</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import io.micrometer.core.annotation.Timed;
+
+public class Foo {
+   String METRIC = "value";
+
+   @Timed(histogram=false, longTask=true, value=METRIC)
+   public void foo() {
+   }
+}
+        ]]></code>
+    </test-code>
 
 </test-data>

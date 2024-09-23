@@ -2,7 +2,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~ Copyright (c) 2019-2024 Yurii Dubinka
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"),
@@ -24,14 +24,14 @@
   -->
 
 <test-data
-    xmlns="http://pmd.sourceforge.net/rule-tests"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-  <test-code>
-    <description>[GOOD]: method has no annotations</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: method has no annotations</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 package my.company;
 
 public class Foo {
@@ -39,12 +39,12 @@ public class Foo {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: method has no mandatory annotations</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: method has no mandatory annotations</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 package my.company;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -60,12 +60,12 @@ public class MyTypicalRestController {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: method has mandatory annotations</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: method has mandatory annotations</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 package my.company;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -83,13 +83,13 @@ public class MyTypicalRestController {
 
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: method hasn't @Timed however it has @GetMapping</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>10</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: method hasn't @Timed however it has @GetMapping</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>10</expected-linenumbers>
+        <code><![CDATA[
 package my.company;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -105,6 +105,6 @@ public class MyTypicalRestController {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
 </test-data>

@@ -2,7 +2,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~ Copyright (c) 2019-2024 Yurii Dubinka
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"),
@@ -24,55 +24,55 @@
   -->
 
 <test-data
-    xmlns="http://pmd.sourceforge.net/rule-tests"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-  <test-code>
-    <description>[OK]: Literal node is not a String type</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[OK]: Literal node is not a String type</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 class Foo {
     int bar = 1;
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[OK]: Literal image length is 0</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[OK]: Literal image length is 0</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 class Foo {
     String bar = "";
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[OK]: String literal image does not match the regexp</description>
-    <rule-property name="regexPattern">^text$</rule-property>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[OK]: String literal image does not match the regexp</description>
+        <rule-property name="regexPattern">^text$</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 class Foo {
     String bar = "text/html";
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: prohibited string constant is created </description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: prohibited string constant is created</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 class Foo {
     String str = "application/json";
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: prohibited strings are created 2 times</description>
-    <expected-problems>2</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: prohibited strings are created 2 times</description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
 class Foo {
     String str = "application/json";
     String method() {
@@ -80,13 +80,13 @@ class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: test all prohibited strings</description>
-    <expected-problems>11</expected-problems>
-    <expected-linenumbers>3,4,5,6,7,8,9,10,11,12,13</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: test all prohibited strings</description>
+        <expected-problems>11</expected-problems>
+        <expected-linenumbers>3,4,5,6,7,8,9,10,11,12,13</expected-linenumbers>
+        <code><![CDATA[
 class Foo {
     String method(String s) {
         s = "application/json";
@@ -104,6 +104,6 @@ class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
 </test-data>

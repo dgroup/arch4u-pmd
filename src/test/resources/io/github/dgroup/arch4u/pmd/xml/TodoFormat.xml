@@ -2,7 +2,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~ Copyright (c) 2019-2024 Yurii Dubinka
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"),
@@ -24,14 +24,14 @@
   -->
 
 <test-data
-  xmlns="http://pmd.sourceforge.net/rule-tests"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-  <test-code>
-    <description>No todo's found at all</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>No todo's found at all</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 public class User {
 
   /**
@@ -56,12 +56,12 @@ public class User {
   }
 }
 ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>Multiple todos have proper format and aren't causing the violations</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>Multiple todos have proper format and aren't causing the violations</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
     package org.arch;
 
     /**
@@ -153,16 +153,18 @@ public class User {
        }
     }
             ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>Invalid character before TODO causing violation</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>10</expected-linenumbers>
-    <expected-messages>
-      <message>The TODO subject " - TODO Wrong subject" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
-    </expected-messages>
-    <code><![CDATA[
+    <test-code>
+        <description>Invalid character before TODO causing violation</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>10</expected-linenumbers>
+        <expected-messages>
+            <message>The TODO subject " - TODO Wrong subject" should start from TODO, non-blank and less or equal 255:
+                https://github.com/dgroup/arch4u-pmd/discussions/137
+            </message>
+        </expected-messages>
+        <code><![CDATA[
 public class User {
    private final String name;
    public User() {
@@ -194,16 +196,18 @@ public class User {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>Empty TODO causing violation</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>10</expected-linenumbers>
-    <expected-messages>
-      <message>The TODO subject " - TODO" should start from TODO, non-blank and less or equal 255: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
-    </expected-messages>
-    <code><![CDATA[
+    <test-code>
+        <description>Empty TODO causing violation</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>10</expected-linenumbers>
+        <expected-messages>
+            <message>The TODO subject " - TODO" should start from TODO, non-blank and less or equal 255:
+                https://github.com/dgroup/arch4u-pmd/discussions/137
+            </message>
+        </expected-messages>
+        <code><![CDATA[
 public class User {
    private final String name;
    public User() {
@@ -226,17 +230,19 @@ public class User {
    }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>Subject in TODO is bigger than allowed 5 symbols</description>
-    <rule-property name="maxSubjectSymbols">5</rule-property>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>2</expected-linenumbers>
-    <expected-messages>
-      <message>The TODO subject " TODO Subject is too big and more than 5 symbols allowed" should start from TODO, non-blank and less or equal 5: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
-    </expected-messages>
-    <code><![CDATA[
+    <test-code>
+        <description>Subject in TODO is bigger than allowed 5 symbols</description>
+        <rule-property name="maxSubjectSymbols">5</rule-property>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>2</expected-linenumbers>
+        <expected-messages>
+            <message>The TODO subject " TODO Subject is too big and more than 5 symbols allowed" should start from TODO,
+                non-blank and less or equal 5: https://github.com/dgroup/arch4u-pmd/discussions/137
+            </message>
+        </expected-messages>
+        <code><![CDATA[
     /**
      * TODO Subject is too big and more than 5 symbols allowed
      *  1st line in the description.
@@ -248,13 +254,13 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>The TODO description lines have wrong indentation</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>3</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>The TODO description lines have wrong indentation</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>3</expected-linenumbers>
+        <code><![CDATA[
     /**
      * TODO Subject with several symbols.
      *  1st line in the description.
@@ -266,17 +272,19 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>The TODO description has less than expected words</description>
-    <rule-property name="minWords">5</rule-property>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>3</expected-linenumbers>
-    <expected-messages>
-      <message>The TODO description "[  1st line,   2nd line]" should be aligned and has at least 5 or more words: https://github.com/dgroup/arch4u-pmd/discussions/137</message>
-    </expected-messages>
-    <code><![CDATA[
+    <test-code>
+        <description>The TODO description has less than expected words</description>
+        <rule-property name="minWords">5</rule-property>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>3</expected-linenumbers>
+        <expected-messages>
+            <message>The TODO description "[ 1st line, 2nd line]" should be aligned and has at least 5 or more words:
+                https://github.com/dgroup/arch4u-pmd/discussions/137
+            </message>
+        </expected-messages>
+        <code><![CDATA[
     /**
      * TODO with 4 words in description divided in 2 lines
      *  1st line
@@ -287,13 +295,13 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>The TODO labels have wrong indentation</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>7</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>The TODO labels have wrong indentation</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>7</expected-linenumbers>
+        <code><![CDATA[
     /**
      * TODO Subject with several symbols.
      *  1st line in the description.
@@ -305,14 +313,14 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>The TODO labels are missing, but expected</description>
-    <rule-property name="labels">true</rule-property>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>2</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>The TODO labels are missing, but expected</description>
+        <rule-property name="labels">true</rule-property>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>2</expected-linenumbers>
+        <code><![CDATA[
     /**
      * TODO Subject with several symbols.
      *  1st line in the description.
@@ -323,13 +331,13 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>The TODO milestone has wrong indentation</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>8</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>The TODO milestone has wrong indentation</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>8</expected-linenumbers>
+        <code><![CDATA[
     /**
      * TODO Subject with several symbols.
      *  1st line in the description.
@@ -341,14 +349,14 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>The TODO milestone is missing, but expected</description>
-    <rule-property name="milestone">true</rule-property>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>2</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>The TODO milestone is missing, but expected</description>
+        <rule-property name="milestone">true</rule-property>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>2</expected-linenumbers>
+        <code><![CDATA[
     /**
      * TODO Subject with several symbols.
      *  1st line in the description.
@@ -358,5 +366,5 @@ public class User {
      */
     public class User {}
     ]]></code>
-  </test-code>
+    </test-code>
 </test-data>
