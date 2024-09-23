@@ -24,14 +24,14 @@
   -->
 
 <test-data
-    xmlns="http://pmd.sourceforge.net/rule-tests"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_2_0_0.xsd">
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_2_0_0.xsd">
 
-  <test-code>
-    <description>[GOOD]: allowed ObjectMapper usage</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: allowed ObjectMapper usage</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class Foo {
     ObjectMapper objectMapper = new ObjectMapper();   //ok
@@ -45,15 +45,15 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [GOOD]: ObjectMapper is used as a variable in the method with the allowed annotation
-    </description>
-    <rule-property name="annotations">javax.annotation.PostConstruct</rule-property>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: ObjectMapper is used as a variable in the method with the allowed annotation
+        </description>
+        <rule-property name="annotations">javax.annotation.PostConstruct</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import javax.annotation.PostConstruct;
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class Foo {
@@ -65,13 +65,13 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: prohibited ObjectMapper usage</description>
-    <expected-problems>4</expected-problems>
-    <expected-linenumbers>3, 4, 5, 6</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: prohibited ObjectMapper usage</description>
+        <expected-problems>4</expected-problems>
+        <expected-linenumbers>3, 4, 5, 6</expected-linenumbers>
+        <code><![CDATA[
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class Foo {
     public void bar(ObjectMapper om) {                           //violation
@@ -81,13 +81,13 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: prohibited JsonMapper (inherited from ObjectMapper) usage</description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>4</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: prohibited JsonMapper (inherited from ObjectMapper) usage</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>4</expected-linenumbers>
+        <code><![CDATA[
 import com.fasterxml.jackson.databind.json.JsonMapper;
 public class Foo {
     public void bar() {
@@ -95,13 +95,13 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: checkSubtypes is disabled</description>
-    <rule-property name="checkSubtypes">false</rule-property>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: checkSubtypes is disabled</description>
+        <rule-property name="checkSubtypes">false</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import com.fasterxml.jackson.databind.json.JsonMapper;
 public class Foo {
     public void bar() {
@@ -109,5 +109,5 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 </test-data>

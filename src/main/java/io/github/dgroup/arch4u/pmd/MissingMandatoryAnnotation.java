@@ -24,14 +24,15 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import net.sourceforge.pmd.lang.java.ast.ASTAnnotation;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * This rule checks if the methods with the REST endpoint annotations
@@ -82,6 +83,7 @@ public final class MissingMandatoryAnnotation extends AbstractJavaRule {
 
     /**
      * Checks if the method has no mandatory metric annotations.
+     *
      * @param mthd Method declaration node.
      * @return True if there is no mandatory metric annotations.
      */
@@ -91,6 +93,7 @@ public final class MissingMandatoryAnnotation extends AbstractJavaRule {
 
     /**
      * Finds method REST endpoint annotations. Returns the first one.
+     *
      * @param mthd Method declaration node.
      * @return Optional of the first declared REST endpoint annotation.
      */

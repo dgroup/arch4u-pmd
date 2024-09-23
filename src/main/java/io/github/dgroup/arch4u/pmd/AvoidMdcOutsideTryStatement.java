@@ -46,22 +46,22 @@ import java.util.List;
 public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
 
     private static final PropertyDescriptor<List<String>> MDC_CLASSES_DESCRIPTOR =
-            PropertyFactory.stringListProperty("mdcClasses")
-                    .desc("Full name of the MDC classes. Use a comma (,) as a delimiter.")
-                    .defaultValues("org.slf4j.MDC")
-                    .build();
+        PropertyFactory.stringListProperty("mdcClasses")
+            .desc("Full name of the MDC classes. Use a comma (,) as a delimiter.")
+            .defaultValues("org.slf4j.MDC")
+            .build();
 
     private static final PropertyDescriptor<List<String>> TRY_METHOD_NAMES_DESCRIPTOR =
-            PropertyFactory.stringListProperty("tryMethodNames")
-                    .desc("Method names that should be within a Try statement.")
-                    .defaultValues("put")
-                    .build();
+        PropertyFactory.stringListProperty("tryMethodNames")
+            .desc("Method names that should be within a Try statement.")
+            .defaultValues("put")
+            .build();
 
     private static final PropertyDescriptor<List<String>> FINALLY_METHOD_NAMES_DESCRIPTOR =
-            PropertyFactory.stringListProperty("finallyMethodNames")
-                    .desc("Method names that should be within a Finally clause.")
-                    .defaultValues("remove", "clear")
-                    .build();
+        PropertyFactory.stringListProperty("finallyMethodNames")
+            .desc("Method names that should be within a Finally clause.")
+            .defaultValues("remove", "clear")
+            .build();
 
     public AvoidMdcOutsideTryStatement() {
         definePropertyDescriptor(MDC_CLASSES_DESCRIPTOR);
@@ -86,13 +86,13 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
         }
         JTypeMirror type = qualifier.getTypeMirror();
         return getProperty(MDC_CLASSES_DESCRIPTOR).stream()
-                .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
+            .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
     }
 
     private boolean isViolationInTryStatement(ASTMethodCall node) {
         String methodName = node.getMethodName();
         return getProperty(TRY_METHOD_NAMES_DESCRIPTOR).contains(methodName)
-                && isNotInTryStatement(node);
+            && isNotInTryStatement(node);
     }
 
     private boolean isNotInTryStatement(ASTMethodCall node) {
@@ -102,7 +102,7 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
     private boolean isViolationInFinallyStatement(ASTMethodCall node) {
         String methodName = node.getMethodName();
         return getProperty(FINALLY_METHOD_NAMES_DESCRIPTOR).contains(methodName)
-                && isNotInFinallyStatement(node);
+            && isNotInFinallyStatement(node);
     }
 
     private boolean isNotInFinallyStatement(ASTMethodCall node) {

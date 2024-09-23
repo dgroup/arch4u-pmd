@@ -8,8 +8,8 @@ readers:
 
 assets:
   settings.xml: "dgroup/home#settings.xml"
-  pubring.gpg:  "dgroup/home#8DF36117-arch4u-pubring.gpg"
-  secring.gpg:  "dgroup/home#8DF36117-arch4u-secring.gpg"
+  pubring.gpg: "dgroup/home#8DF36117-arch4u-pubring.gpg"
+  secring.gpg: "dgroup/home#8DF36117-arch4u-secring.gpg"
 
 merge:
   env:

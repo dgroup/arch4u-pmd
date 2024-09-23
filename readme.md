@@ -31,7 +31,8 @@ REST API, logging, monitoring, etc., including reconfigured default pmd
 rules to decrease false-positive
 violations during usage of well-known frameworks like Spring, Quarkus, etc.
 
-In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.55.0` with more than [320+ rules](https://pmd.github.io/pmd-6.55.0/pmd_rules_java.html) with default configuration.
+In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.55.0` with more
+than [320+ rules](https://pmd.github.io/pmd-6.55.0/pmd_rules_java.html) with default configuration.
 
 Legend:
 
@@ -65,10 +66,10 @@ Legend:
 | [TooManyMethods](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanymethods)                                                  | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
 | [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                  | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
 | [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ⌛    |
-| [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
-| [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
-| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
+| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                                | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ⌛    |
+| [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                               | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ✅    |
+| [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                                  | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ✅    |
+| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                                   | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ✅    |
 
 ### How to use?
 
@@ -77,44 +78,44 @@ Legend:
  ```xml
  ...
 <build>
-  <plugins>
-    ...
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-pmd-plugin</artifactId>
-      <version>3.15.0</version>
-      <executions>
-        <execution>
-          <phase>test</phase>
-          <goals>
-            <goal>check</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <printFailingErrors>true</printFailingErrors>
-        <rulesets>
-          ...
-          <ruleset>io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml</ruleset>
-          ...
-        </rulesets>
-        <excludeRoots>
-          <excludeRoot>target/generated-sources/</excludeRoot>
-        </excludeRoots>
-      </configuration>
-      <dependencies>
-        <!-- Latest arch4u-rules -->
-        <dependency>
-          <groupId>io.github.dgroup</groupId>
-          <artifactId>arch4u-pmd</artifactId>
-          <version>${version}</version>
-        </dependency>
-      </dependencies>
-    </plugin>
-    ...
-  </plugins>
+    <plugins>
+        ...
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.15.0</version>
+            <executions>
+                <execution>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <printFailingErrors>true</printFailingErrors>
+                <rulesets>
+                    ...
+                    <ruleset>io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml</ruleset>
+                    ...
+                </rulesets>
+                <excludeRoots>
+                    <excludeRoot>target/generated-sources/</excludeRoot>
+                </excludeRoots>
+            </configuration>
+            <dependencies>
+                <!-- Latest arch4u-rules -->
+                <dependency>
+                    <groupId>io.github.dgroup</groupId>
+                    <artifactId>arch4u-pmd</artifactId>
+                    <version>${version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+        ...
+    </plugins>
 </build>
-  ...
+        ...
  ```
 
 #### Gradle (build.gradle)
@@ -160,11 +161,11 @@ pmd {
 ```xml
 <?xml version="1.0"?>
 <ruleset name="pmd ruleset with your rules">
-  ...
-  <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
-    <exclude name="UseExistingMediaTypeConstant"/>
-  </rule>
-  ...
+    ...
+    <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
+        <exclude name="UseExistingMediaTypeConstant"/>
+    </rule>
+    ...
 </ruleset>
 ```
 
@@ -173,25 +174,25 @@ pmd {
 ```xml
 <?xml version="1.0"?>
 <ruleset name="pmd ruleset with your rules">
-  ...
-  <!-- 1. Exclude rule with default configuration  -->
-  <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
-    <exclude name="UseExistingMediaTypeConstant"/>
-  </rule>
-  <!-- 2. Reconfigure rule with expected property -->
-  <rule name="UseExistingMediaTypeConstant"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/43"
-        message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
-        class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
-    <priority>3</priority>
-    <properties>
-      <!-- 3. Set the 'regexPattern' considering your needs -->
-      <property name="regexPattern" description="Regular expression of prohibited string"
-                value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
-    </properties>
-  </rule>
-  ...
+    ...
+    <!-- 1. Exclude rule with default configuration  -->
+    <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
+        <exclude name="UseExistingMediaTypeConstant"/>
+    </rule>
+    <!-- 2. Reconfigure rule with expected property -->
+    <rule name="UseExistingMediaTypeConstant"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/43"
+          message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
+          class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
+        <priority>3</priority>
+        <properties>
+            <!-- 3. Set the 'regexPattern' considering your needs -->
+            <property name="regexPattern" description="Regular expression of prohibited string"
+                      value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
+        </properties>
+    </rule>
+    ...
 </ruleset>
 ```
 
@@ -200,13 +201,13 @@ pmd {
 ```xml
 <?xml version="1.0"?>
 <ruleset name="pmd ruleset with your rules">
-  ...
-  <!-- Exclude target folder that may contain generated sources -->
-  <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
-  <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
-  <!-- Exclude test folder -->
-  <exclude-pattern>.*/src/test/java/org/tbd/tbd/tbd/.*</exclude-pattern>
-  ...
+    ...
+    <!-- Exclude target folder that may contain generated sources -->
+    <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
+    <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
+    <!-- Exclude test folder -->
+    <exclude-pattern>.*/src/test/java/org/tbd/tbd/tbd/.*</exclude-pattern>
+    ...
 </ruleset>
 ```
 

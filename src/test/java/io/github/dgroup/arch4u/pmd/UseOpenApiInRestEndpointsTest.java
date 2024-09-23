@@ -38,4 +38,5 @@ public final class UseOpenApiInRestEndpointsTest extends SimpleAggregatorTst {
     public void setUp() {
         addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseOpenApiInRestEndpoints");
     }
-*/}
+*/
+}

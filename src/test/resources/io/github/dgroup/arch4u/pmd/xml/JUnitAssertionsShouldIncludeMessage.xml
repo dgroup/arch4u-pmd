@@ -24,13 +24,13 @@
   -->
 
 <test-data
-    xmlns="http://pmd.sourceforge.net/rule-tests"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
-  <test-code>
-    <description>[GOOD]: assertArrayEquals with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+    <test-code>
+        <description>[GOOD]: assertArrayEquals with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -38,12 +38,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertArrayEquals without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertArrayEquals without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -51,12 +51,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals has a message, but it is not mandatory</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals has a message, but it is not mandatory</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -64,14 +64,14 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [GOOD]: assertEquals with string variable as message, but its not mandatory
-    </description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: assertEquals with string variable as message, but its not mandatory
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -80,12 +80,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals with delta and message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals with delta and message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -93,12 +93,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals without message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals without message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -106,12 +106,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals with delta without message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals with delta without message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -119,12 +119,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals with number as variable</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals with number as variable</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -133,12 +133,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertFalse with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertFalse with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void testBar() {
@@ -146,12 +146,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertFalse without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertFalse without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void testBar() {
@@ -159,12 +159,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertNotNull with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertNotNull with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -172,12 +172,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertNotNull without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertNotNull without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -185,12 +185,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertNotSame with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertNotSame with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -198,12 +198,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertNotSame without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertNotSame without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -211,12 +211,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertNull with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertNull with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -224,12 +224,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertNull without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertNull without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -237,12 +237,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertSame with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertSame with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -250,12 +250,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertSame without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertSame without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -263,12 +263,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertThat with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertThat with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -276,12 +276,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertThat without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertThat without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -289,12 +289,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertTrue with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertTrue with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -302,12 +302,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: assertTrue without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: assertTrue without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -315,12 +315,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: fail with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: fail with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -328,12 +328,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[BAD]: fail without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[BAD]: fail without message</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -341,12 +341,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: extended TestCase</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: extended TestCase</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import junit.framework.TestCase;
 public class Foo extends TestCase {
     public void test1() {
@@ -354,12 +354,12 @@ public class Foo extends TestCase {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: Not a JUnit test - assertEquals</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: Not a JUnit test - assertEquals</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 public class Foo {
     public void test1() {
         assertEquals(1, 1);
@@ -369,12 +369,12 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: JUnit 4 - assertEquals without message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: JUnit 4 - assertEquals without message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import org.junit.Test;
 import static org.junit.Assert.*;
 public class Foo {
@@ -384,12 +384,12 @@ public class Foo {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -400,12 +400,12 @@ class SimpleTest {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>[GOOD]: assertEquals with message</description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>[GOOD]: assertEquals with message</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -416,6 +416,6 @@ class SimpleTest {
     }
 }
         ]]></code>
-  </test-code>
+    </test-code>
 
 </test-data>

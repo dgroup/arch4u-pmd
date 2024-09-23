@@ -24,12 +24,13 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import java.util.List;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.JModifier;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
+
+import java.util.List;
 
 /**
  * The rule checks if the method with the REST endpoint annotation
@@ -68,6 +69,7 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
 
     /**
      * Finds method REST endpoint annotations. Returns the first one.
+     *
      * @param mthd Method declaration node.
      * @return Optional of the first declared REST endpoint annotation.
      */
@@ -79,6 +81,7 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
      * Checks if the REST endpoint method has prohibited signature.
      * Correct method's signature has public access modifier
      * and {@link java.lang.Override} annotation.
+     *
      * @param mthd Method declaration node.
      * @return True if the method has prohibited signature.
      */

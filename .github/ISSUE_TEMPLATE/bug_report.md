@@ -8,12 +8,14 @@ assignees: dgroup
 ---
 
 ### Summary
-| Key            |  Value |
-|:---------------|:------|
-| Rule           | ...   |
-| arch4u version       | 0.1.1 or your version |
+
+| Key            | Value                 |
+|:---------------|:----------------------|
+| Rule           | ...                   |
+| arch4u version | 0.1.1 or your version |
 
 ### Your rule definition
+
 ```xml
 <rule name="..."
       since="0.2.0"
@@ -30,11 +32,15 @@ assignees: dgroup
 ```
 
 ### Describe the defect or false/positive rule violation
+
 ...
+
 ```java
 // TBD
 ```
+
 ...
+
 ```java
 TBD
 ```

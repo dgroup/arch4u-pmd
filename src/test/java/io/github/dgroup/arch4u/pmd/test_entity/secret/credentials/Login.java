@@ -26,11 +26,12 @@ package io.github.dgroup.arch4u.pmd.test_entity.secret.credentials;
 
 /**
  * Test entity with sensitive data in the subpackage.
- * @see io.github.dgroup.arch4u.pmd.ObfuscationRequired
- * @since 0.1.0
+ *
  * @checkstyle MemberNameCheck (200 lines)
  * @checkstyle DesignForExtensionCheck (200 lines)
  * @checkstyle StringLiteralsConcatenationCheck (200 lines)
+ * @see io.github.dgroup.arch4u.pmd.ObfuscationRequired
+ * @since 0.1.0
  */
 public class Login {
     /**

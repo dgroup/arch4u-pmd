@@ -13,10 +13,10 @@ import java.util.List;
 public class UseConstantAsMetricName extends AbstractJavaRule {
 
     private static final PropertyDescriptor<List<String>> METRIC_ANNOTATIONS_DESCRIPTOR =
-            PropertyFactory.stringListProperty("metricAnnotations")
-                    .desc("List of the metric annotations.")
-                    .defaultValues("io.micrometer.core.annotation.Timed")
-                    .build();
+        PropertyFactory.stringListProperty("metricAnnotations")
+            .desc("List of the metric annotations.")
+            .defaultValues("io.micrometer.core.annotation.Timed")
+            .build();
 
     private final List<String> metricAnnotations;
 
@@ -29,9 +29,9 @@ public class UseConstantAsMetricName extends AbstractJavaRule {
     public Object visit(ASTAnnotation annotation, Object data) {
         if (isMetricAnnotation(annotation)) {
             annotation.getMembers()
-                    .map(ASTMemberValuePair::getValue)
-                    .filter(val -> val instanceof ASTStringLiteral)
-                    .forEach(val -> asCtx(data).addViolation(val));
+                .map(ASTMemberValuePair::getValue)
+                .filter(val -> val instanceof ASTStringLiteral)
+                .forEach(val -> asCtx(data).addViolation(val));
         }
         return super.visit(annotation, data);
     }

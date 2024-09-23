@@ -27,18 +27,18 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
- * Test case for {@link  AvoidUsingObjectMapperAsALocalVariable} rule.
+ * Test case for {@link  AvoidTypeAsLocalVariable} rule.
  *
  * @since 0.1.0
  */
 
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class AvoidUsingObjectMapperAsALocalVariableTest extends SimpleAggregatorTst {
+public final class AvoidTypeAsLocalVariableTest extends SimpleAggregatorTst {
     @Override
     public void setUp() {
         addRule(
-                "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
-                "AvoidUsingObjectMapperAsALocalVariable"
+            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
+            "AvoidTypeAsLocalVariable"
         );
     }
 }

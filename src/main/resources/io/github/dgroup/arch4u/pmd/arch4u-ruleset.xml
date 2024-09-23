@@ -4,36 +4,38 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
-  <description>All arch4u rules</description>
+    <description>All arch4u rules</description>
 
-  <!-- Exclude target folder that may contain generated sources -->
-  <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
-  <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
+    <!-- Exclude target folder that may contain generated sources -->
+    <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
+    <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
 
-  <!-- Rules related to logging -->
-  <rule name="PotentiallyThreadLocalPollutionByMdc"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/88"
-        message="MDC key {0} was added but not removed. Potentially thread local pollution by MDC."
-        class="io.github.dgroup.arch4u.pmd.PotentiallyThreadLocalPollutionByMdc">
-    <description>
-      The MDC usage requires a deep understanding of how it works and gives additional side effects that might not be transparent for regular java developers.
-      See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/88
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="mdcClasses" value="org.slf4j.MDC"
-                description="Full name of the MDC classes. Use a comma (,) as a delimiter."/>
-      <property name="putMethods" value="put"
-                description="Names of methods that add entries to the MDC. Use a comma (,) as a delimiter."/>
-      <property name="removeMethods" value="remove"
-                description="Names of methods that remove the MDC entries by key. Use a comma (,) as a delimiter."/>
-      <property name="clearMethods" value="clean"
-                description="Names of methods that clear the MDC. Use a comma (,) as a delimiter."/>
-    </properties>
-    <example>
-      <![CDATA[
+    <!-- Rules related to logging -->
+    <rule name="PotentiallyThreadLocalPollutionByMdc"
+          since="0.1.0"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/88"
+          message="MDC key {0} was added but not removed. Potentially thread local pollution by MDC."
+          class="io.github.dgroup.arch4u.pmd.PotentiallyThreadLocalPollutionByMdc">
+        <description>
+            The MDC usage requires a deep understanding of how it works and gives additional side effects that might not
+            be transparent for regular java developers.
+            See discussion about implementation tips/tricks on GitHub:
+            https://github.com/dgroup/arch4u-pmd/discussions/88
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="mdcClasses" value="org.slf4j.MDC"
+                      description="Full name of the MDC classes. Use a comma (,) as a delimiter."/>
+            <property name="putMethods" value="put"
+                      description="Names of methods that add entries to the MDC. Use a comma (,) as a delimiter."/>
+            <property name="removeMethods" value="remove"
+                      description="Names of methods that remove the MDC entries by key. Use a comma (,) as a delimiter."/>
+            <property name="clearMethods" value="clean"
+                      description="Names of methods that clear the MDC. Use a comma (,) as a delimiter."/>
+        </properties>
+        <example>
+            <![CDATA[
       import org.slf4j.MDC;
 
       public class Foo {
@@ -48,33 +50,34 @@
           }
       }
       ]]>
-    </example>
-  </rule>
+        </example>
+    </rule>
 
-  <rule name="AvoidMdcOutsideTryStatement"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/86"
-        message="MDC API should always be used within the try/finally statement: https://github.com/dgroup/arch4u-pmd/discussions/86"
-        class="io.github.dgroup.arch4u.pmd.AvoidMdcOutsideTryStatement">
-    <description>
-      MDC API should always be used within the try/finally statement.
-      See discussion about implementation tips/tricks on GitHub: https://github.com/dgroup/arch4u-pmd/discussions/86
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="mdcClasses"
-                description="Full name of the MDC classes. Use a comma (,) as a delimiter."
-                value="org.slf4j.MDC"/>
-      <property name="tryMethodNames"
-                description="Method names that should be within a Try statement. Use a comma (,) as a delimiter."
-                value="put"/>
-      <property name="finallyMethodNames"
-                description="Method names that should be within a Finally clause. Use a comma (,) as a delimiter."
-                value="remove,clear"/>
-    </properties>
-    <example>
-      <![CDATA[
+    <rule name="AvoidMdcOutsideTryStatement"
+          since="0.1.0"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/86"
+          message="MDC API should always be used within the try/finally statement: https://github.com/dgroup/arch4u-pmd/discussions/86"
+          class="io.github.dgroup.arch4u.pmd.AvoidMdcOutsideTryStatement">
+        <description>
+            MDC API should always be used within the try/finally statement.
+            See discussion about implementation tips/tricks on GitHub:
+            https://github.com/dgroup/arch4u-pmd/discussions/86
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="mdcClasses"
+                      description="Full name of the MDC classes. Use a comma (,) as a delimiter."
+                      value="org.slf4j.MDC"/>
+            <property name="tryMethodNames"
+                      description="Method names that should be within a Try statement. Use a comma (,) as a delimiter."
+                      value="put"/>
+            <property name="finallyMethodNames"
+                      description="Method names that should be within a Finally clause. Use a comma (,) as a delimiter."
+                      value="remove,clear"/>
+        </properties>
+        <example>
+            <![CDATA[
       import org.slf4j.MDC;
 
       public class Foo {
@@ -89,37 +92,36 @@
           }
       }
       ]]>
-    </example>
-  </rule>
+        </example>
+    </rule>
 
 
-
-  <!-- Rules related to JSON processing -->
-  <rule name="AvoidUsingObjectMapperAsALocalVariable"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/30"
-        message="ObjectMapper is better to have as a field rather than a local variable: https://github.com/dgroup/arch4u-pmd/discussions/30"
-        class="io.github.dgroup.arch4u.pmd.AvoidUsingObjectMapperAsALocalVariable">
-    <description>
-      ObjectMapper is better to have as a field rather than a local variable due to performance reasons.
-      It is allowed to be declared in fields, constructors, and initialization blocks.
-      Read more: https://github.com/dgroup/arch4u-pmd/discussions/30
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="objectMapperClasses"
-                description="Full names of the ObjectMapper classes. Use a comma (,) as a delimiter."
-                value="com.fasterxml.jackson.databind.ObjectMapper"/>
-      <property name="annotations"
-                description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field.
+    <!-- Rules related to JSON processing -->
+    <rule name="AvoidTypeAsLocalVariable"
+          since="0.1.0"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/30"
+          message="ObjectMapper is better to have as a field rather than a local variable: https://github.com/dgroup/arch4u-pmd/discussions/30"
+          class="io.github.dgroup.arch4u.pmd.AvoidTypeAsLocalVariable">
+        <description>
+            ObjectMapper is better to have as a field rather than a local variable due to performance reasons.
+            It is allowed to be declared in fields, constructors, and initialization blocks.
+            Read more: https://github.com/dgroup/arch4u-pmd/discussions/30
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="objectMapperClasses"
+                      description="Full names of the ObjectMapper classes. Use a comma (,) as a delimiter."
+                      value="com.fasterxml.jackson.databind.ObjectMapper"/>
+            <property name="annotations"
+                      description="Full name of the method annotations in which it's allowed to use ObjectMapper as a field.
                 Use a comma (,) as a delimiter."
-                value="javax.annotation.PostConstruct,org.springframework.context.annotation.Bean"/>
-      <property name="checkSubtypes" value="true"
-                description="The property matches whether the ObjectMapper subtypes should be checked"/>
-    </properties>
-    <example>
-      <![CDATA[
+                      value="javax.annotation.PostConstruct,org.springframework.context.annotation.Bean"/>
+            <property name="checkSubtypes" value="true"
+                      description="The property matches whether the ObjectMapper subtypes should be checked"/>
+        </properties>
+        <example>
+            <![CDATA[
       import com.fasterxml.jackson.databind.ObjectMapper;
       class Foo {
           ObjectMapper objectMapper = new ObjectMapper(); //ok
@@ -139,38 +141,37 @@
           }
       }
       ]]>
-    </example>
-  </rule>
+        </example>
+    </rule>
 
 
-
-  <!-- Rules related to application monitoring -->
-  <rule name="RestEndpointsWithoutExposedMetrics"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/74"
-        message="REST api endpoint(s) should expose metrics for application monitoring: https://github.com/dgroup/arch4u-pmd/discussions/74"
-        class="io.github.dgroup.arch4u.pmd.MissingMandatoryAnnotation">
-    <description>
-      Each REST endpoint should expose metrics for application monitoring
-      The default expected framework is https://micrometer.io.
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="restAnnotations"
-                description="List of the REST endpoint method annotations. Use a comma (,) as a delimiter."
-                value="org.springframework.web.bind.annotation.GetMapping,
+    <!-- Rules related to application monitoring -->
+    <rule name="RestEndpointsWithoutExposedMetrics"
+          since="0.1.0"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/74"
+          message="REST api endpoint(s) should expose metrics for application monitoring: https://github.com/dgroup/arch4u-pmd/discussions/74"
+          class="io.github.dgroup.arch4u.pmd.MissingMandatoryAnnotation">
+        <description>
+            Each REST endpoint should expose metrics for application monitoring
+            The default expected framework is https://micrometer.io.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="restAnnotations"
+                      description="List of the REST endpoint method annotations. Use a comma (,) as a delimiter."
+                      value="org.springframework.web.bind.annotation.GetMapping,
                 org.springframework.web.bind.annotation.DeleteMapping,
                 org.springframework.web.bind.annotation.PatchMapping,
                 org.springframework.web.bind.annotation.PostMapping,
                 org.springframework.web.bind.annotation.PutMapping,
                 org.springframework.web.bind.annotation.RequestMapping"/>
-      <property name="mandatoryAnnotations"
-                description="List of the mandatory metric method annotations. Use a comma (,) as a delimiter."
-                value="io.micrometer.core.annotation.Timed"/>
-    </properties>
-    <example>
-      <![CDATA[
+            <property name="mandatoryAnnotations"
+                      description="List of the mandatory metric method annotations. Use a comma (,) as a delimiter."
+                      value="io.micrometer.core.annotation.Timed"/>
+        </properties>
+        <example>
+            <![CDATA[
       import org.springframework.web.bind.annotation.RestController;
       import org.springframework.web.bind.annotation.GetMapping;
       import io.micrometer.core.annotation.Timed;
@@ -190,26 +191,26 @@
          }
       }
       ]]>
-    </example>
-  </rule>
+        </example>
+    </rule>
 
-  <rule name="UseConstantAsMetricName"
-        since="0.1.0"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/75"
-        message="Use constant for metric name instead of hardcoded string literals: https://github.com/dgroup/arch4u-pmd/discussions/75"
-        class="io.github.dgroup.arch4u.pmd.UseConstantAsMetricName">
-    <description>
-      The monitoring metric name should be provided into annotation @Timed by constant, not a hardcoded string.
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="metricAnnotations"
-                description="List of the metric annotations. Use a comma (,) as a delimiter."
-                value="io.micrometer.core.annotation.Timed"/>
-    </properties>
-    <example>
-      <![CDATA[
+    <rule name="UseConstantAsMetricName"
+          since="0.1.0"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/75"
+          message="Use constant for metric name instead of hardcoded string literals: https://github.com/dgroup/arch4u-pmd/discussions/75"
+          class="io.github.dgroup.arch4u.pmd.UseConstantAsMetricName">
+        <description>
+            The monitoring metric name should be provided into annotation @Timed by constant, not a hardcoded string.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="metricAnnotations"
+                      description="List of the metric annotations. Use a comma (,) as a delimiter."
+                      value="io.micrometer.core.annotation.Timed"/>
+        </properties>
+        <example>
+            <![CDATA[
       import io.micrometer.core.annotation.Timed;
 
       @RestController
@@ -226,11 +227,11 @@
          }
       }
       ]]>
-    </example>
-  </rule>
+        </example>
+    </rule>
 
 
-  <!-- Rules related to error handling --> <!--
+    <!-- Rules related to error handling --> <!--
   <rule name="NoMandatoryConstructorInExceptionClass"
         since="0.1.0"
         language="java"
@@ -280,7 +281,7 @@
     </example>
   </rule> -->
 
-  <!-- Rules related to rest api --> <!--
+    <!-- Rules related to rest api --> <!--
   <rule name="UseExistingMediaTypeConstant"
         since="0.1.0"
         language="java"
@@ -343,92 +344,92 @@
   </rule>
 
 -->
-  <!-- Third-party rules -->
-<!--  <rule ref="category/java/bestpractices.xml">
-    <exclude name="GuardLogStatement"/> &lt;!&ndash; @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="UnusedPrivateMethod"/>
-  </rule>
-  <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
-    <properties>
-      <property name="ignoredAnnotations" value="javax.annotation.PostConstruct"/>
-    </properties>
-  </rule>
-  <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage">
-    <properties>
-      <property name="violationSuppressXPath" value=".[ends-with(@Image,'assertEquals')]"/>
-    </properties>
-  </rule>
-  <rule ref="category/java/codestyle.xml">
-    <exclude name="AtLeastOneConstructor"/>
-    <exclude name="ShortClassName"/>
-    <exclude name="OnlyOneReturn"/> &lt;!&ndash; @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="LongVariable"/>
-  </rule>
-  <rule ref="category/java/codestyle.xml/ShortClassName">
-    <properties>
-      <property name="minimum" value="3" />
-    </properties>
-  </rule>
-  <rule ref="category/java/codestyle.xml/LongVariable">
-    <properties>
-      <property name="minimum" value="25" />
-    </properties>
-  </rule>
-  <rule ref="category/java/design.xml">
-    <exclude name="LawOfDemeter"/>  &lt;!&ndash; @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="UseObjectForClearerAPI"/> &lt;!&ndash; @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="AvoidCatchingGenericException"/> &lt;!&ndash; @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="SignatureDeclareThrowsException"/> &lt;!&ndash; @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="ExcessiveImports"/> &lt;!&ndash; @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="LoosePackageCoupling"/> &lt;!&ndash; @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="StdCyclomaticComplexity" /> &lt;!&ndash; deprecated &ndash;&gt;
-    <exclude name="UseUtilityClass" />
-    <exclude name="ImmutableField" />
-  </rule>
-  <rule ref="category/java/design.xml/CouplingBetweenObjects">
-    <properties>
-      <property name="threshold" value="40"/>
-    </properties>
-  </rule>
-  <rule ref="category/java/design.xml/TooManyMethods">
-    <properties>
-      <property name="maxmethods" value="20"/>
-    </properties>
-  </rule>
-  <rule ref="category/java/design.xml/TooManyFields">
-    <properties>
-      <property name="maxfields" value="25"/>
-    </properties>
-  </rule>
-  <rule ref="category/java/design.xml/UseUtilityClass">
-    <properties>
-      <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass|org.springframework.boot.autoconfigure.SpringBootApplication" />
-    </properties>
-  </rule>
-  <rule ref="category/java/design.xml/ImmutableField">
-    <properties>
-      <property name="ignoredAnnotations"
-                value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject|org.apache.camel.EndpointInject" />
-    </properties>
-  </rule>
-  <rule ref="category/java/documentation.xml">
-    <exclude name="CommentSize"/>
-    <exclude name="CommentRequired"/>
-  </rule>
-  <rule ref="category/java/documentation.xml/CommentRequired">
-    <properties>
-      <property name="fieldCommentRequirement" value="Ignored"/>
-      <property name="publicMethodCommentRequirement" value="Ignored"/>
-      <property name="protectedMethodCommentRequirement" value="Ignored"/>
-    </properties>
-  </rule>
-  <rule ref="category/java/multithreading.xml">
-    <exclude name="UseConcurrentHashMap"/> &lt;!&ndash; @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-  </rule>
-  <rule ref="category/java/performance.xml"/>
-  <rule ref="category/java/security.xml"/>
-  <rule ref="category/java/errorprone.xml">
-    <exclude name="AvoidDuplicateLiterals"/> &lt;!&ndash; @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-    <exclude name="MissingSerialVersionUID"/> &lt;!&ndash; @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-  </rule>-->
+    <!-- Third-party rules -->
+    <!--  <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/> &lt;!&ndash; @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="UnusedPrivateMethod"/>
+      </rule>
+      <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
+        <properties>
+          <property name="ignoredAnnotations" value="javax.annotation.PostConstruct"/>
+        </properties>
+      </rule>
+      <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage">
+        <properties>
+          <property name="violationSuppressXPath" value=".[ends-with(@Image,'assertEquals')]"/>
+        </properties>
+      </rule>
+      <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="OnlyOneReturn"/> &lt;!&ndash; @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="LongVariable"/>
+      </rule>
+      <rule ref="category/java/codestyle.xml/ShortClassName">
+        <properties>
+          <property name="minimum" value="3" />
+        </properties>
+      </rule>
+      <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+          <property name="minimum" value="25" />
+        </properties>
+      </rule>
+      <rule ref="category/java/design.xml">
+        <exclude name="LawOfDemeter"/>  &lt;!&ndash; @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="UseObjectForClearerAPI"/> &lt;!&ndash; @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="AvoidCatchingGenericException"/> &lt;!&ndash; @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="SignatureDeclareThrowsException"/> &lt;!&ndash; @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="ExcessiveImports"/> &lt;!&ndash; @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="LoosePackageCoupling"/> &lt;!&ndash; @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="StdCyclomaticComplexity" /> &lt;!&ndash; deprecated &ndash;&gt;
+        <exclude name="UseUtilityClass" />
+        <exclude name="ImmutableField" />
+      </rule>
+      <rule ref="category/java/design.xml/CouplingBetweenObjects">
+        <properties>
+          <property name="threshold" value="40"/>
+        </properties>
+      </rule>
+      <rule ref="category/java/design.xml/TooManyMethods">
+        <properties>
+          <property name="maxmethods" value="20"/>
+        </properties>
+      </rule>
+      <rule ref="category/java/design.xml/TooManyFields">
+        <properties>
+          <property name="maxfields" value="25"/>
+        </properties>
+      </rule>
+      <rule ref="category/java/design.xml/UseUtilityClass">
+        <properties>
+          <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass|org.springframework.boot.autoconfigure.SpringBootApplication" />
+        </properties>
+      </rule>
+      <rule ref="category/java/design.xml/ImmutableField">
+        <properties>
+          <property name="ignoredAnnotations"
+                    value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject|org.apache.camel.EndpointInject" />
+        </properties>
+      </rule>
+      <rule ref="category/java/documentation.xml">
+        <exclude name="CommentSize"/>
+        <exclude name="CommentRequired"/>
+      </rule>
+      <rule ref="category/java/documentation.xml/CommentRequired">
+        <properties>
+          <property name="fieldCommentRequirement" value="Ignored"/>
+          <property name="publicMethodCommentRequirement" value="Ignored"/>
+          <property name="protectedMethodCommentRequirement" value="Ignored"/>
+        </properties>
+      </rule>
+      <rule ref="category/java/multithreading.xml">
+        <exclude name="UseConcurrentHashMap"/> &lt;!&ndash; @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+      </rule>
+      <rule ref="category/java/performance.xml"/>
+      <rule ref="category/java/security.xml"/>
+      <rule ref="category/java/errorprone.xml">
+        <exclude name="AvoidDuplicateLiterals"/> &lt;!&ndash; @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="MissingSerialVersionUID"/> &lt;!&ndash; @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+      </rule>-->
 </ruleset>

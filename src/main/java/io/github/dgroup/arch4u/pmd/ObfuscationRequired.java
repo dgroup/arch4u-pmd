@@ -39,8 +39,7 @@ import java.util.List;
 /**
  * A rule that prohibits the using methods of a particular class.
  *
- * @see
- * <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
+ * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
  */
 @SuppressWarnings("PMD.StaticAccessToStaticFields")
@@ -73,10 +72,10 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      * Property descriptor with the list of the prohibited packages.
      */
     private static final PropertyDescriptor<List<String>> SENSITIVE_PACKAGES_DESCRIPTOR =
-            PropertyFactory.stringListProperty("sensitivePackages")
-                    .desc("List of prohibited packages")
-                    .emptyDefaultValue()
-                    .build();
+        PropertyFactory.stringListProperty("sensitivePackages")
+            .desc("List of prohibited packages")
+            .emptyDefaultValue()
+            .build();
 
     /**
      * Constructor for defining property descriptor.
@@ -105,7 +104,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
 
     private boolean isLoggerMethod(JMethodSig methodSignature) {
         return getProperty(LOGGER_CLASSES_DESCRIPTOR).stream()
-                .anyMatch(loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType()));
+            .anyMatch(loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType()));
     }
 
     private boolean isSensitiveObject(ASTExpression arg) {
@@ -143,7 +142,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
 
     private boolean isSensitiveClass(JTypeMirror type) {
         return getProperty(SENSITIVE_CLASSES_DESCRIPTOR).stream()
-                .anyMatch(sensitiveClass -> TypeTestUtil.isA(sensitiveClass, type));
+            .anyMatch(sensitiveClass -> TypeTestUtil.isA(sensitiveClass, type));
     }
 
     private boolean isSensitivePackage(JTypeMirror type) {
@@ -151,7 +150,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
         if (typeSymbol != null) {
             String packageName = typeSymbol.getPackageName();
             return getProperty(SENSITIVE_PACKAGES_DESCRIPTOR).stream()
-                    .anyMatch(packageName::startsWith);
+                .anyMatch(packageName::startsWith);
         }
         return false;
     }

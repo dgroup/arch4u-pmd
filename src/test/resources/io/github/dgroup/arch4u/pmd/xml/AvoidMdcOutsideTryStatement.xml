@@ -24,16 +24,16 @@
   -->
 
 <test-data
-    xmlns="http://pmd.sourceforge.net/rule-tests"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-  <test-code>
-    <description>
-      [GOOD]: MDC is used in `try` block, `clear` method is invoked in `finally` block
-    </description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: MDC is used in `try` block, `clear` method is invoked in `finally` block
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
         import org.slf4j.MDC;
 
         public class Foo {
@@ -49,14 +49,14 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [GOOD]: MDC is used in try-statement, `remove` method is in `finally` block
-    </description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: MDC is used in try-statement, `remove` method is in `finally` block
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
         import org.slf4j.MDC;
 
         public class Foo {
@@ -72,14 +72,14 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [GOOD]: MDC is used in try-statement, `remove` and `put` methods are in the `finally` block
-    </description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: MDC is used in try-statement, `remove` and `put` methods are in the `finally` block
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
         import org.slf4j.MDC;
 
         public class Foo {
@@ -96,15 +96,15 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [GOOD]: MDC is used in try-statement, however there is no `remove` method
-      (it's prohibited by another rule: MdcIsNotCleared)
-    </description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: MDC is used in try-statement, however there is no `remove` method
+            (it's prohibited by another rule: MdcIsNotCleared)
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
         import org.slf4j.MDC;
 
         public class Foo {
@@ -118,14 +118,14 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [GOOD]: MDC is not used
-    </description>
-    <expected-problems>0</expected-problems>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [GOOD]: MDC is not used
+        </description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
         import org.slf4j.MDC;
         public class SomeClass {
             public void method(String str, BigInteger num) {
@@ -135,15 +135,15 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [BAD]: MDC is used not in try-statement
-    </description>
-    <expected-problems>2</expected-problems>
-    <expected-linenumbers>5,7</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [BAD]: MDC is used not in try-statement
+        </description>
+        <expected-problems>2</expected-problems>
+        <expected-linenumbers>5,7</expected-linenumbers>
+        <code><![CDATA[
         import org.slf4j.MDC;
 
         public class Foo {
@@ -154,15 +154,15 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
-  <test-code>
-    <description>
-      [BAD]: MDC `remove` invocation is used not in `finally` block
-    </description>
-    <expected-problems>1</expected-problems>
-    <expected-linenumbers>8</expected-linenumbers>
-    <code><![CDATA[
+    <test-code>
+        <description>
+            [BAD]: MDC `remove` invocation is used not in `finally` block
+        </description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>8</expected-linenumbers>
+        <code><![CDATA[
         import org.slf4j.MDC;
 
         public class Foo {
@@ -175,6 +175,6 @@
             }
         }
         ]]></code>
-  </test-code>
+    </test-code>
 
 </test-data>

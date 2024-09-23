@@ -47,28 +47,28 @@ import java.util.Map;
 public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
 
     private static final PropertyDescriptor<List<String>> MDC_CLASSES_DESCRIPTOR =
-            PropertyFactory.stringListProperty("mdcClasses")
-                    .desc("Full name of the MDC classes.")
-                    .defaultValues("org.slf4j.MDC")
-                    .build();
+        PropertyFactory.stringListProperty("mdcClasses")
+            .desc("Full name of the MDC classes.")
+            .defaultValues("org.slf4j.MDC")
+            .build();
 
     private static final PropertyDescriptor<List<String>> PUT_METHODS_DESCRIPTOR =
-            PropertyFactory.stringListProperty("putMethods")
-                    .desc("Names of methods that add entries to the MDC.")
-                    .defaultValues("put")
-                    .build();
+        PropertyFactory.stringListProperty("putMethods")
+            .desc("Names of methods that add entries to the MDC.")
+            .defaultValues("put")
+            .build();
 
     private static final PropertyDescriptor<List<String>> REMOVE_METHODS_DESCRIPTOR =
-            PropertyFactory.stringListProperty("removeMethods")
-                    .desc("Names of methods that remove the entries by key from the MDC.")
-                    .defaultValues("remove")
-                    .build();
+        PropertyFactory.stringListProperty("removeMethods")
+            .desc("Names of methods that remove the entries by key from the MDC.")
+            .defaultValues("remove")
+            .build();
 
     private static final PropertyDescriptor<List<String>> CLEAR_METHODS_DESCRIPTOR =
-            PropertyFactory.stringListProperty("clearMethods")
-                    .desc("Names of methods that clear the MDC.")
-                    .defaultValues("clear")
-                    .build();
+        PropertyFactory.stringListProperty("clearMethods")
+            .desc("Names of methods that clear the MDC.")
+            .defaultValues("clear")
+            .build();
 
     private final Map<String, ASTMethodCall> mdcKeysInUse = new HashMap<>();
 
@@ -131,7 +131,7 @@ public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
         }
         JTypeMirror type = qualifier.getTypeMirror();
         return mdcClasses.stream()
-                .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
+            .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
     }
 
     /**

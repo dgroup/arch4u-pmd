@@ -45,19 +45,19 @@ public final class AvoidProhibitedClasses extends AbstractJavaRule {
      * Property descriptor for the fully qualified name of the class whose methods are prohibited.
      */
     private static final PropertyDescriptor<List<String>> CLASS_NAME_DESCRIPTOR =
-            PropertyFactory.stringListProperty("fullNames")
-                    .desc("Fully qualified class names")
-                    .emptyDefaultValue()
-                    .build();
+        PropertyFactory.stringListProperty("fullNames")
+            .desc("Fully qualified class names")
+            .emptyDefaultValue()
+            .build();
 
     /**
      * Property descriptor for whether subtype checking is enabled.
      */
     private static final PropertyDescriptor<Boolean> CHECK_SUBTYPES_DESCRIPTOR =
-            PropertyFactory.booleanProperty("checkSubtypes")
-                    .desc("The property matches whether the subtypes should be checked")
-                    .defaultValue(false)
-                    .build();
+        PropertyFactory.booleanProperty("checkSubtypes")
+            .desc("The property matches whether the subtypes should be checked")
+            .defaultValue(false)
+            .build();
 
     public AvoidProhibitedClasses() {
         definePropertyDescriptor(CLASS_NAME_DESCRIPTOR);
@@ -70,8 +70,8 @@ public final class AvoidProhibitedClasses extends AbstractJavaRule {
         boolean checkSubtypes = getProperty(CHECK_SUBTYPES_DESCRIPTOR);
 
         Predicate<String> checkTypeFunction = checkSubtypes
-                ? className -> TypeTestUtil.isA(className, node)
-                : className -> TypeTestUtil.isExactlyA(className, node);
+            ? className -> TypeTestUtil.isA(className, node)
+            : className -> TypeTestUtil.isExactlyA(className, node);
 
         checkForViolations(prohibitedClassNames, checkTypeFunction, node, data);
         return data;
@@ -83,8 +83,8 @@ public final class AvoidProhibitedClasses extends AbstractJavaRule {
                                     Object data
     ) {
         prohibitedClassNames.stream()
-                .filter(checkTypeFunction)
-                .findFirst()
-                .ifPresent(className -> asCtx(data).addViolation(node, className));
+            .filter(checkTypeFunction)
+            .findFirst()
+            .ifPresent(className -> asCtx(data).addViolation(node, className));
     }
 }

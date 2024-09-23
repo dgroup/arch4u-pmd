@@ -18,33 +18,33 @@ import net.sourceforge.pmd.properties.PropertyFactory;
 
 import java.util.List;
 
-public class AvoidUsingObjectMapperAsALocalVariable extends AbstractJavaRule {
+public class AvoidTypeAsLocalVariable extends AbstractJavaRule {
 
     private static final PropertyDescriptor<List<String>> OBJECT_MAPPER_DESCRIPTOR =
-            PropertyFactory.stringListProperty("objectMapperClasses")
-                    .desc("Full names of the ObjectMapper classes")
-                    .defaultValues("com.fasterxml.jackson.databind.ObjectMapper")
-                    .build();
+        PropertyFactory.stringListProperty("objectMapperClasses")
+            .desc("Full names of the ObjectMapper classes")
+            .defaultValues("com.fasterxml.jackson.databind.ObjectMapper")
+            .build();
 
     private static final PropertyDescriptor<List<String>> ANNOTATIONS_DESCRIPTOR =
-            PropertyFactory.stringListProperty("annotations")
-                    .desc("Full name of the method annotations in which it's allowed to use ObjectMapper as a field")
-                    .defaultValues(
-                            "javax.annotation.PostConstruct",
-                            "org.springframework.context.annotation.Bean"
-                    )
-                    .build();
+        PropertyFactory.stringListProperty("annotations")
+            .desc("Full name of the method annotations in which it's allowed to use ObjectMapper as a field")
+            .defaultValues(
+                "javax.annotation.PostConstruct",
+                "org.springframework.context.annotation.Bean"
+            )
+            .build();
 
     private static final PropertyDescriptor<Boolean> CHECK_SUBTYPES_DESCRIPTOR =
-            PropertyFactory.booleanProperty("checkSubtypes")
-                    .desc("The property matches whether the ObjectMapper subtypes should be checked")
-                    .defaultValue(true)
-                    .build();
+        PropertyFactory.booleanProperty("checkSubtypes")
+            .desc("The property matches whether the ObjectMapper subtypes should be checked")
+            .defaultValue(true)
+            .build();
 
     private List<String> objectMapperClasses;
     private List<String> annotations;
 
-    public AvoidUsingObjectMapperAsALocalVariable() {
+    public AvoidTypeAsLocalVariable() {
         definePropertyDescriptor(OBJECT_MAPPER_DESCRIPTOR);
         definePropertyDescriptor(ANNOTATIONS_DESCRIPTOR);
         definePropertyDescriptor(CHECK_SUBTYPES_DESCRIPTOR);
@@ -92,8 +92,8 @@ public class AvoidUsingObjectMapperAsALocalVariable extends AbstractJavaRule {
 
     private boolean isTypeMatches(TypeNode typeNode, String className) {
         return getProperty(CHECK_SUBTYPES_DESCRIPTOR)
-                ? TypeTestUtil.isA(className, typeNode)
-                : TypeTestUtil.isExactlyA(className, typeNode);
+            ? TypeTestUtil.isA(className, typeNode)
+            : TypeTestUtil.isExactlyA(className, typeNode);
     }
 
     /**
@@ -102,9 +102,9 @@ public class AvoidUsingObjectMapperAsALocalVariable extends AbstractJavaRule {
      */
     private boolean isInNotAllowedContext(Node node) {
         return node.ancestors(ASTMethodDeclaration.class).toStream().noneMatch(this::hasAllowedAnnotations)
-                && node.ancestors(ASTFieldDeclaration.class).isEmpty()
-                && node.ancestors(ASTConstructorDeclaration.class).isEmpty()
-                && node.ancestors(ASTInitializer.class).isEmpty();
+            && node.ancestors(ASTFieldDeclaration.class).isEmpty()
+            && node.ancestors(ASTConstructorDeclaration.class).isEmpty()
+            && node.ancestors(ASTInitializer.class).isEmpty();
     }
 
     /**
