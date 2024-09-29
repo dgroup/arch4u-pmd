@@ -24,16 +24,16 @@
   -->
 
 <test-data
-        xmlns="http://pmd.sourceforge.net/rule-tests"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+  xmlns="http://pmd.sourceforge.net/rule-tests"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-    <test-code>
-        <description>[BAD]: prohibited class with sensitive data is logged</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
-        <expected-problems>1</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited class with sensitive data is logged</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -46,14 +46,14 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: prohibited package</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity</rule-property>
-        <expected-problems>1</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited package</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity</rule-property>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -66,16 +66,16 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
 
-    <test-code>
-        <description>[BAD]: classes are passed as method parameters</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
-        </rule-property>
-        <expected-problems>1</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: classes are passed as method parameters</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
+    </rule-property>
+    <expected-problems>1</expected-problems>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import io.github.dgroup.arch4u.pmd.test_entity.Person;
 class Foo {
@@ -84,15 +84,15 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[OK]: no logged objects with sensitive data</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
-        </rule-property>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[OK]: no logged objects with sensitive data</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
+    </rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 class Foo {
@@ -104,15 +104,15 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[OK]: no logged objects with sensitive data</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
-        </rule-property>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[OK]: no logged objects with sensitive data</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
+    </rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -124,17 +124,17 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: prohibited package and subpackage</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitiveClasses">java.lang.Integer</rule-property>
-        <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity.secret
-        </rule-property>
-        <expected-problems>2</expected-problems>
-        <expected-linenumbers>10, 14</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited package and subpackage</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">java.lang.Integer</rule-property>
+    <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity.secret
+    </rule-property>
+    <expected-problems>2</expected-problems>
+    <expected-linenumbers>10, 14</expected-linenumbers>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -152,15 +152,15 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: prohibited package</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity</rule-property>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>11</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited package</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>11</expected-linenumbers>
+    <code><![CDATA[
         import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
         import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -176,14 +176,14 @@ class Foo {
             }
         }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[OK]: object obfuscated before logging</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity</rule-property>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[OK]: object obfuscated before logging</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitivePackages">io.github.dgroup.arch4u.pmd.test_entity</rule-property>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
         import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
         import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -197,15 +197,15 @@ class Foo {
             }
         }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: method returns sensitive type</description>
-        <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-        <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
-        <expected-problems>3</expected-problems>
-        <expected-linenumbers>9,13,18</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: method returns sensitive type</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>3</expected-problems>
+    <expected-linenumbers>9,13,18</expected-linenumbers>
+    <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.dgroup.arch4u.pmd.test_entity.Person;
@@ -235,5 +235,5 @@ class Cache {
  public Person getCustomer() {}
 }
         ]]></code>
-    </test-code>
+  </test-code>
 </test-data>

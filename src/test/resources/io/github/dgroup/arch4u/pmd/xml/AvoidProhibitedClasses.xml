@@ -24,38 +24,38 @@
   -->
 
 <test-data
-        xmlns="http://pmd.sourceforge.net/rule-tests"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+  xmlns="http://pmd.sourceforge.net/rule-tests"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-    <test-code>
-        <description>[BAD]: prohibited class org.apache.commons.codec.CharEncoding is used</description>
-        <rule-property name="fullNames">org.apache.commons.codec.CharEncoding</rule-property>
-        <rule-property name="checkSubtypes">false</rule-property>
-        <expected-problems>1</expected-problems>
-        <expected-messages>
-            <message>The org.apache.commons.codec.CharEncoding class is prohibited to use.</message>
-        </expected-messages>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited class org.apache.commons.codec.CharEncoding is used</description>
+    <rule-property name="fullNames">org.apache.commons.codec.CharEncoding</rule-property>
+    <rule-property name="checkSubtypes">false</rule-property>
+    <expected-problems>1</expected-problems>
+    <expected-messages>
+      <message>The org.apache.commons.codec.CharEncoding class is prohibited to use.</message>
+    </expected-messages>
+    <code><![CDATA[
 import java.nio.charset.Charset;
 import org.apache.commons.codec.CharEncoding;
 class Foo {
     Charset cs = Charset.forName(CharEncoding.UTF_8);
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: prohibited class org.apache.log4j.Logger is used</description>
-        <rule-property name="fullNames">org.apache.log4j.Logger</rule-property>
-        <rule-property name="checkSubtypes">false</rule-property>
-        <expected-problems>2</expected-problems>
-        <expected-linenumbers>3, 3</expected-linenumbers>
-        <expected-messages>
-            <message>The org.apache.log4j.Logger class is prohibited to use.</message>
-            <message>The org.apache.log4j.Logger class is prohibited to use.</message>
-        </expected-messages>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited class org.apache.log4j.Logger is used</description>
+    <rule-property name="fullNames">org.apache.log4j.Logger</rule-property>
+    <rule-property name="checkSubtypes">false</rule-property>
+    <expected-problems>2</expected-problems>
+    <expected-linenumbers>3, 3</expected-linenumbers>
+    <expected-messages>
+      <message>The org.apache.log4j.Logger class is prohibited to use.</message>
+      <message>The org.apache.log4j.Logger class is prohibited to use.</message>
+    </expected-messages>
+    <code><![CDATA[
 import org.apache.log4j.Logger;
 class Foo {
     private static Logger log = Logger.getLogger(LogClass.class);
@@ -65,19 +65,19 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: prohibited class org.apache.commons.codec.CharEncoding is used</description>
-        <rule-property name="fullNames">org.apache.commons.codec.CharEncoding,org.apache.log4j.Logger</rule-property>
-        <rule-property name="checkSubtypes">false</rule-property>
-        <expected-problems>2</expected-problems>
-        <expected-linenumbers>3,6</expected-linenumbers>
-        <expected-messages>
-            <message>The org.apache.commons.codec.CharEncoding class is prohibited to use.</message>
-            <message>The org.apache.log4j.Logger class is prohibited to use.</message>
-        </expected-messages>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: prohibited class org.apache.commons.codec.CharEncoding is used</description>
+    <rule-property name="fullNames">org.apache.commons.codec.CharEncoding,org.apache.log4j.Logger</rule-property>
+    <rule-property name="checkSubtypes">false</rule-property>
+    <expected-problems>2</expected-problems>
+    <expected-linenumbers>3,6</expected-linenumbers>
+    <expected-messages>
+      <message>The org.apache.commons.codec.CharEncoding class is prohibited to use.</message>
+      <message>The org.apache.log4j.Logger class is prohibited to use.</message>
+    </expected-messages>
+    <code><![CDATA[
 import org.apache.commons.codec.CharEncoding;
 class Foo {
     void bar(CharEncoding ce) {
@@ -87,6 +87,6 @@ class Foo {
     }
 }
         ]]></code>
-    </test-code>
+  </test-code>
 
 </test-data>

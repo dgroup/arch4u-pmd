@@ -24,14 +24,14 @@
   -->
 
 <test-data
-        xmlns="http://pmd.sourceforge.net/rule-tests"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+  xmlns="http://pmd.sourceforge.net/rule-tests"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
 
-    <test-code>
-        <description>[GOOD]: all mandatory constructors are provided</description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[GOOD]: all mandatory constructors are provided</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 class MyException extends Exception {
     public MyException(String pattern, Object... args) {
          super(String.format(pattern, args));
@@ -42,139 +42,139 @@ class MyException extends Exception {
    }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>
-            [GOOD]: mandatory constructor `MyException(String, Object...)` is provided
-        </description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>
+      [GOOD]: mandatory constructor `MyException(String, Object...)` is provided
+    </description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 class MyException extends Exception {
     public MyException(String pattern, Object... args) {
          super(String.format(pattern, args));
    }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>
-            [GOOD]: mandatory constructor `MyException(Throwable, String, Object...)` is provided
-        </description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>
+      [GOOD]: mandatory constructor `MyException(Throwable, String, Object...)` is provided
+    </description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 class MyException extends Exception {
     public MyException(Throwable cause, String pattern, Object... args) {
          super(String.format(pattern, args));
    }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>
-            [GOOD]: exception with mandatory constructor extends ArithmeticException
-        </description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>
+      [GOOD]: exception with mandatory constructor extends ArithmeticException
+    </description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 class MyException extends ArithmeticException {
     public MyException(Throwable cause, String pattern, Object... args) {}
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[GOOD]: inner exception class with mandatory constructor</description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
+  <test-code>
+    <description>[GOOD]: inner exception class with mandatory constructor</description>
+    <expected-problems>0</expected-problems>
+    <code><![CDATA[
 class Foo {
     private class InnerException extends Exception {
         public InnerException(String pattern, Object... args) {}
     }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: no constructors</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>1</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: no constructors</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>1</expected-linenumbers>
+    <code><![CDATA[
 class MyException extends Exception {                       //violation
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: no mandatory constructor: public MyException()</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>1</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: no mandatory constructor: public MyException()</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>1</expected-linenumbers>
+    <code><![CDATA[
 class MyException extends Exception {                       //violation
     public MyException() {
     }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: no mandatory constructor: public MyException(Throwable, Object...)</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>1</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: no mandatory constructor: public MyException(Throwable, Object...)</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>1</expected-linenumbers>
+    <code><![CDATA[
 class MyException extends Exception {                       //violation
     public MyException(Throwable cause, Object... args) {
     }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: no mandatory constructor</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>1</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: no mandatory constructor</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>1</expected-linenumbers>
+    <code><![CDATA[
 class MyException extends Exception {                       //violation
     public MyException(String pattern, Integer... args) {
     }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: no mandatory constructor</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>1</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: no mandatory constructor</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>1</expected-linenumbers>
+    <code><![CDATA[
 class MyException extends Exception {                       //violation
     public MyException(Exception cause, String pattern, Object... args) {
     }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: constructor has non-public modifier</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>1</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: constructor has non-public modifier</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>1</expected-linenumbers>
+    <code><![CDATA[
 class MyException extends Exception {                       //violation
     MyException(Throwable cause, String pattern, Object... args) {}
 }
     ]]></code>
-    </test-code>
+  </test-code>
 
-    <test-code>
-        <description>[BAD]: inner exception class without mandatory constructor</description>
-        <expected-problems>1</expected-problems>
-        <expected-linenumbers>2</expected-linenumbers>
-        <code><![CDATA[
+  <test-code>
+    <description>[BAD]: inner exception class without mandatory constructor</description>
+    <expected-problems>1</expected-problems>
+    <expected-linenumbers>2</expected-linenumbers>
+    <code><![CDATA[
 class Foo {
     private class InnerException extends Exception {              //violation
         public InnerException(Object pattern, Object... args) {}
     }
 }
     ]]></code>
-    </test-code>
+  </test-code>
 </test-data>
