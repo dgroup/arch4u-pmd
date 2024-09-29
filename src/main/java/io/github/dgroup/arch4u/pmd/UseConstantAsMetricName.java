@@ -10,23 +10,27 @@ import net.sourceforge.pmd.properties.PropertyFactory;
 
 import java.util.List;
 
+@SuppressWarnings({
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public class UseConstantAsMetricName extends AbstractJavaRule {
 
-    private static final PropertyDescriptor<List<String>> METRIC_ANNOTATIONS_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> ANNOTATIONS =
         PropertyFactory.stringListProperty("metricAnnotations")
             .desc("List of the metric annotations.")
             .defaultValues("io.micrometer.core.annotation.Timed")
             .build();
 
-    private final List<String> metricAnnotations;
+    private final List<String> annotations;
 
     public UseConstantAsMetricName() {
-        definePropertyDescriptor(METRIC_ANNOTATIONS_DESCRIPTOR);
-        metricAnnotations = getProperty(METRIC_ANNOTATIONS_DESCRIPTOR);
+        definePropertyDescriptor(ANNOTATIONS);
+        this.annotations = getProperty(ANNOTATIONS);
     }
 
     @Override
-    public Object visit(ASTAnnotation annotation, Object data) {
+    public Object visit(final ASTAnnotation annotation, final Object data) {
         if (isMetricAnnotation(annotation)) {
             annotation.getMembers()
                 .map(ASTMemberValuePair::getValue)
@@ -36,7 +40,8 @@ public class UseConstantAsMetricName extends AbstractJavaRule {
         return super.visit(annotation, data);
     }
 
-    private boolean isMetricAnnotation(ASTAnnotation node) {
-        return metricAnnotations.stream().anyMatch(annot -> TypeTestUtil.isExactlyA(annot, node));
+    private boolean isMetricAnnotation(final ASTAnnotation node) {
+        return this.annotations.stream()
+                   .anyMatch(annot -> TypeTestUtil.isExactlyA(annot, node));
     }
 }

@@ -27,13 +27,11 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.lang.java.ast.ASTExpression;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.java.symbols.JTypeDeclSymbol;
 import net.sourceforge.pmd.lang.java.types.JMethodSig;
 import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-
 import java.util.List;
 
 /**
@@ -42,13 +40,13 @@ import java.util.List;
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
+@SuppressWarnings({"PMD.OnlyOneReturn", "PMD.StaticAccessToStaticFields"})
 public final class ObfuscationRequired extends AbstractJavaRule {
 
     /**
      * Property descriptor with test class suffix.
      */
-    private static final PropertyDescriptor<List<String>> LOGGER_CLASSES_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> LOGGERS =
         PropertyFactory.stringListProperty("loggerClasses")
             .desc("The fully qualified name of the class for logging")
             .defaultValues(
@@ -62,7 +60,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
     /**
      * Property descriptor with the list of the prohibited classes.
      */
-    private static final PropertyDescriptor<List<String>> SENSITIVE_CLASSES_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> CLASSES =
         PropertyFactory.stringListProperty("sensitiveClasses")
             .desc("List of prohibited methods")
             .emptyDefaultValue()
@@ -71,7 +69,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
     /**
      * Property descriptor with the list of the prohibited packages.
      */
-    private static final PropertyDescriptor<List<String>> SENSITIVE_PACKAGES_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> PACKAGES =
         PropertyFactory.stringListProperty("sensitivePackages")
             .desc("List of prohibited packages")
             .emptyDefaultValue()
@@ -82,39 +80,32 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public ObfuscationRequired() {
-        this.definePropertyDescriptor(LOGGER_CLASSES_DESCRIPTOR);
-        this.definePropertyDescriptor(SENSITIVE_CLASSES_DESCRIPTOR);
-        this.definePropertyDescriptor(SENSITIVE_PACKAGES_DESCRIPTOR);
+        this.definePropertyDescriptor(LOGGERS);
+        this.definePropertyDescriptor(CLASSES);
+        this.definePropertyDescriptor(PACKAGES);
     }
 
     @Override
-    public Object visit(ASTMethodCall node, Object data) {
-        JMethodSig methodSignature = node.getMethodType();
-        if (methodSignature != null) {
-            if (isLoggerMethod(methodSignature)) {
-                node.getArguments().forEach(arg -> {
-                    if (isSensitiveObject(arg)) {
-                        asCtx(data).addViolation(arg);
-                    }
-                });
-            }
+    public Object visit(final ASTMethodCall node, final Object data) {
+        if (node.getMethodType() != null && isLoggerMethod(node.getMethodType())) {
+            node.getArguments()
+                .toStream()
+                .filter(this::isSensitiveObject)
+                .forEach(arg -> asCtx(data).addViolation(arg));
         }
         return data;
     }
 
-    private boolean isLoggerMethod(JMethodSig methodSignature) {
-        return getProperty(LOGGER_CLASSES_DESCRIPTOR).stream()
-            .anyMatch(loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType()));
+    private boolean isLoggerMethod(final JMethodSig methodSignature) {
+        return getProperty(LOGGERS)
+                   .stream()
+                   .anyMatch(loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType()));
     }
 
-    private boolean isSensitiveObject(ASTExpression arg) {
-        if (arg instanceof ASTMethodCall) {
-            ASTMethodCall methodCall = (ASTMethodCall) arg;
-            return hasSensitiveType(methodCall);
-        } else {
-            JTypeMirror argumentType = arg.getTypeMirror();
-            return isSensitiveType(argumentType);
-        }
+    private boolean isSensitiveObject(final ASTExpression arg) {
+        return arg instanceof ASTMethodCall
+                   ? hasSensitiveType((ASTMethodCall) arg)
+                   : isSensitiveType(arg.getTypeMirror());
     }
 
     /**
@@ -122,37 +113,33 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      * If the method is toString(), check the type of the object it's called on. Example: {@code person.toString()}.
      * Otherwise, check if the method returns a sensitive type. Example: {@code order.getPerson()}.
      */
-    private boolean hasSensitiveType(ASTMethodCall methodCall) {
-        String methodName = methodCall.getMethodType().getName();
-
-        if ("toString".equals(methodName)) {
-            ASTExpression qualifier = methodCall.getQualifier();
+    private boolean hasSensitiveType(final ASTMethodCall call) {
+        if ("toString".equals(call.getMethodType().getName())) {
+            final ASTExpression qualifier = call.getQualifier();
             if (qualifier != null && isSensitiveType(qualifier.getTypeMirror())) {
                 return true;
             }
         }
-
-        JTypeMirror methodReturnType = methodCall.getMethodType().getReturnType();
-        return isSensitiveType(methodReturnType);
+        return isSensitiveType(call.getMethodType().getReturnType());
     }
 
-    private boolean isSensitiveType(JTypeMirror type) {
+    private boolean isSensitiveType(final JTypeMirror type) {
         return isSensitiveClass(type) || isSensitivePackage(type);
     }
 
-    private boolean isSensitiveClass(JTypeMirror type) {
-        return getProperty(SENSITIVE_CLASSES_DESCRIPTOR).stream()
-            .anyMatch(sensitiveClass -> TypeTestUtil.isA(sensitiveClass, type));
+    private boolean isSensitiveClass(final JTypeMirror type) {
+        return this.getProperty(CLASSES)
+                   .stream()
+                   .anyMatch(sensitiveClass -> TypeTestUtil.isA(sensitiveClass, type));
     }
 
-    private boolean isSensitivePackage(JTypeMirror type) {
-        JTypeDeclSymbol typeSymbol = type.getSymbol();
-        if (typeSymbol != null) {
-            String packageName = typeSymbol.getPackageName();
-            return getProperty(SENSITIVE_PACKAGES_DESCRIPTOR).stream()
-                .anyMatch(packageName::startsWith);
+    private boolean isSensitivePackage(final JTypeMirror type) {
+        if (type.getSymbol() == null) {
+            return false;
         }
-        return false;
+        final String packageName = type.getSymbol().getPackageName();
+        return this.getProperty(PACKAGES)
+                   .stream()
+                   .anyMatch(packageName::startsWith);
     }
-
 }

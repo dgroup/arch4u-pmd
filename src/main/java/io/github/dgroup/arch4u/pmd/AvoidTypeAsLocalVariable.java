@@ -6,92 +6,93 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-
 import java.util.List;
 
+@SuppressWarnings({
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public class AvoidTypeAsLocalVariable extends AbstractJavaRule {
 
-    private static final PropertyDescriptor<List<String>> OBJECT_MAPPER_DESCRIPTOR =
-        PropertyFactory.stringListProperty("objectMapperClasses")
-            .desc("Full names of the ObjectMapper classes")
+    private static final PropertyDescriptor<List<String>> CLASSES =
+        PropertyFactory.stringListProperty("classes")
+            .desc("Full names of the classes")
+            // @todo #/DEV Remove default value for classes, use *.xml configuration instead
             .defaultValues("com.fasterxml.jackson.databind.ObjectMapper")
             .build();
 
-    private static final PropertyDescriptor<List<String>> ANNOTATIONS_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> ANNOTATIONS =
         PropertyFactory.stringListProperty("annotations")
-            .desc("Full name of the method annotations in which it's allowed to use ObjectMapper as a field")
+            .desc("Full name of the method annotations in which it's allowed to use objects")
+            // @todo #/DEV Remove default value for methods, use *.xml configuration instead
             .defaultValues(
                 "javax.annotation.PostConstruct",
                 "org.springframework.context.annotation.Bean"
             )
             .build();
 
-    private static final PropertyDescriptor<Boolean> CHECK_SUBTYPES_DESCRIPTOR =
+    private static final PropertyDescriptor<Boolean> SUBTYPES =
         PropertyFactory.booleanProperty("checkSubtypes")
-            .desc("The property matches whether the ObjectMapper subtypes should be checked")
+            .desc("The property matches whether the classes subtypes should be checked")
             .defaultValue(true)
             .build();
 
-    private List<String> objectMapperClasses;
-    private List<String> annotations;
+    private final List<String> classes;
+    private final List<String> annotations;
 
     public AvoidTypeAsLocalVariable() {
-        definePropertyDescriptor(OBJECT_MAPPER_DESCRIPTOR);
-        definePropertyDescriptor(ANNOTATIONS_DESCRIPTOR);
-        definePropertyDescriptor(CHECK_SUBTYPES_DESCRIPTOR);
-
-        objectMapperClasses = getProperty(OBJECT_MAPPER_DESCRIPTOR);
-        annotations = getProperty(ANNOTATIONS_DESCRIPTOR);
+        definePropertyDescriptor(CLASSES);
+        definePropertyDescriptor(ANNOTATIONS);
+        definePropertyDescriptor(SUBTYPES);
+        this.classes = getProperty(CLASSES);
+        this.annotations = getProperty(ANNOTATIONS);
     }
 
     @Override
-    public Object visit(ASTMethodDeclaration methodDeclaration, Object data) {
-        for (ASTFormalParameter formalParameter : methodDeclaration.getFormalParameters()) {
-            ASTType paramType = formalParameter.getTypeNode();
-            if (isObjectMapper(paramType) && !hasAllowedAnnotations(methodDeclaration)) {
-                asCtx(data).addViolation(formalParameter);
+    public Object visit(final ASTMethodDeclaration method, final Object data) {
+        for (final ASTFormalParameter param : method.getFormalParameters()) {
+            if (this.illegalType(param.getTypeNode()) && !this.hasAllowedAnnotations(method)) {
+                asCtx(data).addViolation(param);
             }
         }
-        return super.visit(methodDeclaration, data);
+        return super.visit(method, data);
     }
 
     @Override
-    public Object visit(ASTLocalVariableDeclaration node, Object data) {
-        ASTType variableType = node.getTypeNode();
-        if (isObjectMapper(variableType) && isInNotAllowedContext(node)) {
+    public Object visit(final ASTLocalVariableDeclaration node, final Object data) {
+        if (this.illegalType(node.getTypeNode()) && this.isInNotAllowedContext(node)) {
             asCtx(data).addViolation(node);
         }
         return super.visit(node, data);
     }
 
     @Override
-    public Object visit(ASTConstructorCall constructorCall, Object data) {
-        ASTClassType typeNode = constructorCall.getTypeNode();
-        if (isObjectMapper(typeNode) && isInNotAllowedContext(constructorCall)) {
-            asCtx(data).addViolation(constructorCall);
+    public Object visit(final ASTConstructorCall ctor, final Object data) {
+        if (this.illegalType(ctor.getTypeNode()) && this.isInNotAllowedContext(ctor)) {
+            asCtx(data).addViolation(ctor);
         }
-
-        return super.visit(constructorCall, data);
+        return super.visit(ctor, data);
     }
 
-    private boolean isObjectMapper(TypeNode typeNode) {
-        if (typeNode != null) {
-            return objectMapperClasses.stream().anyMatch(className -> isTypeMatches(typeNode, className));
+    private boolean illegalType(final TypeNode type) {
+        boolean found = false;
+        if (type != null) {
+            found = this.classes.stream().anyMatch(className -> isTypeMatches(type, className));
         }
-        return false;
+        return found;
     }
 
-    private boolean isTypeMatches(TypeNode typeNode, String className) {
-        return getProperty(CHECK_SUBTYPES_DESCRIPTOR)
-            ? TypeTestUtil.isA(className, typeNode)
-            : TypeTestUtil.isExactlyA(className, typeNode);
+    private boolean isTypeMatches(final TypeNode type, final String classname) {
+        return getProperty(SUBTYPES)
+            ? TypeTestUtil.isA(classname, type)
+            : TypeTestUtil.isExactlyA(classname, type);
     }
 
     /**
      * Checks if an allowed annotation is not presented and
-     * if ObjectMapper is not declared in fields, constructors, and initialization blocks.
+     * if type is not declared in fields, constructors, and initialization blocks.
      */
-    private boolean isInNotAllowedContext(Node node) {
+    private boolean isInNotAllowedContext(final Node node) {
         return node.ancestors(ASTMethodDeclaration.class).toStream().noneMatch(this::hasAllowedAnnotations)
             && node.ancestors(ASTFieldDeclaration.class).isEmpty()
             && node.ancestors(ASTConstructorDeclaration.class).isEmpty()
@@ -99,10 +100,9 @@ public class AvoidTypeAsLocalVariable extends AbstractJavaRule {
     }
 
     /**
-     * Check if the ObjectMapper is used in a method with specific annotations.
+     * Check if the type is used in a method with specific annotations.
      */
-    private boolean hasAllowedAnnotations(ASTMethodDeclaration method) {
+    private boolean hasAllowedAnnotations(final ASTMethodDeclaration method) {
         return method.isAnyAnnotationPresent(annotations);
     }
 }
-

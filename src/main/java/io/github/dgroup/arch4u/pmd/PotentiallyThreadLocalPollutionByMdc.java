@@ -28,7 +28,6 @@ import net.sourceforge.pmd.lang.java.ast.ASTExpression;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
@@ -42,28 +41,33 @@ import java.util.Map;
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/TBD">https://github.com/dgroup/arch4u-pmd/issues/TBD</a>
  * @since 0.1.0
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
+@SuppressWarnings({
+    "PMD.OnlyOneReturn",
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorShouldDoInitialization",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
 
-    private static final PropertyDescriptor<List<String>> MDC_CLASSES_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> CLASSES =
         PropertyFactory.stringListProperty("mdcClasses")
             .desc("Full name of the MDC classes.")
             .defaultValues("org.slf4j.MDC")
             .build();
 
-    private static final PropertyDescriptor<List<String>> PUT_METHODS_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> PUT_METHODS =
         PropertyFactory.stringListProperty("putMethods")
             .desc("Names of methods that add entries to the MDC.")
             .defaultValues("put")
             .build();
 
-    private static final PropertyDescriptor<List<String>> REMOVE_METHODS_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> REMOVE_METHODS =
         PropertyFactory.stringListProperty("removeMethods")
             .desc("Names of methods that remove the entries by key from the MDC.")
             .defaultValues("remove")
             .build();
 
-    private static final PropertyDescriptor<List<String>> CLEAR_METHODS_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> CLEAR_METHODS =
         PropertyFactory.stringListProperty("clearMethods")
             .desc("Names of methods that clear the MDC.")
             .defaultValues("clear")
@@ -71,88 +75,67 @@ public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
 
     private final Map<String, ASTMethodCall> mdcKeysInUse = new HashMap<>();
 
-    private List<String> mdcClasses;
-    private List<String> putMethods;
-    private List<String> removeMethods;
-    private List<String> clearMethods;
+    private final List<String> mdcClasses;
+    private final List<String> putMethods;
+    private final List<String> removeMethods;
+    private final List<String> clearMethods;
 
     public PotentiallyThreadLocalPollutionByMdc() {
-        definePropertyDescriptor(MDC_CLASSES_DESCRIPTOR);
-        definePropertyDescriptor(PUT_METHODS_DESCRIPTOR);
-        definePropertyDescriptor(REMOVE_METHODS_DESCRIPTOR);
-        definePropertyDescriptor(CLEAR_METHODS_DESCRIPTOR);
-
-        mdcClasses = getProperty(MDC_CLASSES_DESCRIPTOR);
-        putMethods = getProperty(PUT_METHODS_DESCRIPTOR);
-        removeMethods = getProperty(REMOVE_METHODS_DESCRIPTOR);
-        clearMethods = getProperty(CLEAR_METHODS_DESCRIPTOR);
+        definePropertyDescriptor(CLASSES);
+        definePropertyDescriptor(PUT_METHODS);
+        definePropertyDescriptor(REMOVE_METHODS);
+        definePropertyDescriptor(CLEAR_METHODS);
+        this.mdcClasses = getProperty(CLASSES);
+        this.putMethods = getProperty(PUT_METHODS);
+        this.removeMethods = getProperty(REMOVE_METHODS);
+        this.clearMethods = getProperty(CLEAR_METHODS);
     }
 
     @Override
-    public Object visit(ASTMethodCall node, Object data) {
-        String methodName = node.getMethodName();
-        ASTExpression qualifier = node.getQualifier();
-
-        if (isMdc(qualifier)) {
-            String key = extractKey(node);
-            if (key != null) {
-                if (isPutMethod(methodName)) {
-                    mdcKeysInUse.put(key, node);
-                } else if (isRemoveMethod(methodName)) {
-                    mdcKeysInUse.remove(key);
-                }
-            } else if (isCleanMethod(methodName)) {
+    public Object visit(final ASTMethodCall node, final Object data) {
+        if (this.isMdc(node.getQualifier())) {
+            final String key = extractKey(node);
+            if (key != null && this.putMethods.contains(node.getMethodName())) {
+                mdcKeysInUse.put(key, node);
+            }
+            if (key != null && this.removeMethods.contains(node.getMethodName())) {
+                mdcKeysInUse.remove(key);
+            }
+            if (this.clearMethods.contains(node.getMethodName())) {
                 mdcKeysInUse.clear();
             }
         }
-
         return super.visit(node, data);
     }
 
     @Override
-    public Object visit(ASTMethodDeclaration node, Object data) {
+    public Object visit(final ASTMethodDeclaration node, final Object data) {
         node.children().forEach(child -> child.acceptVisitor(this, data));
-        if (!mdcKeysInUse.isEmpty()) {
-            for (Map.Entry<String, ASTMethodCall> mdcInvocationByKey : mdcKeysInUse.entrySet()) {
-                ASTMethodCall location = mdcInvocationByKey.getValue();
-                String mdcKey = mdcInvocationByKey.getKey();
-                asCtx(data).addViolation(location, mdcKey);
+        if (!this.mdcKeysInUse.isEmpty()) {
+            for (final Map.Entry<String, ASTMethodCall> inv : this.mdcKeysInUse.entrySet()) {
+                asCtx(data).addViolation(inv.getValue(), inv.getKey());
             }
         }
-
-        mdcKeysInUse.clear();
+        this.mdcKeysInUse.clear();
         return super.visit(node, data);
     }
 
-    private boolean isMdc(ASTExpression qualifier) {
+    private boolean isMdc(final ASTExpression qualifier) {
         if (qualifier == null) {
             return false;
         }
-        JTypeMirror type = qualifier.getTypeMirror();
-        return mdcClasses.stream()
-                   .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
+        return this.mdcClasses.stream()
+                   .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
     }
 
     /**
      * Extract the key from the {@code MDC.put(...)} or {@code MDC.remove(...)} method call.
      * Assuming key is the first argument.
      */
-    private String extractKey(ASTMethodCall node) {
-        if (!node.getArguments().isEmpty()) {
-            return node.getArguments().get(0).getImage();
+    private String extractKey(final ASTMethodCall node) {
+        if (node.getArguments().isEmpty()) {
+            return null;
         }
-        return null;
-    }
-
-    private boolean isPutMethod(String methodName) {
-        return putMethods.contains(methodName);
-    }
-
-    private boolean isRemoveMethod(String methodName) {
-        return removeMethods.contains(methodName);
-    }
-
-    private boolean isCleanMethod(String methodName) {
-        return clearMethods.contains(methodName);
+        return node.getArguments().get(0).getImage();
     }
 }

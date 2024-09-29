@@ -29,22 +29,23 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * A PMD rule that prohibits the usage of specified classes.
  *
  * @since 0.1.0
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
+@SuppressWarnings({
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public final class AvoidProhibitedClasses extends AbstractJavaRule {
 
     /**
      * Property descriptor for the fully qualified name of the class whose methods are prohibited.
      */
-    private static final PropertyDescriptor<List<String>> CLASS_NAME_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> CLASSES =
         PropertyFactory.stringListProperty("fullNames")
             .desc("Fully qualified class names")
             .emptyDefaultValue()
@@ -53,38 +54,26 @@ public final class AvoidProhibitedClasses extends AbstractJavaRule {
     /**
      * Property descriptor for whether subtype checking is enabled.
      */
-    private static final PropertyDescriptor<Boolean> CHECK_SUBTYPES_DESCRIPTOR =
+    private static final PropertyDescriptor<Boolean> SUBTYPES =
         PropertyFactory.booleanProperty("checkSubtypes")
             .desc("The property matches whether the subtypes should be checked")
             .defaultValue(false)
             .build();
 
     public AvoidProhibitedClasses() {
-        definePropertyDescriptor(CLASS_NAME_DESCRIPTOR);
-        definePropertyDescriptor(CHECK_SUBTYPES_DESCRIPTOR);
+        definePropertyDescriptor(CLASSES);
+        definePropertyDescriptor(SUBTYPES);
     }
 
     @Override
-    public Object visit(ASTClassType node, Object data) {
-        List<String> prohibitedClassNames = getProperty(CLASS_NAME_DESCRIPTOR);
-        boolean checkSubtypes = getProperty(CHECK_SUBTYPES_DESCRIPTOR);
-
-        Predicate<String> checkTypeFunction = checkSubtypes
-            ? className -> TypeTestUtil.isA(className, node)
-            : className -> TypeTestUtil.isExactlyA(className, node);
-
-        checkForViolations(prohibitedClassNames, checkTypeFunction, node, data);
-        return data;
-    }
-
-    private void checkForViolations(List<String> prohibitedClassNames,
-                                    Predicate<String> checkTypeFunction,
-                                    ASTClassType node,
-                                    Object data
-    ) {
-        prohibitedClassNames.stream()
-            .filter(checkTypeFunction)
+    public Object visit(final ASTClassType node, final Object data) {
+        this.getProperty(CLASSES)
+            .stream()
+            .filter(this.getProperty(SUBTYPES)
+                        ? name -> TypeTestUtil.isA(name, node)
+                        : name -> TypeTestUtil.isExactlyA(name, node))
             .findFirst()
             .ifPresent(className -> asCtx(data).addViolation(node, className));
+        return data;
     }
 }

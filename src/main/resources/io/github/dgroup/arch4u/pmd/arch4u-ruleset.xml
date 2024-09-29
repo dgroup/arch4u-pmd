@@ -110,7 +110,7 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="objectMapperClasses"
+      <property name="classes"
                 description="Full names of the ObjectMapper classes. Use a comma (,) as a delimiter."
                 value="com.fasterxml.jackson.databind.ObjectMapper"/>
       <property name="annotations"

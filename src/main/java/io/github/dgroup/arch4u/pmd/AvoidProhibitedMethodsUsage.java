@@ -26,12 +26,10 @@ package io.github.dgroup.arch4u.pmd;
 
 import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.java.types.JMethodSig;
 import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-
 import java.util.List;
 
 /**
@@ -40,13 +38,16 @@ import java.util.List;
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
+@SuppressWarnings({
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
 
     /**
      * Property descriptor for the fully qualified name of the class whose methods are prohibited.
      */
-    private static final PropertyDescriptor<String> CLASS_NAME_DESCRIPTOR =
+    private static final PropertyDescriptor<String> CLASS =
         PropertyFactory.stringProperty("class")
             .desc("Fully qualified name of the class")
             .defaultValue("")
@@ -55,7 +56,7 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
     /**
      * Property descriptor for the names of methods that are prohibited to invoke.
      */
-    private static final PropertyDescriptor<List<String>> METHOD_NAME_DESCRIPTOR =
+    private static final PropertyDescriptor<List<String>> METHODS =
         PropertyFactory.stringListProperty("methods")
             .desc("Name of the method to prohibit")
             .emptyDefaultValue()
@@ -64,49 +65,44 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
     /**
      * Property descriptor for whether subtype checking is enabled.
      */
-    private static final PropertyDescriptor<Boolean> CHECK_SUBTYPES_DESCRIPTOR =
+    private static final PropertyDescriptor<Boolean> SUBTYPES =
         PropertyFactory.booleanProperty("checkSubtypes")
             .desc("The property matches whether the subtypes should be checked")
             .defaultValue(false)
             .build();
 
     public AvoidProhibitedMethodsUsage() {
-        definePropertyDescriptor(CLASS_NAME_DESCRIPTOR);
-        definePropertyDescriptor(METHOD_NAME_DESCRIPTOR);
-        definePropertyDescriptor(CHECK_SUBTYPES_DESCRIPTOR);
+        definePropertyDescriptor(CLASS);
+        definePropertyDescriptor(METHODS);
+        definePropertyDescriptor(SUBTYPES);
     }
 
     @Override
-    public Object visit(ASTMethodCall node, Object data) {
-        String prohibitedClassName = getProperty(CLASS_NAME_DESCRIPTOR);
-        List<String> prohibitedMethodNames = getProperty(METHOD_NAME_DESCRIPTOR);
-        boolean checkSubtypes = getProperty(CHECK_SUBTYPES_DESCRIPTOR);
-
-        JMethodSig methodSignature = node.getMethodType();
-        if (methodSignature != null) {
-            JTypeMirror declaringType = methodSignature.getDeclaringType();
-            if (declaringType != null) {
-                String className = declaringType.toString();
-                String methodName = methodSignature.getName();
-                if (prohibitedMethodNames.contains(methodName)) {
-                    if (checkSubtypes) {
-                        if (isSubtype(prohibitedClassName, declaringType)) {
-                            asCtx(data).addViolation(node, prohibitedClassName, methodName);
-                        }
-                    } else if (isExactClass(prohibitedClassName, className)) {
-                        asCtx(data).addViolation(node, prohibitedClassName, methodName);
-                    }
-                }
+    @SuppressWarnings("PMD.OnlyOneReturn")
+    public Object visit(final ASTMethodCall node, final Object data) {
+        if (node.getMethodType() == null || node.getMethodType().getDeclaringType() == null) {
+            return data;
+        }
+        if (getProperty(METHODS).contains(node.getMethodType().getName())) {
+            if (getProperty(SUBTYPES) && isSubtype(node.getMethodType().getDeclaringType())) {
+                asCtx(data).addViolation(
+                    node, getProperty(CLASS), node.getMethodType().getName()
+                );
+            }
+            if (isExactClass(node.getMethodType().getDeclaringType().toString())) {
+                asCtx(data).addViolation(
+                    node, getProperty(CLASS), node.getMethodType().getName()
+                );
             }
         }
         return data;
     }
 
-    private static boolean isExactClass(String prohibitedClassName, String className) {
-        return prohibitedClassName.equals(className);
+    private boolean isExactClass(final String classname) {
+        return this.getProperty(CLASS).equals(classname);
     }
 
-    private static boolean isSubtype(String prohibitedClassName, JTypeMirror declaringType) {
-        return TypeTestUtil.isA(prohibitedClassName, declaringType);
+    private boolean isSubtype(final JTypeMirror type) {
+        return TypeTestUtil.isA(this.getProperty(CLASS), type);
     }
 }
