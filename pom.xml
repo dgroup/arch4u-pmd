@@ -273,6 +273,7 @@
                 <!-- @todo #/DEV Fix Checkstyle step by step               -->
                 <exclude>checkstyle:/src/test/java/io/github/dgroup/arch4u/pmd/.*</exclude>
                 <exclude>checkstyle:/src/main/java/io/github/dgroup/arch4u/pmd/.*</exclude>
+                <exclude>checkstyle:/src/main/java/io/github/dgroup/arch4u/pmd/test_entity/.*</exclude>
                 <exclude>dependencies:org.cactoos:cactoos</exclude>
                 <exclude>dependencies:org.llorllale:cactoos-matchers</exclude>
                 <exclude>dependencies:org.openjdk.jmh</exclude>

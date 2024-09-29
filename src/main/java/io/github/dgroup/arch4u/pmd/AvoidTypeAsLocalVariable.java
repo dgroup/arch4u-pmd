@@ -77,7 +77,7 @@ public class AvoidTypeAsLocalVariable extends AbstractJavaRule {
     private boolean illegalType(final TypeNode type) {
         boolean found = false;
         if (type != null) {
-            found = this.classes.stream().anyMatch(className -> isTypeMatches(type, className));
+            found = this.classes.stream().anyMatch(className -> this.isTypeMatches(type, className));
         }
         return found;
     }

@@ -40,8 +40,10 @@ import java.util.List;
  *
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
+ * @checkstyle ReturnCountCheck (100 lines)
  */
 @SuppressWarnings({
+    "PMD.OnlyOneReturn",
     "PMD.StaticAccessToStaticFields",
     "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
 })
@@ -73,13 +75,12 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
 
     @Override
     public Object visit(final ASTMethodCall node, final Object data) {
-        if (isMdc(node.getQualifier()) && (isViolationInTryStatement(node) || isViolationInFinallyStatement(node))) {
+        if (this.isMdc(node.getQualifier()) && (inTry(node) || inFinally(node))) {
             asCtx(data).addViolation(node);
         }
         return data;
     }
 
-    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean isMdc(final ASTExpression qualifier) {
         if (qualifier == null) {
             return false;
@@ -89,13 +90,13 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
                    .anyMatch(mdc -> TypeTestUtil.isA(mdc, qualifier.getTypeMirror()));
     }
 
-    private boolean isViolationInTryStatement(final ASTMethodCall node) {
+    private boolean inTry(final ASTMethodCall node) {
         return this.getProperty(TRY).contains(node.getMethodName())
                    && node.ancestors(ASTTryStatement.class).isEmpty();
     }
 
-    private boolean isViolationInFinallyStatement(final ASTMethodCall node) {
-        return getProperty(FINALLY).contains(node.getMethodName())
+    private boolean inFinally(final ASTMethodCall node) {
+        return this.getProperty(FINALLY).contains(node.getMethodName())
                    && node.ancestors(ASTFinallyClause.class).isEmpty();
     }
 }

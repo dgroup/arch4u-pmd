@@ -96,13 +96,13 @@ public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
         if (this.isMdc(node.getQualifier())) {
             final String key = extractKey(node);
             if (key != null && this.putMethods.contains(node.getMethodName())) {
-                mdcKeysInUse.put(key, node);
+                this.mdcKeysInUse.put(key, node);
             }
             if (key != null && this.removeMethods.contains(node.getMethodName())) {
-                mdcKeysInUse.remove(key);
+                this.mdcKeysInUse.remove(key);
             }
             if (this.clearMethods.contains(node.getMethodName())) {
-                mdcKeysInUse.clear();
+                this.mdcKeysInUse.clear();
             }
         }
         return super.visit(node, data);

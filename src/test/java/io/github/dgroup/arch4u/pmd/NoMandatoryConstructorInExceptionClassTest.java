@@ -30,13 +30,15 @@ import net.sourceforge.pmd.test.SimpleAggregatorTst;
  * Test case for {@code NoMandatoryConstructorInExceptionClass} rule.
  *
  * @since 0.1.0
+ * @checkstyle MethodBodyCommentsCheck (50 lines)
+ * @checkstyle CommentsIndentationCheck (50 lines)
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class NoMandatoryConstructorInExceptionClassTest extends SimpleAggregatorTst {
 
     @Override
     public void setUp() {
-        // @todo #/DEV Implementation is required
+        // @todo #/DEV Implementation is required, remove checkstyle MethodBodyCommentsCheck,CommentsIndentationCheck once completed
 //        addRule(
 //            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
 //            "NoMandatoryConstructorInExceptionClass"
