@@ -29,9 +29,6 @@ package io.github.dgroup.arch4u.pmd.test_entity;
  *
  * @see io.github.dgroup.arch4u.pmd.ObfuscationRequired
  * @since 0.1.0
- * @checkstyle MemberNameCheck (200 lines)
- * @checkstyle DesignForExtensionCheck (200 lines)
- * @checkstyle StringLiteralsConcatenationCheck (200 lines)
  */
 public class Person {
     /**
