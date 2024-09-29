@@ -32,7 +32,6 @@ import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,7 +130,7 @@ public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
         }
         JTypeMirror type = qualifier.getTypeMirror();
         return mdcClasses.stream()
-            .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
+                   .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, type));
     }
 
     /**

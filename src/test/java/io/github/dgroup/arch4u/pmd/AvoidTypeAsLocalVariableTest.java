@@ -31,7 +31,6 @@ import net.sourceforge.pmd.test.SimpleAggregatorTst;
  *
  * @since 0.1.0
  */
-
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class AvoidTypeAsLocalVariableTest extends SimpleAggregatorTst {
     @Override
