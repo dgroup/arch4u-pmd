@@ -27,16 +27,15 @@ package io.github.dgroup.arch4u.pmd;
 import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
- * Test case for {@link WrongRestMethodSignature} rule.
+ * Test case for {@code UseOpenApiInRestEndpoints} rule.
  *
  * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class UseOpenApiInRestEndpointsTest extends SimpleAggregatorTst {
 
-    /*@Override
+    @Override
     public void setUp() {
         addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseOpenApiInRestEndpoints");
     }
-*/
 }

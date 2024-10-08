@@ -310,7 +310,7 @@
       ]]>
     </example>
   </rule>
-<!--
+
   <rule name="UseOpenApiInRestEndpoints"
         since="0.1.0"
         language="java"
@@ -323,14 +323,14 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="restAnnotations" type="List[String]" delimiter="|"
+      <property name="restAnnotations"
                 description="List of the REST endpoint method annotations"
                 value="org.springframework.web.bind.annotation.GetMapping
-|org.springframework.web.bind.annotation.DeleteMapping
-|org.springframework.web.bind.annotation.PatchMapping
-|org.springframework.web.bind.annotation.PostMapping
-|org.springframework.web.bind.annotation.PutMapping
-|org.springframework.web.bind.annotation.RequestMapping"/>
+,org.springframework.web.bind.annotation.DeleteMapping
+,org.springframework.web.bind.annotation.PatchMapping
+,org.springframework.web.bind.annotation.PostMapping
+,org.springframework.web.bind.annotation.PutMapping
+,org.springframework.web.bind.annotation.RequestMapping"/>
     </properties>
     <example>
       <![CDATA[
@@ -348,7 +348,7 @@
     </example>
   </rule>
 
--->
+
     <!-- Third-party rules -->
     <!--  <rule ref="category/java/bestpractices.xml">
         <exclude name="GuardLogStatement"/> &lt;!&ndash; @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
