@@ -281,7 +281,7 @@
     </example>
   </rule> -->
 
-    <!-- Rules related to rest api --> <!--
+    <!-- Rules related to rest api -->
   <rule name="UseExistingMediaTypeConstant"
         since="0.1.0"
         language="java"
@@ -305,7 +305,7 @@
       ]]>
     </example>
   </rule>
-
+<!--
   <rule name="UseOpenApiInRestEndpoints"
         since="0.1.0"
         language="java"
