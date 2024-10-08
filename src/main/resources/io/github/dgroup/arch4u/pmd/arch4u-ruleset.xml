@@ -350,8 +350,8 @@
 
 
     <!-- Third-party rules -->
-    <!--  <rule ref="category/java/bestpractices.xml">
-        <exclude name="GuardLogStatement"/> &lt;!&ndash; @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+      <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/> <!-- @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
         <exclude name="UnusedPrivateMethod"/>
       </rule>
       <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
@@ -367,7 +367,7 @@
       <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
         <exclude name="ShortClassName"/>
-        <exclude name="OnlyOneReturn"/> &lt;!&ndash; @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
         <exclude name="LongVariable"/>
       </rule>
       <rule ref="category/java/codestyle.xml/ShortClassName">
@@ -381,13 +381,13 @@
         </properties>
       </rule>
       <rule ref="category/java/design.xml">
-        <exclude name="LawOfDemeter"/>  &lt;!&ndash; @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="UseObjectForClearerAPI"/> &lt;!&ndash; @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="AvoidCatchingGenericException"/> &lt;!&ndash; @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="SignatureDeclareThrowsException"/> &lt;!&ndash; @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="ExcessiveImports"/> &lt;!&ndash; @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="LoosePackageCoupling"/> &lt;!&ndash; @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="StdCyclomaticComplexity" /> &lt;!&ndash; deprecated &ndash;&gt;
+        <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="AvoidCatchingGenericException"/> <!-- @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="SignatureDeclareThrowsException"/> <!-- @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
         <exclude name="UseUtilityClass" />
         <exclude name="ImmutableField" />
       </rule>
@@ -429,12 +429,12 @@
         </properties>
       </rule>
       <rule ref="category/java/multithreading.xml">
-        <exclude name="UseConcurrentHashMap"/> &lt;!&ndash; @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
+        <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
       </rule>
       <rule ref="category/java/performance.xml"/>
       <rule ref="category/java/security.xml"/>
       <rule ref="category/java/errorprone.xml">
-        <exclude name="AvoidDuplicateLiterals"/> &lt;!&ndash; @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-        <exclude name="MissingSerialVersionUID"/> &lt;!&ndash; @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;
-      </rule>-->
+        <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+        <exclude name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      </rule>
 </ruleset>
