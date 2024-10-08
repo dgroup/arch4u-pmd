@@ -231,7 +231,7 @@
     </rule>
 
 
-    <!-- Rules related to error handling --> <!--
+    <!-- Rules related to error handling -->
   <rule name="NoMandatoryConstructorInExceptionClass"
         since="0.1.0"
         language="java"
@@ -245,27 +245,32 @@
     </description>
     <priority>3</priority>
     <properties>
-      <property name="version" value="2.0"/>
       <property name="xpath">
         <value>
           <![CDATA[
-          //ClassOrInterfaceDeclaration
-          [pmd-java:typeIs('java.lang.Exception')] (: extends Exception class :)
-          [not(
-          ./ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/ConstructorDeclaration[@Public=true()]
-          /FormalParameters[
-              (: Ctor(Throwable, String, Object...) :)
-              (./FormalParameter[1]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Throwable')]
-              and
-              ./FormalParameter[2]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIs('java.lang.String')]
-              and
-              ./FormalParameter[3][@Varargs=true()]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Object')])
-              or
-              (: Ctor(String, Object...) :)
-              (./FormalParameter[1]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIs('java.lang.String')]
-              and
-              ./FormalParameter[2][@Varargs=true()]/Type/ReferenceType/ClassOrInterfaceType[pmd-java:typeIsExactly('java.lang.Object')])]
-          )]
+//ClassDeclaration
+[pmd-java:typeIs('java.lang.Exception')] (: extends Exception class :)
+[not(
+    ./ClassBody/ConstructorDeclaration[pmd-java:modifiers() = 'public']
+    /FormalParameters[
+        (: Ctor(Throwable, String, Object...) :)
+        (
+            ./FormalParameter[1]/ClassType[pmd-java:typeIsExactly('java.lang.Throwable')]
+            and
+            ./FormalParameter[2]/ClassType[pmd-java:typeIs('java.lang.String')]
+            and
+            ./FormalParameter[3][@Varargs=true()]/ArrayType/ClassType[pmd-java:typeIsExactly('java.lang.Object')]
+        )
+        or
+        (: Ctor(String, Object...) :)
+        (
+            ./FormalParameter[1]/ClassType[pmd-java:typeIs('java.lang.String')]
+            and
+            ./FormalParameter[2][@Varargs=true()]/ArrayType/ClassType[pmd-java:typeIsExactly('java.lang.Object')]
+        )
+    ]
+)
+]
           ]]>
         </value>
       </property>
@@ -279,7 +284,7 @@
           }
           ]]>
     </example>
-  </rule> -->
+  </rule>
 
     <!-- Rules related to rest api -->
   <rule name="UseExistingMediaTypeConstant"
