@@ -364,77 +364,79 @@
         <property name="violationSuppressXPath" value=".[ends-with(@Image,'assertEquals')]"/>
       </properties>
     </rule>
-<!--    <rule ref="category/java/codestyle.xml">-->
-<!--      <exclude name="AtLeastOneConstructor"/>-->
-<!--      <exclude name="ShortClassName"/>-->
-<!--      <exclude name="OnlyOneReturn"/> &lt;!&ndash; @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="LongVariable"/>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/codestyle.xml/ShortClassName">-->
-<!--      <properties>-->
-<!--        <property name="minimum" value="3" />-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/codestyle.xml/LongVariable">-->
-<!--      <properties>-->
-<!--        <property name="minimum" value="25" />-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/design.xml">-->
-<!--      <exclude name="LawOfDemeter"/>  &lt;!&ndash; @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="UseObjectForClearerAPI"/> &lt;!&ndash; @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="AvoidCatchingGenericException"/> &lt;!&ndash; @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="SignatureDeclareThrowsException"/> &lt;!&ndash; @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="ExcessiveImports"/> &lt;!&ndash; @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="LoosePackageCoupling"/> &lt;!&ndash; @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="StdCyclomaticComplexity" /> &lt;!&ndash; deprecated &ndash;&gt;-->
-<!--      <exclude name="UseUtilityClass" />-->
-<!--      <exclude name="ImmutableField" />-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/design.xml/CouplingBetweenObjects">-->
-<!--      <properties>-->
-<!--        <property name="threshold" value="40"/>-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/design.xml/TooManyMethods">-->
-<!--      <properties>-->
-<!--        <property name="maxmethods" value="20"/>-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/design.xml/TooManyFields">-->
-<!--      <properties>-->
-<!--        <property name="maxfields" value="25"/>-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/design.xml/UseUtilityClass">-->
-<!--      <properties>-->
-<!--        <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass|org.springframework.boot.autoconfigure.SpringBootApplication" />-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/design.xml/ImmutableField">-->
-<!--      <properties>-->
-<!--        <property name="ignoredAnnotations"-->
-<!--                  value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject|org.apache.camel.EndpointInject" />-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/documentation.xml">-->
-<!--      <exclude name="CommentSize"/>-->
-<!--      <exclude name="CommentRequired"/>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/documentation.xml/CommentRequired">-->
-<!--      <properties>-->
-<!--        <property name="fieldCommentRequirement" value="Ignored"/>-->
-<!--        <property name="publicMethodCommentRequirement" value="Ignored"/>-->
-<!--        <property name="protectedMethodCommentRequirement" value="Ignored"/>-->
-<!--      </properties>-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/multithreading.xml">-->
-<!--      <exclude name="UseConcurrentHashMap"/> &lt;!&ndash; @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--    </rule>-->
-<!--    <rule ref="category/java/performance.xml"/>-->
-<!--    <rule ref="category/java/security.xml"/>-->
-<!--    <rule ref="category/java/errorprone.xml">-->
-<!--      <exclude name="AvoidDuplicateLiterals"/> &lt;!&ndash; @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--      <exclude name="MissingSerialVersionUID"/> &lt;!&ndash; @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. &ndash;&gt;-->
-<!--    </rule>-->
+    <rule ref="category/java/codestyle.xml">
+      <exclude name="AtLeastOneConstructor"/>
+      <exclude name="ShortClassName"/>
+      <exclude name="OnlyOneReturn"/> <!-- @todo #/DEV OnlyOneReturn: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="LongVariable"/>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ShortClassName">
+      <properties>
+        <property name="minimum" value="3" />
+      </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/LongVariable">
+      <properties>
+        <property name="minimum" value="25" />
+      </properties>
+    </rule>
+    <rule ref="category/java/design.xml">
+      <exclude name="LawOfDemeter"/>  <!-- @todo #/DEV LawOfDemeter: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="UseObjectForClearerAPI"/> <!-- @todo #/DEV UseObjectForClearerAPI: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="AvoidCatchingGenericException"/> <!-- @todo #/DEV AvoidCatchingGenericException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="SignatureDeclareThrowsException"/> <!-- @todo #/DEV SignatureDeclareThrowsException: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="ExcessiveImports"/> <!-- @todo #/DEV ExcessiveImports: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="LoosePackageCoupling"/> <!-- @todo #/DEV LoosePackageCoupling: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="StdCyclomaticComplexity" /> <!-- deprecated -->
+      <exclude name="UseUtilityClass" />
+      <exclude name="ImmutableField" />
+    </rule>
+    <rule ref="category/java/design.xml/CouplingBetweenObjects">
+      <properties>
+        <property name="threshold" value="40"/>
+      </properties>
+    </rule>
+    <rule ref="category/java/design.xml/TooManyMethods">
+      <properties>
+        <property name="maxmethods" value="20"/>
+      </properties>
+    </rule>
+    <rule ref="category/java/design.xml/TooManyFields">
+      <properties>
+        <property name="maxfields" value="25"/>
+      </properties>
+    </rule>
+    <rule ref="category/java/design.xml/UseUtilityClass">
+      <!-- @todo #/DEV `ignoredAnnotations` has been removed. (!!!) -->
+      <!-- <properties>
+        <property name="ignoredAnnotations" value="lombok.experimental.UtilityClass,org.springframework.boot.autoconfigure.SpringBootApplication"/>
+      </properties> -->
+    </rule>
+      <rule ref="category/java/design.xml/ImmutableField">
+        <!-- @todo #/DEV `ignoredAnnotations` has been removed. (!!!) -->
+        <!-- <properties>
+          <property name="ignoredAnnotations"
+                    value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.springframework.beans.factory.annotation.Value|org.springframework.beans.factory.annotation.Autowired|javax.annotation.Resource|javax.inject.Inject|org.apache.camel.EndpointInject" />
+        </properties> -->
+      </rule>
+    <rule ref="category/java/documentation.xml">
+      <exclude name="CommentSize"/>
+      <exclude name="CommentRequired"/>
+    </rule>
+    <rule ref="category/java/documentation.xml/CommentRequired">
+      <properties>
+        <property name="fieldCommentRequirement" value="Ignored"/>
+        <property name="publicMethodCommentRequirement" value="Ignored"/>
+        <property name="protectedMethodCommentRequirement" value="Ignored"/>
+      </properties>
+    </rule>
+    <rule ref="category/java/multithreading.xml">
+      <exclude name="UseConcurrentHashMap"/> <!-- @todo #/DEV UseConcurrentHashMap: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    </rule>
+    <rule ref="category/java/performance.xml"/>
+    <rule ref="category/java/security.xml"/>
+    <rule ref="category/java/errorprone.xml">
+      <exclude name="AvoidDuplicateLiterals"/> <!-- @todo #/DEV AvoidDuplicateLiterals: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+      <exclude name="MissingSerialVersionUID"/> <!-- @todo #/DEV MissingSerialVersionUID: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->
+    </rule>
 </ruleset>

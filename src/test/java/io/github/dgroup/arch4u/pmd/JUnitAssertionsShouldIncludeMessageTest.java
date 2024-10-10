@@ -39,9 +39,9 @@ public final class JUnitAssertionsShouldIncludeMessageTest extends SimpleAggrega
     @Override
     public void setUp() {
         // @todo #/DEV Implementation is needed
-//        addRule(
-//            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
-//            "JUnitAssertionsShouldIncludeMessage"
-//        );
+        addRule(
+            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
+            "JUnitAssertionsShouldIncludeMessage"
+        );
     }
 }
