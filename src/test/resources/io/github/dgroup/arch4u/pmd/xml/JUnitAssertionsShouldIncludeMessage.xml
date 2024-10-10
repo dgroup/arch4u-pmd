@@ -31,8 +31,10 @@
     <description>[GOOD]: assertArrayEquals with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertArrayEquals("[1] != [1]", new int[] {1}, new int[] {1});
     }
@@ -44,8 +46,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertArrayEquals without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertArrayEquals(new int[] {1}, new int[] {1});
     }
@@ -57,8 +61,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertEquals has a message, but it is not mandatory</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertEquals("1 != 1", 1, 1);
     }
@@ -72,8 +78,10 @@ public class Foo extends TestCase {
     </description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         String s = "1 != 1";
         assertEquals(s, 1, 1);
@@ -86,8 +94,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertEquals with delta and message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertEquals("foo", 1, 2, 3);
     }
@@ -99,8 +109,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertEquals without message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertEquals(1, 1);
     }
@@ -112,8 +124,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertEquals with delta without message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertEquals(1, 2, 3);
     }
@@ -125,8 +139,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertEquals with number as variable</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         double d = 1;
         assertEquals(d, 1, 1);
@@ -139,8 +155,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertFalse with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void testBar() {
         assertFalse("foo!", "foo".equals("foo"));
     }
@@ -152,8 +170,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertFalse without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void testBar() {
         assertFalse("foo".equals("foo"));
     }
@@ -165,8 +185,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertNotNull with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertNotNull("foo", null);
     }
@@ -178,8 +200,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertNotNull without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertNotNull(null);
     }
@@ -191,8 +215,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertNotSame with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertNotSame("1 == 2", 1, 2);
     }
@@ -204,8 +230,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertNotSame without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertNotSame(1, 2);
     }
@@ -217,8 +245,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertNull with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertNull("it's not null", null);
     }
@@ -230,8 +260,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertNull without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertNull(null);
     }
@@ -243,8 +275,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: assertSame with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertSame("not same!", null, null);
     }
@@ -256,8 +290,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertSame without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertSame(null, null);
     }
@@ -269,8 +305,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertThat with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertThat("Zero is one", 0, is(not(1)));
     }
@@ -279,24 +317,14 @@ public class Foo extends TestCase {
   </test-code>
 
   <test-code>
-    <description>[BAD]: assertThat without message</description>
-    <expected-problems>1</expected-problems>
-    <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
-    public void test1() {
-        assertThat(0, is(not(1)));
-    }
-}
-        ]]></code>
-  </test-code>
-
-  <test-code>
     <description>[GOOD]: assertTrue with message</description>
+    <rule-property name="violationSuppressXPath">".[ends-with(@Image,'assertTrue')]"</rule-property>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertTrue("foo", "foo".equals("foo"));
     }
@@ -308,8 +336,10 @@ public class Foo extends TestCase {
     <description>[BAD]: assertTrue without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         assertTrue("foo".equals("foo"));
     }
@@ -321,8 +351,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: fail with message</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         fail("foo");
     }
@@ -334,8 +366,10 @@ public class Foo extends TestCase {
     <description>[BAD]: fail without message</description>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         fail();
     }
@@ -347,8 +381,10 @@ public class Foo extends TestCase {
     <description>[GOOD]: extended TestCase</description>
     <expected-problems>0</expected-problems>
     <code><![CDATA[
-import junit.framework.TestCase;
-public class Foo extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class Foo {
     public void test1() {
         this.test1("foo");
     }
