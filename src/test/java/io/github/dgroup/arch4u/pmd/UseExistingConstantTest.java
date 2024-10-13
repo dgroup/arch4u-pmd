@@ -38,6 +38,6 @@ public final class UseExistingConstantTest extends SimpleAggregatorTst {
     @Override
     public void setUp() {
         // @todo #/DEV Implementation is required
-        //addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseExistingMediaTypeConstant");
+        addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseExistingMediaTypeConstant");
     }
 }
