@@ -24,6 +24,9 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.sourceforge.pmd.lang.java.ast.ASTExpression;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
@@ -31,9 +34,6 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * MDC needs to be cleaned in every method.
@@ -47,39 +47,73 @@ import java.util.Map;
     "PMD.ConstructorShouldDoInitialization",
     "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
 })
-public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
+public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
 
+    /**
+     * Property Descriptor for list of MDC classes.
+     */
     private static final PropertyDescriptor<List<String>> CLASSES =
         PropertyFactory.stringListProperty("mdcClasses")
             .desc("Full name of the MDC classes.")
             .defaultValues("org.slf4j.MDC")
             .build();
 
+    /**
+     * Property Descriptor for list of put methods of the MDC classes.
+     */
     private static final PropertyDescriptor<List<String>> PUT_METHODS =
         PropertyFactory.stringListProperty("putMethods")
             .desc("Names of methods that add entries to the MDC.")
             .defaultValues("put")
             .build();
 
+    /**
+     * Property Descriptor for list of remove methods of the MDC classes.
+     */
     private static final PropertyDescriptor<List<String>> REMOVE_METHODS =
         PropertyFactory.stringListProperty("removeMethods")
             .desc("Names of methods that remove the entries by key from the MDC.")
             .defaultValues("remove")
             .build();
 
+    /**
+     * Property Descriptor for list of clear methods of the MDC classes.
+     */
     private static final PropertyDescriptor<List<String>> CLEAR_METHODS =
         PropertyFactory.stringListProperty("clearMethods")
             .desc("Names of methods that clear the MDC.")
             .defaultValues("clear")
             .build();
 
+    /**
+     * String values that are used in MDC calls as keys.
+     * This is needed to check if a key has been removed.
+     */
     private final Map<String, ASTMethodCall> mdcKeysInUse = new HashMap<>();
 
+    /**
+     * List of MDC classes.
+     */
     private final List<String> mdcClasses;
+
+    /**
+     * List of put methods of the MDC classes.
+     */
     private final List<String> putMethods;
+
+    /**
+     * List of remove methods of the MDC classes.
+     */
     private final List<String> removeMethods;
+
+    /**
+     * List of clear methods of the MDC classes.
+     */
     private final List<String> clearMethods;
 
+    /**
+     * Constructor.
+     */
     public PotentiallyThreadLocalPollutionByMdc() {
         definePropertyDescriptor(CLASSES);
         definePropertyDescriptor(PUT_METHODS);
@@ -120,22 +154,28 @@ public class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
         return super.visit(node, data);
     }
 
+    /**
+     * Checks if the provided expression is an invocation of an MDC class.
+     * @param qualifier An expression.
+     * @return Result if the expression is an MDC invocation.
+     */
+    @SuppressWarnings("AvoidInlineConditionals")
     private boolean isMdc(final ASTExpression qualifier) {
-        if (qualifier == null) {
-            return false;
-        }
-        return this.mdcClasses.stream()
-                   .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
+        return qualifier == null
+            ? false
+            : this.mdcClasses.stream()
+                .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
     }
 
     /**
      * Extract the key from the {@code MDC.put(...)} or {@code MDC.remove(...)} method call.
      * Assuming key is the first argument.
+     * @param node A method invocation expression.
+     * @return A string of the MDC invocation key, or null if not found.
      */
-    private String extractKey(final ASTMethodCall node) {
-        if (node.getArguments().isEmpty()) {
-            return null;
-        }
-        return node.getArguments().get(0).getImage();
+    private static String extractKey(final ASTMethodCall node) {
+        return node.getArguments().isEmpty()
+            ? null
+            : node.getArguments().get(0).getImage();
     }
 }
