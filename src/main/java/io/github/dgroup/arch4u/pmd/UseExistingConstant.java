@@ -63,13 +63,13 @@ public final class UseExistingConstant extends AbstractJavaRule {
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public UseExistingConstant() {
         super();
-        definePropertyDescriptor(REGEX_PROPERTY);
+        definePropertyDescriptor(UseExistingConstant.REGEX_PROPERTY);
     }
 
     @Override
     public void start(final RuleContext ctx) {
         super.start(ctx);
-        this.pattern = Pattern.compile(this.getProperty(REGEX_PROPERTY));
+        this.pattern = Pattern.compile(this.getProperty(UseExistingConstant.REGEX_PROPERTY));
     }
 
     @Override
