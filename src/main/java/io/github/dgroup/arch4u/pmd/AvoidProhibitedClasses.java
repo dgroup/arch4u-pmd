@@ -24,12 +24,12 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.List;
 import net.sourceforge.pmd.lang.java.ast.ASTClassType;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-import java.util.List;
 
 /**
  * A PMD rule that prohibits the usage of specified classes.
@@ -60,6 +60,9 @@ public final class AvoidProhibitedClasses extends AbstractJavaRule {
             .defaultValue(false)
             .build();
 
+    /**
+     * Constructor.
+     */
     public AvoidProhibitedClasses() {
         definePropertyDescriptor(CLASSES);
         definePropertyDescriptor(SUBTYPES);
@@ -70,8 +73,8 @@ public final class AvoidProhibitedClasses extends AbstractJavaRule {
         this.getProperty(CLASSES)
             .stream()
             .filter(this.getProperty(SUBTYPES)
-                        ? name -> TypeTestUtil.isA(name, node)
-                        : name -> TypeTestUtil.isExactlyA(name, node))
+                ? name -> TypeTestUtil.isA(name, node)
+                : name -> TypeTestUtil.isExactlyA(name, node))
             .findFirst()
             .ifPresent(className -> asCtx(data).addViolation(node, className));
         return data;

@@ -24,15 +24,14 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import net.sourceforge.pmd.lang.java.ast.ASTAnnotation;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * This rule checks if the methods with the REST endpoint annotations

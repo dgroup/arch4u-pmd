@@ -46,8 +46,7 @@ import net.sourceforge.pmd.properties.PropertyFactory;
  */
 @SuppressWarnings({
     "PMD.StaticAccessToStaticFields",
-    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors",
-    "ALL"
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
 })
 public final class AvoidTypeAsLocalVariable extends AbstractJavaRule {
 
