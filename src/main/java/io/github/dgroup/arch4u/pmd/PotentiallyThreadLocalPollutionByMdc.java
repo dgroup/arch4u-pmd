@@ -158,13 +158,12 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
      * Checks if the provided expression is an invocation of an MDC class.
      * @param qualifier An expression.
      * @return Result if the expression is an MDC invocation.
+     * @todo: move to an util class as a duplicated code.
      */
     @SuppressWarnings("AvoidInlineConditionals")
     private boolean isMdc(final ASTExpression qualifier) {
-        return qualifier == null
-            ? false
-            : this.mdcClasses.stream()
-                .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
+        return qualifier != null && this.mdcClasses.stream()
+            .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
     }
 
     /**
