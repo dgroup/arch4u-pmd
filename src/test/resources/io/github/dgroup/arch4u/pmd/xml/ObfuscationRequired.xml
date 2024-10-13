@@ -204,7 +204,7 @@ class Foo {
     <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
     <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
     <expected-problems>3</expected-problems>
-    <expected-linenumbers>9,13,18</expected-linenumbers>
+    <expected-linenumbers>13,17,22</expected-linenumbers>
     <code><![CDATA[
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

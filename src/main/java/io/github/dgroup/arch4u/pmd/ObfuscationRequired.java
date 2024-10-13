@@ -24,6 +24,7 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.List;
 import net.sourceforge.pmd.lang.java.ast.ASTExpression;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
@@ -32,7 +33,6 @@ import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-import java.util.List;
 
 /**
  * A rule that prohibits the using methods of a particular class.
@@ -87,7 +87,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
 
     @Override
     public Object visit(final ASTMethodCall node, final Object data) {
-        if (node.getMethodType() != null && isLoggerMethod(node.getMethodType())) {
+        if (node.getMethodType() != null && this.isLoggerMethod(node.getMethodType())) {
             node.getArguments()
                 .toStream()
                 .filter(this::isSensitiveObject)
@@ -96,50 +96,82 @@ public final class ObfuscationRequired extends AbstractJavaRule {
         return data;
     }
 
+    /**
+     * Checks if the method signature is a logger method.
+     * @param methodSignature A method signature node.
+     * @return True if it's a logger method.
+     */
     private boolean isLoggerMethod(final JMethodSig methodSignature) {
-        return getProperty(LOGGERS)
-                   .stream()
-                   .anyMatch(loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType()));
+        return this.getProperty(LOGGERS)
+            .stream()
+            .anyMatch(
+                loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType())
+            );
     }
 
+    /**
+     * Checks if the expression is a sensitive objects
+     * that should be obfuscated.
+     * @param arg An expression.
+     * @return True if it's a sensitive object.
+     */
     private boolean isSensitiveObject(final ASTExpression arg) {
         return arg instanceof ASTMethodCall
-                   ? hasSensitiveType((ASTMethodCall) arg)
-                   : isSensitiveType(arg.getTypeMirror());
+            ? this.hasSensitiveType((ASTMethodCall) arg)
+            : this.isSensitiveType(arg.getTypeMirror());
     }
 
     /**
      * Checks if the method argument has a sensitive type.
-     * If the method is toString(), check the type of the object it's called on. Example: {@code person.toString()}.
-     * Otherwise, check if the method returns a sensitive type. Example: {@code order.getPerson()}.
+     * If the method is toString(), check the type of the object it's called on.
+     * Example: {@code person.toString()}.
+     * Otherwise, check if the method returns a sensitive type.
+     * Example: {@code order.getPerson()}.
+     * @param call A method invocation node.
+     * @return True if there is a sensitive type.
      */
     private boolean hasSensitiveType(final ASTMethodCall call) {
         if ("toString".equals(call.getMethodType().getName())) {
             final ASTExpression qualifier = call.getQualifier();
-            if (qualifier != null && isSensitiveType(qualifier.getTypeMirror())) {
+            if (qualifier != null && this.isSensitiveType(qualifier.getTypeMirror())) {
                 return true;
             }
         }
-        return isSensitiveType(call.getMethodType().getReturnType());
+        return this.isSensitiveType(call.getMethodType().getReturnType());
     }
 
+    /**
+     * Checks if there is a sensitive type.
+     * @param type A type node.
+     * @return True if there is a sensitive type.
+     */
     private boolean isSensitiveType(final JTypeMirror type) {
-        return isSensitiveClass(type) || isSensitivePackage(type);
+        return this.isSensitiveClass(type) || this.isSensitivePackage(type);
     }
 
+    /**
+     * Checks if there is a sensitive class type.
+     * @param type A type node.
+     * @return True if there is a sensitive type.
+     */
     private boolean isSensitiveClass(final JTypeMirror type) {
         return this.getProperty(CLASSES)
-                   .stream()
-                   .anyMatch(sensitiveClass -> TypeTestUtil.isA(sensitiveClass, type));
+            .stream()
+            .anyMatch(sensitiveClass -> TypeTestUtil.isA(sensitiveClass, type));
     }
 
+    /**
+     * Checks if there is a package with sensitive objects.
+     * @param type A type node.
+     * @return True if there is a sensitive type.
+     */
     private boolean isSensitivePackage(final JTypeMirror type) {
         if (type.getSymbol() == null) {
             return false;
         }
-        final String packageName = type.getSymbol().getPackageName();
+        final String pckg = type.getSymbol().getPackageName();
         return this.getProperty(PACKAGES)
-                   .stream()
-                   .anyMatch(packageName::startsWith);
+            .stream()
+            .anyMatch(pckg::startsWith);
     }
 }

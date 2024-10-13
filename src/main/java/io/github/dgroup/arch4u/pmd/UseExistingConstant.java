@@ -24,14 +24,13 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.regex.Pattern;
 import net.sourceforge.pmd.lang.java.ast.ASTStringLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
 import net.sourceforge.pmd.reporting.RuleContext;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.regex.Pattern;
 
 /**
  * Rule to avoid creating string constants for {@code MediaType} values.
@@ -63,19 +62,19 @@ public final class UseExistingConstant extends AbstractJavaRule {
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public UseExistingConstant() {
         super();
-        definePropertyDescriptor(REGEX_PROPERTY);
+        definePropertyDescriptor(UseExistingConstant.REGEX_PROPERTY);
     }
 
     @Override
     public void start(final RuleContext ctx) {
         super.start(ctx);
-        this.pattern = Pattern.compile(this.getProperty(REGEX_PROPERTY));
+        this.pattern = Pattern.compile(this.getProperty(UseExistingConstant.REGEX_PROPERTY));
     }
 
     @Override
     public Object visit(final ASTStringLiteral node, final Object data) {
         final String image = node.getConstValue();
-        if (StringUtils.isNotBlank(image) && pattern.matcher(image).find()) {
+        if (StringUtils.isNotBlank(image) && this.pattern.matcher(image).find()) {
             asCtx(data).addViolation(node);
         }
         return data;
