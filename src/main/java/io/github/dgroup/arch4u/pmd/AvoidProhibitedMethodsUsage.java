@@ -24,19 +24,20 @@
 
 package io.github.dgroup.arch4u.pmd;
 
+import java.util.List;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-import java.util.List;
 
 /**
  * A PMD rule that prohibits the invocation of specified methods from a given class.
  *
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
+ * @checkstyle ReturnCountCheck (150 lines)
  */
 @SuppressWarnings({
     "PMD.StaticAccessToStaticFields",
@@ -71,6 +72,9 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
             .defaultValue(false)
             .build();
 
+    /**
+     * Constructor.
+     */
     public AvoidProhibitedMethodsUsage() {
         definePropertyDescriptor(CLASS);
         definePropertyDescriptor(METHODS);
@@ -83,25 +87,38 @@ public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
         if (node.getMethodType() == null || node.getMethodType().getDeclaringType() == null) {
             return data;
         }
-        if (getProperty(METHODS).contains(node.getMethodType().getName())) {
-            if (getProperty(SUBTYPES) && isSubtype(node.getMethodType().getDeclaringType())) {
+        if (this.getProperty(METHODS).contains(node.getMethodType().getName())) {
+            if (this.getProperty(SUBTYPES)
+                && this.isSubtype(node.getMethodType().getDeclaringType())) {
                 asCtx(data).addViolation(
-                    node, getProperty(CLASS), node.getMethodType().getName()
+                    node, this.getProperty(CLASS), node.getMethodType().getName()
                 );
             }
-            if (isExactClass(node.getMethodType().getDeclaringType().toString())) {
+            if (this.isExactClass(node.getMethodType().getDeclaringType().toString())) {
                 asCtx(data).addViolation(
-                    node, getProperty(CLASS), node.getMethodType().getName()
+                    node, this.getProperty(CLASS), node.getMethodType().getName()
                 );
             }
         }
         return data;
     }
 
+    /**
+     * Checks if the class is prohibited.
+     *
+     * @param classname Class name.
+     * @return True if the class is prohibited.
+     */
     private boolean isExactClass(final String classname) {
         return this.getProperty(CLASS).equals(classname);
     }
 
+    /**
+     * Checks if the provided class node is a subtype of a prohibited class.
+     *
+     * @param type A class node.
+     * @return True if this is a prohibited class.
+     */
     private boolean isSubtype(final JTypeMirror type) {
         return TypeTestUtil.isA(this.getProperty(CLASS), type);
     }
