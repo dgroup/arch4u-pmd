@@ -103,13 +103,12 @@
     <jmh.version>1.37</jmh.version>
     <jmh.suite.name>arch4u-pmd-benchmarks</jmh.suite.name>
     <!-- Code quality -->
-    <!-- @todo #/DEV Increase quality thresholds once all tests are fixed    -->
-    <code.cvrg.classes-without-tests>3</code.cvrg.classes-without-tests>
-    <code.cvrg.instructions>0.8</code.cvrg.instructions>
-    <code.cvrg.complexity>0.6</code.cvrg.complexity>
-    <code.cvrg.methods>0.7</code.cvrg.methods>
-    <code.cvrg.branch>0.6</code.cvrg.branch>
-    <code.cvrg.line>0.8</code.cvrg.line>
+    <code.cvrg.classes-without-tests>0</code.cvrg.classes-without-tests>
+    <code.cvrg.instructions>0.9</code.cvrg.instructions>
+    <code.cvrg.complexity>0.8</code.cvrg.complexity>
+    <code.cvrg.methods>0.9</code.cvrg.methods>
+    <code.cvrg.branch>0.8</code.cvrg.branch>
+    <code.cvrg.line>0.9</code.cvrg.line>
     <sonar.projectKey>dgroup_arch4u-pmd</sonar.projectKey>
     <sonar.organization>dgroup-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
