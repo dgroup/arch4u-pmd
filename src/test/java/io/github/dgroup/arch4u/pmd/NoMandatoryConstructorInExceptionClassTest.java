@@ -38,7 +38,8 @@ public final class NoMandatoryConstructorInExceptionClassTest extends SimpleAggr
 
     @Override
     public void setUp() {
-        // @todo #/DEV Implementation is required, remove checkstyle MethodBodyCommentsCheck,CommentsIndentationCheck once completed
+        // @todo #/DEV Implementation is required,
+        //  remove checkstyle MethodBodyCommentsCheck,CommentsIndentationCheck once completed
 //        addRule(
 //            "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
 //            "NoMandatoryConstructorInExceptionClass"

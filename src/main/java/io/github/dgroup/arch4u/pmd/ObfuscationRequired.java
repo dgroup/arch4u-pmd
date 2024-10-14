@@ -98,15 +98,13 @@ public final class ObfuscationRequired extends AbstractJavaRule {
 
     /**
      * Checks if the method signature is a logger method.
-     * @param methodSignature A method signature node.
+     * @param signature A method signature node.
      * @return True if it's a logger method.
      */
-    private boolean isLoggerMethod(final JMethodSig methodSignature) {
+    private boolean isLoggerMethod(final JMethodSig signature) {
         return this.getProperty(LOGGERS)
             .stream()
-            .anyMatch(
-                loggerClass -> TypeTestUtil.isA(loggerClass, methodSignature.getDeclaringType())
-            );
+            .anyMatch(logger -> TypeTestUtil.isA(logger, signature.getDeclaringType()));
     }
 
     /**
@@ -114,6 +112,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      * that should be obfuscated.
      * @param arg An expression.
      * @return True if it's a sensitive object.
+     * @checkstyle AvoidInlineConditionalsCheck (10 lines)
      */
     private boolean isSensitiveObject(final ASTExpression arg) {
         return arg instanceof ASTMethodCall
@@ -129,6 +128,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      * Example: {@code order.getPerson()}.
      * @param call A method invocation node.
      * @return True if there is a sensitive type.
+     * @checkstyle ReturnCountCheck (10 lines)
      */
     private boolean hasSensitiveType(final ASTMethodCall call) {
         if ("toString".equals(call.getMethodType().getName())) {
@@ -164,6 +164,7 @@ public final class ObfuscationRequired extends AbstractJavaRule {
      * Checks if there is a package with sensitive objects.
      * @param type A type node.
      * @return True if there is a sensitive type.
+     * @checkstyle ReturnCountCheck (10 lines)
      */
     private boolean isSensitivePackage(final JTypeMirror type) {
         if (type.getSymbol() == null) {

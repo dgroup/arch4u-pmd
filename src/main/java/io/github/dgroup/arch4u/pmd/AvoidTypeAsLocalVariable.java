@@ -149,6 +149,7 @@ public final class AvoidTypeAsLocalVariable extends AbstractJavaRule {
      * @param type Type node.
      * @param classname Class name.
      * @return True if matches.
+     * @checkstyle AvoidInlineConditionalsCheck (10 lines)
      */
     private boolean isTypeMatches(final TypeNode type, final String classname) {
         return this.getProperty(SUBTYPES)
