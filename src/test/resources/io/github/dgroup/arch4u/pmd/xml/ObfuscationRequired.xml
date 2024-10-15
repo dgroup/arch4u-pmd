@@ -2,7 +2,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~ Copyright (c) 2019-2024 Yurii Dubinka
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"),
@@ -31,8 +31,7 @@
   <test-code>
     <description>[BAD]: prohibited class with sensitive data is logged</description>
     <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
-    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person
-    </rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
     <expected-problems>1</expected-problems>
     <code><![CDATA[
 import org.slf4j.Logger;
@@ -197,6 +196,44 @@ class Foo {
               log.debug("Got {}", this.obfuscation.apply(person));  // ok
             }
         }
+        ]]></code>
+  </test-code>
+
+  <test-code>
+    <description>[BAD]: method returns sensitive type</description>
+    <rule-property name="loggerClasses">org.slf4j.Logger</rule-property>
+    <rule-property name="sensitiveClasses">io.github.dgroup.arch4u.pmd.test_entity.Person</rule-property>
+    <expected-problems>3</expected-problems>
+    <expected-linenumbers>13,17,22</expected-linenumbers>
+    <code><![CDATA[
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.github.dgroup.arch4u.pmd.test_entity.Person;
+class Foo {
+    Logger logger = LoggerFactory.getLogger(Foo.class);
+    Person person;
+
+    private Person getPerson() {
+      //... get data from cache/db/etc.
+    }
+
+    void bar() {
+        logger.info("Processing started for customer {}", getPerson()); // violation
+    }
+
+    void foo() {
+        logger.info("Processing started for customer {}", new Foo().getPerson()); // violation
+    }
+
+    void abc() {
+        Cache cache = new Cache();
+        logger.info("Processing started for customer {}", cache.getCustomer()); // violation
+    }
+}
+
+class Cache {
+ public Person getCustomer() {}
+}
         ]]></code>
   </test-code>
 </test-data>
