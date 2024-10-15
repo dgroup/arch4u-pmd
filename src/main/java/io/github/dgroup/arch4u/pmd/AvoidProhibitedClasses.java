@@ -35,6 +35,7 @@ import net.sourceforge.pmd.properties.PropertyFactory;
  * A PMD rule that prohibits the usage of specified classes.
  *
  * @since 0.1.0
+ * @checkstyle AvoidInlineConditionalsCheck (100 lines)
  */
 @SuppressWarnings({
     "PMD.StaticAccessToStaticFields",

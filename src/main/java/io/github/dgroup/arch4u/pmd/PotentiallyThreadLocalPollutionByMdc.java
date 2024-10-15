@@ -89,27 +89,27 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
      * String values that are used in MDC calls as keys.
      * This is needed to check if a key has been removed.
      */
-    private final Map<String, ASTMethodCall> mdcKeysInUse = new HashMap<>();
+    private final Map<String, ASTMethodCall> keys = new HashMap<>();
 
     /**
      * List of MDC classes.
      */
-    private final List<String> mdcClasses;
+    private final List<String> classes;
 
     /**
      * List of put methods of the MDC classes.
      */
-    private final List<String> putMethods;
+    private final List<String> put;
 
     /**
      * List of remove methods of the MDC classes.
      */
-    private final List<String> removeMethods;
+    private final List<String> remove;
 
     /**
      * List of clear methods of the MDC classes.
      */
-    private final List<String> clearMethods;
+    private final List<String> clear;
 
     /**
      * Constructor.
@@ -119,24 +119,24 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
         definePropertyDescriptor(PUT_METHODS);
         definePropertyDescriptor(REMOVE_METHODS);
         definePropertyDescriptor(CLEAR_METHODS);
-        this.mdcClasses = getProperty(CLASSES);
-        this.putMethods = getProperty(PUT_METHODS);
-        this.removeMethods = getProperty(REMOVE_METHODS);
-        this.clearMethods = getProperty(CLEAR_METHODS);
+        this.classes = getProperty(CLASSES);
+        this.put = getProperty(PUT_METHODS);
+        this.remove = getProperty(REMOVE_METHODS);
+        this.clear = getProperty(CLEAR_METHODS);
     }
 
     @Override
     public Object visit(final ASTMethodCall node, final Object data) {
         if (this.isMdc(node.getQualifier())) {
             final String key = extractKey(node);
-            if (key != null && this.putMethods.contains(node.getMethodName())) {
-                this.mdcKeysInUse.put(key, node);
+            if (key != null && this.put.contains(node.getMethodName())) {
+                this.keys.put(key, node);
             }
-            if (key != null && this.removeMethods.contains(node.getMethodName())) {
-                this.mdcKeysInUse.remove(key);
+            if (key != null && this.remove.contains(node.getMethodName())) {
+                this.keys.remove(key);
             }
-            if (this.clearMethods.contains(node.getMethodName())) {
-                this.mdcKeysInUse.clear();
+            if (this.clear.contains(node.getMethodName())) {
+                this.keys.clear();
             }
         }
         return super.visit(node, data);
@@ -145,12 +145,12 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
     @Override
     public Object visit(final ASTMethodDeclaration node, final Object data) {
         node.children().forEach(child -> child.acceptVisitor(this, data));
-        if (!this.mdcKeysInUse.isEmpty()) {
-            for (final Map.Entry<String, ASTMethodCall> inv : this.mdcKeysInUse.entrySet()) {
+        if (!this.keys.isEmpty()) {
+            for (final Map.Entry<String, ASTMethodCall> inv : this.keys.entrySet()) {
                 asCtx(data).addViolation(inv.getValue(), inv.getKey());
             }
         }
-        this.mdcKeysInUse.clear();
+        this.keys.clear();
         return super.visit(node, data);
     }
 
@@ -162,7 +162,7 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
      */
     @SuppressWarnings("AvoidInlineConditionals")
     private boolean isMdc(final ASTExpression qualifier) {
-        return qualifier != null && this.mdcClasses.stream()
+        return qualifier != null && this.classes.stream()
             .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
     }
 
@@ -171,6 +171,7 @@ public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule
      * Assuming key is the first argument.
      * @param node A method invocation expression.
      * @return A string of the MDC invocation key, or null if not found.
+     * @checkstyle AvoidInlineConditionalsCheck (10 lines)
      */
     private static String extractKey(final ASTMethodCall node) {
         return node.getArguments().isEmpty()

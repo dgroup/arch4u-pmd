@@ -30,14 +30,11 @@ import net.sourceforge.pmd.test.SimpleAggregatorTst;
  * Test case for {@link UseExistingConstant} rule.
  *
  * @since 0.1.0
- * @checkstyle RegexpSinglelineCheck (100 lines)
- * @checkstyle MethodBodyCommentsCheck (100 lines)
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
 public final class UseExistingConstantTest extends SimpleAggregatorTst {
     @Override
     public void setUp() {
-        // @todo #/DEV Implementation is required
         addRule("io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml", "UseExistingMediaTypeConstant");
     }
 }
