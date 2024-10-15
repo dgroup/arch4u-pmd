@@ -31,8 +31,8 @@ REST API, logging, monitoring, etc., including reconfigured default pmd
 rules to decrease false-positive
 violations during usage of well-known frameworks like Spring, Quarkus, etc.
 
-In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.55.0` with more
-than [320+ rules](https://pmd.github.io/pmd-6.55.0/pmd_rules_java.html) with default configuration.
+In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `7.6.0` with more
+than [320+ rules](https://docs.pmd-code.org/pmd-doc-7.6.0/pmd_rules_java.html) with default configuration.
 
 Legend:
 
@@ -51,25 +51,25 @@ Legend:
 | [AvoidUsingObjectMapperAsALocalVariable](https://github.com/dgroup/arch4u-pmd/discussions/30)                                             | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
 | [AvoidMdcOutsideTryStatement](https://github.com/dgroup/arch4u-pmd/discussions/86)                                                        | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
 | [PotentiallyThreadLocalPollutionByMdc](https://github.com/dgroup/arch4u-pmd/discussions/88)                                               | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
-| [GuardLogStatement](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#guardlogstatement)                                     | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [JUnitAssertionsShouldIncludeMessage](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#junitassertionsshouldincludemessage) | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [UnusedPrivateMethod](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#unusedprivatemethod)                                 | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ⌛    |
-| [OnlyOneReturn](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#onlyonereturn)                                                 | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [CommentRequired](https://pmd.github.io/latest/pmd_rules_java_documentation.html#commentrequired)                                         | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [AvoidCatchingGenericException](https://pmd.github.io/latest/pmd_rules_java_design.html#avoidcatchinggenericexception)                    | `pmd-java:6.44.0`  |   ⌛    |   ⌛    |    ⌛    |
-| [CouplingBetweenObjects](https://pmd.github.io/latest/pmd_rules_java_design.html#couplingbetweenobjects)                                  | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [LawOfDemeter](https://pmd.github.io/latest/pmd_rules_java_design.html#lawofdemeter)                                                      | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [LoosePackageCoupling](https://pmd.github.io/latest/pmd_rules_java_design.html#loosepackagecoupling)                                      | `pmd-java:6.44.0`  |   ⌛    |   ⌛    |    ⌛    |
-| [SignatureDeclareThrowsException](https://pmd.github.io/latest/pmd_rules_java_design.html#signaturedeclarethrowsexception)                | `pmd-java:6.44.0`  |   ⌛    |   ⌛    |    ⌛    |
-| [TooManyFields](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanyfields)                                                    | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [TooManyMethods](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanymethods)                                                  | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                  | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                                | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ⌛    |
-| [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                               | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ✅    |
-| [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                                  | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ✅    |
-| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                                   | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ✅    |
+| [GuardLogStatement](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#guardlogstatement)                                     | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [JUnitAssertionsShouldIncludeMessage](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#junitassertionsshouldincludemessage) | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [UnusedPrivateMethod](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#unusedprivatemethod)                                 | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ⌛    |
+| [OnlyOneReturn](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#onlyonereturn)                                                 | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [CommentRequired](https://pmd.github.io/latest/pmd_rules_java_documentation.html#commentrequired)                                         | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [AvoidCatchingGenericException](https://pmd.github.io/latest/pmd_rules_java_design.html#avoidcatchinggenericexception)                    | `pmd-java:7.6.0`  |   ⌛    |   ⌛    |    ⌛    |
+| [CouplingBetweenObjects](https://pmd.github.io/latest/pmd_rules_java_design.html#couplingbetweenobjects)                                  | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [LawOfDemeter](https://pmd.github.io/latest/pmd_rules_java_design.html#lawofdemeter)                                                      | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [LoosePackageCoupling](https://pmd.github.io/latest/pmd_rules_java_design.html#loosepackagecoupling)                                      | `pmd-java:7.6.0`  |   ⌛    |   ⌛    |    ⌛    |
+| [SignatureDeclareThrowsException](https://pmd.github.io/latest/pmd_rules_java_design.html#signaturedeclarethrowsexception)                | `pmd-java:7.6.0`  |   ⌛    |   ⌛    |    ⌛    |
+| [TooManyFields](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanyfields)                                                    | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [TooManyMethods](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanymethods)                                                  | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                  | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                                | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ⌛    |
+| [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                               | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ✅    |
+| [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                                  | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ✅    |
+| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                                   | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ✅    |
 
 ### How to use?
 
