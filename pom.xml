@@ -88,7 +88,7 @@
     <mvn.failsafe.version>3.5.1</mvn.failsafe.version>
     <mvn.gpg.version>1.5</mvn.gpg.version>
     <mvn.properties.version>1.0.0</mvn.properties.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <compiler-plugin.version>3.13.0</compiler-plugin.version>
     <jacoco.version>0.8.12</jacoco.version>
     <qulice.version>0.18.19</qulice.version>
     <sonar.version>3.4.0.905</sonar.version>
