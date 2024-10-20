@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
-          java-version: '8.0.432+6'
+          java-version: '8.0.432+6K'
           check-latest: true
       - name: Cache Maven packages
         uses: actions/cache@v4
