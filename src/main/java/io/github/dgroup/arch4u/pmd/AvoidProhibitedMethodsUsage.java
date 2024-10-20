@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -25,110 +25,101 @@
 package io.github.dgroup.arch4u.pmd;
 
 import java.util.List;
-import net.sourceforge.pmd.lang.java.ast.ASTType;
-import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
+import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.java.rule.AbstractPoorMethodCall;
-import net.sourceforge.pmd.lang.java.symboltable.JavaNameOccurrence;
+import net.sourceforge.pmd.lang.java.types.JTypeMirror;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
-import net.sourceforge.pmd.lang.symboltable.NameOccurrence;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
-import org.apache.commons.lang3.StringUtils;
 
 /**
- * A rule that prohibits the using methods of a particular class.
- * Also, see {@link AbstractPoorMethodCall}.
+ * A PMD rule that prohibits the invocation of specified methods from a given class.
  *
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
+ * @checkstyle ReturnCountCheck (150 lines)
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
+@SuppressWarnings({
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public final class AvoidProhibitedMethodsUsage extends AbstractJavaRule {
 
     /**
-     * Property descriptor with test class suffix.
+     * Property descriptor for the fully qualified name of the class whose methods are prohibited.
      */
     private static final PropertyDescriptor<String> CLASS =
         PropertyFactory.stringProperty("class")
-            .desc("The fully qualified name of the class")
-            .defaultValue(StringUtils.EMPTY)
+            .desc("Fully qualified name of the class")
+            .defaultValue("")
             .build();
 
     /**
-     * Property descriptor with the list of the prohibited methods.
+     * Property descriptor for the names of methods that are prohibited to invoke.
      */
     private static final PropertyDescriptor<List<String>> METHODS =
         PropertyFactory.stringListProperty("methods")
-            .desc("List of prohibited methods")
+            .desc("Name of the method to prohibit")
             .emptyDefaultValue()
             .build();
 
     /**
-     * A property descriptor with the property that is responsible for
-     * whether subtypes should be checked.
+     * Property descriptor for whether subtype checking is enabled.
      */
-    private static final PropertyDescriptor<Boolean> CHECK_SUBTYPES =
+    private static final PropertyDescriptor<Boolean> SUBTYPES =
         PropertyFactory.booleanProperty("checkSubtypes")
             .desc("The property matches whether the subtypes should be checked")
             .defaultValue(false)
             .build();
 
     /**
-     * Constructor for defining property descriptor.
+     * Constructor.
      */
-    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public AvoidProhibitedMethodsUsage() {
-        this.definePropertyDescriptor(CLASS);
-        this.definePropertyDescriptor(METHODS);
-        this.definePropertyDescriptor(CHECK_SUBTYPES);
+        definePropertyDescriptor(CLASS);
+        definePropertyDescriptor(METHODS);
+        definePropertyDescriptor(SUBTYPES);
     }
 
     @Override
-    public Object visit(final ASTVariableDeclaratorId node, final Object data) {
-        if (this.hasNotedClass(node)) {
-            for (final NameOccurrence usage : node.getUsages()) {
-                final JavaNameOccurrence occurrence = (JavaNameOccurrence) usage;
-                if (this.isNotedMethod(occurrence.getNameForWhichThisIsAQualifier())) {
-                    this.asCtx(data).addViolation(
-                        occurrence.getLocation(),
-                        this.getProperty(CLASS),
-                        occurrence.getNameForWhichThisIsAQualifier().getImage()
-                    );
-                }
+    @SuppressWarnings("PMD.OnlyOneReturn")
+    public Object visit(final ASTMethodCall node, final Object data) {
+        if (node.getMethodType() == null || node.getMethodType().getDeclaringType() == null) {
+            return data;
+        }
+        if (this.getProperty(METHODS).contains(node.getMethodType().getName())) {
+            if (this.getProperty(SUBTYPES)
+                && this.isSubtype(node.getMethodType().getDeclaringType())) {
+                asCtx(data).addViolation(
+                    node, this.getProperty(CLASS), node.getMethodType().getName()
+                );
+            }
+            if (this.isExactClass(node.getMethodType().getDeclaringType().toString())) {
+                asCtx(data).addViolation(
+                    node, this.getProperty(CLASS), node.getMethodType().getName()
+                );
             }
         }
         return data;
     }
 
     /**
-     * Checks if the class of the variable is specified in the rule properties.
-     * @param node Variable declarator node.
-     * @return True if the node class is specified.
+     * Checks if the class is prohibited.
+     *
+     * @param classname Class name.
+     * @return True if the class is prohibited.
      */
-    private boolean hasNotedClass(final ASTVariableDeclaratorId node) {
-        final boolean noted;
-        final String typename = this.getProperty(CLASS);
-        final ASTType typenode = node.getTypeNode();
-        if (this.getProperty(CHECK_SUBTYPES)) {
-            noted = TypeTestUtil.isA(typename, typenode);
-        } else {
-            noted = TypeTestUtil.isExactlyA(typename, typenode);
-        }
-        return noted;
+    private boolean isExactClass(final String classname) {
+        return this.getProperty(CLASS).equals(classname);
     }
 
     /**
-     * Checks if the variable occurrence contains prohibited method.
-     * @param occurrence Variable occurrence.
-     * @return True if the occurrence contains prohibited method.
+     * Checks if the provided class node is a subtype of a prohibited class.
+     *
+     * @param type A class node.
+     * @return True if this is a prohibited class.
      */
-    private boolean isNotedMethod(final NameOccurrence occurrence) {
-        boolean noted = false;
-        if (occurrence != null) {
-            final String invocation = occurrence.getImage();
-            noted = this.getProperty(METHODS).contains(invocation);
-        }
-        return noted;
+    private boolean isSubtype(final JTypeMirror type) {
+        return TypeTestUtil.isA(this.getProperty(CLASS), type);
     }
 }

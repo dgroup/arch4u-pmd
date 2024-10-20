@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -27,17 +27,9 @@ package io.github.dgroup.arch4u.pmd;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import net.sourceforge.pmd.lang.ast.AbstractNode;
-import net.sourceforge.pmd.lang.java.ast.ASTArgumentList;
-import net.sourceforge.pmd.lang.java.ast.ASTArguments;
 import net.sourceforge.pmd.lang.java.ast.ASTExpression;
+import net.sourceforge.pmd.lang.java.ast.ASTMethodCall;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
-import net.sourceforge.pmd.lang.java.ast.ASTName;
-import net.sourceforge.pmd.lang.java.ast.ASTPrimaryExpression;
-import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
-import net.sourceforge.pmd.lang.java.ast.ASTPrimarySuffix;
-import net.sourceforge.pmd.lang.java.ast.JavaNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.java.types.TypeTestUtil;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
@@ -49,89 +41,141 @@ import net.sourceforge.pmd.properties.PropertyFactory;
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/TBD">https://github.com/dgroup/arch4u-pmd/issues/TBD</a>
  * @since 0.1.0
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
+@SuppressWarnings({
+    "PMD.OnlyOneReturn",
+    "PMD.StaticAccessToStaticFields",
+    "PMD.ConstructorShouldDoInitialization",
+    "PMD.ConstructorOnlyInitializesOrCallOtherConstructors"
+})
 public final class PotentiallyThreadLocalPollutionByMdc extends AbstractJavaRule {
 
     /**
-     * Property descriptor.
+     * Property Descriptor for list of MDC classes.
      */
-    private static final PropertyDescriptor<List<String>> MDC_CLASSES =
+    private static final PropertyDescriptor<List<String>> CLASSES =
         PropertyFactory.stringListProperty("mdcClasses")
-            .desc("List of the MDC classes")
-            .emptyDefaultValue()
+            .desc("Full name of the MDC classes.")
+            .defaultValues("org.slf4j.MDC")
             .build();
 
     /**
-     * Map to save MDC keys and expression nodes.
+     * Property Descriptor for list of put methods of the MDC classes.
      */
-    private final Map<String, ASTPrimaryExpression> keymap;
+    private static final PropertyDescriptor<List<String>> PUT_METHODS =
+        PropertyFactory.stringListProperty("putMethods")
+            .desc("Names of methods that add entries to the MDC.")
+            .defaultValues("put")
+            .build();
 
     /**
-     * Constructor for defining property descriptor.
+     * Property Descriptor for list of remove methods of the MDC classes.
      */
-    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
+    private static final PropertyDescriptor<List<String>> REMOVE_METHODS =
+        PropertyFactory.stringListProperty("removeMethods")
+            .desc("Names of methods that remove the entries by key from the MDC.")
+            .defaultValues("remove")
+            .build();
+
+    /**
+     * Property Descriptor for list of clear methods of the MDC classes.
+     */
+    private static final PropertyDescriptor<List<String>> CLEAR_METHODS =
+        PropertyFactory.stringListProperty("clearMethods")
+            .desc("Names of methods that clear the MDC.")
+            .defaultValues("clear")
+            .build();
+
+    /**
+     * String values that are used in MDC calls as keys.
+     * This is needed to check if a key has been removed.
+     */
+    private final Map<String, ASTMethodCall> keys = new HashMap<>();
+
+    /**
+     * List of MDC classes.
+     */
+    private final List<String> classes;
+
+    /**
+     * List of put methods of the MDC classes.
+     */
+    private final List<String> put;
+
+    /**
+     * List of remove methods of the MDC classes.
+     */
+    private final List<String> remove;
+
+    /**
+     * List of clear methods of the MDC classes.
+     */
+    private final List<String> clear;
+
+    /**
+     * Constructor.
+     */
     public PotentiallyThreadLocalPollutionByMdc() {
-        this.keymap = new HashMap<>();
-        this.definePropertyDescriptor(MDC_CLASSES);
+        definePropertyDescriptor(CLASSES);
+        definePropertyDescriptor(PUT_METHODS);
+        definePropertyDescriptor(REMOVE_METHODS);
+        definePropertyDescriptor(CLEAR_METHODS);
+        this.classes = getProperty(CLASSES);
+        this.put = getProperty(PUT_METHODS);
+        this.remove = getProperty(REMOVE_METHODS);
+        this.clear = getProperty(CLEAR_METHODS);
     }
 
     @Override
-    public Object visit(final ASTMethodDeclaration mthd, final Object data) {
-        mthd.findDescendantsOfType(ASTPrimaryPrefix.class)
-            .stream()
-            .filter(this::isMdc)
-            .forEach(this::updateMap);
-        for (final ASTPrimaryExpression expression : this.keymap.values()) {
-            asCtx(data).addViolation(expression);
+    public Object visit(final ASTMethodCall node, final Object data) {
+        if (this.isMdc(node.getQualifier())) {
+            final String key = extractKey(node);
+            if (key != null && this.put.contains(node.getMethodName())) {
+                this.keys.put(key, node);
+            }
+            if (key != null && this.remove.contains(node.getMethodName())) {
+                this.keys.remove(key);
+            }
+            if (this.clear.contains(node.getMethodName())) {
+                this.keys.clear();
+            }
         }
-        return data;
+        return super.visit(node, data);
     }
 
-    /**
-     * Checks if the provided node is MDC class.
-     * @param prefix Prefix node.
-     * @return True if the provided node is MDC class.
-     */
-    private boolean isMdc(final ASTPrimaryPrefix prefix) {
-        return this.getProperty(MDC_CLASSES)
-            .stream()
-            .anyMatch(mdc -> TypeTestUtil.isA(mdc, prefix));
-    }
-
-    /**
-     * Perform the {@code keymap} map update.
-     * If MDC has {@code put} invocation, it will save key and expression.
-     * If it has {@code remove} invocation, it will remove value by the key.
-     * The map must be cleared on the {@code MDC.clear()} invocation.
-     * @param prefix Prefix node.
-     */
-    private void updateMap(final ASTPrimaryPrefix prefix) {
-        final String method = prefix.getChild(0).getImage();
-        final ASTPrimaryExpression parent = prefix.getFirstParentOfType(ASTPrimaryExpression.class);
-        final String key = getKeyImage(parent);
-        if (method.endsWith(".put")) {
-            this.keymap.put(key, parent);
-        } else if (method.endsWith(".remove")) {
-            this.keymap.remove(key);
-        } else if (method.endsWith(".clear")) {
-            this.keymap.clear();
+    @Override
+    public Object visit(final ASTMethodDeclaration node, final Object data) {
+        node.children().forEach(child -> child.acceptVisitor(this, data));
+        if (!this.keys.isEmpty()) {
+            for (final Map.Entry<String, ASTMethodCall> inv : this.keys.entrySet()) {
+                asCtx(data).addViolation(inv.getValue(), inv.getKey());
+            }
         }
+        this.keys.clear();
+        return super.visit(node, data);
     }
 
     /**
-     * Returns MDC key.
-     * @param node Image holding node.
-     * @return String of the MDC key.
+     * Checks if the provided expression is an invocation of an MDC class.
+     * @param qualifier An expression.
+     * @return Result if the expression is an MDC invocation.
+     * @todo: move to an util class as a duplicated code.
      */
-    private static String getKeyImage(final JavaNode node) {
-        return Optional.ofNullable(node.getFirstChildOfType(ASTPrimarySuffix.class))
-            .map(suffix -> suffix.getFirstChildOfType(ASTArguments.class))
-            .map(args -> args.getFirstChildOfType(ASTArgumentList.class))
-            .map(list -> list.getFirstChildOfType(ASTExpression.class))
-            .map(expr -> expr.getFirstChildOfType(ASTPrimaryExpression.class))
-            .map(prex -> prex.getFirstChildOfType(ASTPrimaryPrefix.class))
-            .map(prefix -> prefix.getFirstChildOfType(ASTName.class))
-            .map(AbstractNode::getImage)
-            .orElse(null);
+    @SuppressWarnings("AvoidInlineConditionals")
+    private boolean isMdc(final ASTExpression qualifier) {
+        return qualifier != null && this.classes.stream()
+            .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
+    }
+
+    /**
+     * Extract the key from the {@code MDC.put(...)} or {@code MDC.remove(...)} method call.
+     * Assuming key is the first argument.
+     * @param node A method invocation expression.
+     * @return A string of the MDC invocation key, or null if not found.
+     * @checkstyle AvoidInlineConditionalsCheck (10 lines)
+     */
+    private static String extractKey(final ASTMethodCall node) {
+        return node.getArguments().isEmpty()
+            ? null
+            : node.getArguments().get(0).getImage();
     }
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -26,11 +26,9 @@ package io.github.dgroup.arch4u.pmd.test_entity;
 
 /**
  * Test entity with sensitive data.
+ *
  * @see io.github.dgroup.arch4u.pmd.ObfuscationRequired
  * @since 0.1.0
- * @checkstyle MemberNameCheck (200 lines)
- * @checkstyle DesignForExtensionCheck (200 lines)
- * @checkstyle StringLiteralsConcatenationCheck (200 lines)
  */
 public class Person {
     /**

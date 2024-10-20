@@ -1,5 +1,5 @@
 name: CI
-on: 
+on:
   push:
     branches:
       - master
@@ -12,11 +12,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 1.8
+      - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
-          java-version: '8.0.312+7'
+          java-version: '11.0.25+9'
           check-latest: true
       - name: Cache Maven packages
         uses: actions/cache@v4
@@ -33,13 +33,13 @@ jobs:
             -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS
             -Dorg.slf4j.simpleLogger.showDateTime=true
         run: |
-          mvn -B -Pqulice clean install
+          mvn -X -B -Pqulice clean install
           if [ -n "${{ secrets.CODECOV_TOKEN }}" ]; then
             bash <(curl -s https://codecov.io/bash)
           fi
       - name: Notify Telegram group
         uses: yanzay/notify-telegram@v0.1.0
-        if:  success() && github.ref == 'refs/heads/master'
+        if: success() && github.ref == 'refs/heads/master'
         with:
           chat: ${{ secrets.TELEGRAM_CHAT }} # user id or channel name secret
           token: ${{ secrets.TELEGRAM_TOKEN }} # token secret
@@ -47,36 +47,36 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
-        - name: Set up JDK 17
-          uses: actions/setup-java@v4
-          with:
-            distribution: 'adopt'
-            java-version: '17'
-        - name: Cache Maven packages
-          uses: actions/cache@v4
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
-        - name: Cache SonarCloud packages
-          uses: actions/cache@v4
-          with:
-            path: ~/.sonar/cache
-            key: ${{ runner.os }}-sonar
-            restore-keys: ${{ runner.os }}-sonar
-        - name: Inspection by SonarQube
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            MAVEN_OPTS: |
-              -Xmx1024m
-              -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS
-              -Dorg.slf4j.simpleLogger.showDateTime=true
-          run: |
-            mvn -B -Pqulice clean install
-            if [ -n "${{ secrets.SONAR_TOKEN }}" ]; then
-              mvn -B -Pqulice org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            fi
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Inspection by SonarQube
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          MAVEN_OPTS: |
+            -Xmx1024m
+            -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS
+            -Dorg.slf4j.simpleLogger.showDateTime=true
+        run: |
+          mvn -B -Pqulice clean install
+          if [ -n "${{ secrets.SONAR_TOKEN }}" ]; then
+            mvn -B -Pqulice org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          fi

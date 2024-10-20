@@ -31,7 +31,8 @@ REST API, logging, monitoring, etc., including reconfigured default pmd
 rules to decrease false-positive
 violations during usage of well-known frameworks like Spring, Quarkus, etc.
 
-In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `6.55.0` with more than [320+ rules](https://pmd.github.io/pmd-6.55.0/pmd_rules_java.html) with default configuration.
+In addition to our custom/reconfigured rules we are using the latest stable pmd-java version which is `7.6.0` with more
+than [320+ rules](https://docs.pmd-code.org/pmd-doc-7.6.0/pmd_rules_java.html) with default configuration.
 
 Legend:
 
@@ -50,25 +51,25 @@ Legend:
 | [AvoidUsingObjectMapperAsALocalVariable](https://github.com/dgroup/arch4u-pmd/discussions/30)                                             | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
 | [AvoidMdcOutsideTryStatement](https://github.com/dgroup/arch4u-pmd/discussions/86)                                                        | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
 | [PotentiallyThreadLocalPollutionByMdc](https://github.com/dgroup/arch4u-pmd/discussions/88)                                               | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
-| [GuardLogStatement](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#guardlogstatement)                                     | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [JUnitAssertionsShouldIncludeMessage](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#junitassertionsshouldincludemessage) | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [UnusedPrivateMethod](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#unusedprivatemethod)                                 | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:6.44.0`  |   🌵   |   ✅    |    ⌛    |
-| [OnlyOneReturn](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#onlyonereturn)                                                 | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [CommentRequired](https://pmd.github.io/latest/pmd_rules_java_documentation.html#commentrequired)                                         | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [AvoidCatchingGenericException](https://pmd.github.io/latest/pmd_rules_java_design.html#avoidcatchinggenericexception)                    | `pmd-java:6.44.0`  |   ⌛    |   ⌛    |    ⌛    |
-| [CouplingBetweenObjects](https://pmd.github.io/latest/pmd_rules_java_design.html#couplingbetweenobjects)                                  | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [LawOfDemeter](https://pmd.github.io/latest/pmd_rules_java_design.html#lawofdemeter)                                                      | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [LoosePackageCoupling](https://pmd.github.io/latest/pmd_rules_java_design.html#loosepackagecoupling)                                      | `pmd-java:6.44.0`  |   ⌛    |   ⌛    |    ⌛    |
-| [SignatureDeclareThrowsException](https://pmd.github.io/latest/pmd_rules_java_design.html#signaturedeclarethrowsexception)                | `pmd-java:6.44.0`  |   ⌛    |   ⌛    |    ⌛    |
-| [TooManyFields](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanyfields)                                                    | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [TooManyMethods](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanymethods)                                                  | `pmd-java:6.44.0`  |   🌵   |   ⌛    |    ⌛    |
-| [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                  | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:6.44.0`  |   ❌    |   ❌    |    ❌    |
-| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ⌛    |
-| [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
-| [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
-| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                 | `pmd-java:6.44.0`  |   🌵    |   ✅    |    ✅    |
+| [GuardLogStatement](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#guardlogstatement)                                     | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [JUnitAssertionsShouldIncludeMessage](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#junitassertionsshouldincludemessage) | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [UnusedPrivateMethod](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#unusedprivatemethod)                                 | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ⌛    |
+| [OnlyOneReturn](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#onlyonereturn)                                                 | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [CommentRequired](https://pmd.github.io/latest/pmd_rules_java_documentation.html#commentrequired)                                         | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [AvoidCatchingGenericException](https://pmd.github.io/latest/pmd_rules_java_design.html#avoidcatchinggenericexception)                    | `pmd-java:7.6.0`  |   ⌛    |   ⌛    |    ⌛    |
+| [CouplingBetweenObjects](https://pmd.github.io/latest/pmd_rules_java_design.html#couplingbetweenobjects)                                  | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [LawOfDemeter](https://pmd.github.io/latest/pmd_rules_java_design.html#lawofdemeter)                                                      | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [LoosePackageCoupling](https://pmd.github.io/latest/pmd_rules_java_design.html#loosepackagecoupling)                                      | `pmd-java:7.6.0`  |   ⌛    |   ⌛    |    ⌛    |
+| [SignatureDeclareThrowsException](https://pmd.github.io/latest/pmd_rules_java_design.html#signaturedeclarethrowsexception)                | `pmd-java:7.6.0`  |   ⌛    |   ⌛    |    ⌛    |
+| [TooManyFields](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanyfields)                                                    | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [TooManyMethods](https://pmd.github.io/latest/pmd_rules_java_design.html#toomanymethods)                                                  | `pmd-java:7.6.0`  |   🌵   |   ⌛    |    ⌛    |
+| [UseObjectForClearerAPI](https://pmd.github.io/latest/pmd_rules_java_design.html#useobjectforclearerapi)                                  | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [AtLeastOneConstructor](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#atleastoneconstructor)                                 | `pmd-java:7.6.0`  |   ❌    |   ❌    |    ❌    |
+| [UseUtilityClass](https://pmd.github.io/latest/pmd_rules_java_design.html#useutilityclass)                                                | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ⌛    |
+| [ShortClassName](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#shortclassname)                                               | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ✅    |
+| [ImmutableField](https://pmd.github.io/latest/pmd_rules_java_design.html#immutablefield)                                                  | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ✅    |
+| [LongVariable](https://pmd.github.io/latest/pmd_rules_java_codestyle.html#longvariable)                                                   | `pmd-java:7.6.0`  |   🌵   |   ✅    |    ✅    |
 
 ### How to use?
 
@@ -77,44 +78,44 @@ Legend:
  ```xml
  ...
 <build>
-  <plugins>
-    ...
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-pmd-plugin</artifactId>
-      <version>3.15.0</version>
-      <executions>
-        <execution>
-          <phase>test</phase>
-          <goals>
-            <goal>check</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <printFailingErrors>true</printFailingErrors>
-        <rulesets>
-          ...
-          <ruleset>io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml</ruleset>
-          ...
-        </rulesets>
-        <excludeRoots>
-          <excludeRoot>target/generated-sources/</excludeRoot>
-        </excludeRoots>
-      </configuration>
-      <dependencies>
-        <!-- Latest arch4u-rules -->
-        <dependency>
-          <groupId>io.github.dgroup</groupId>
-          <artifactId>arch4u-pmd</artifactId>
-          <version>${version}</version>
-        </dependency>
-      </dependencies>
-    </plugin>
-    ...
-  </plugins>
+    <plugins>
+        ...
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.15.0</version>
+            <executions>
+                <execution>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <printFailingErrors>true</printFailingErrors>
+                <rulesets>
+                    ...
+                    <ruleset>io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml</ruleset>
+                    ...
+                </rulesets>
+                <excludeRoots>
+                    <excludeRoot>target/generated-sources/</excludeRoot>
+                </excludeRoots>
+            </configuration>
+            <dependencies>
+                <!-- Latest arch4u-rules -->
+                <dependency>
+                    <groupId>io.github.dgroup</groupId>
+                    <artifactId>arch4u-pmd</artifactId>
+                    <version>${version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+        ...
+    </plugins>
 </build>
-  ...
+        ...
  ```
 
 #### Gradle (build.gradle)
@@ -160,11 +161,11 @@ pmd {
 ```xml
 <?xml version="1.0"?>
 <ruleset name="pmd ruleset with your rules">
-  ...
-  <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
-    <exclude name="UseExistingMediaTypeConstant"/>
-  </rule>
-  ...
+    ...
+    <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
+        <exclude name="UseExistingMediaTypeConstant"/>
+    </rule>
+    ...
 </ruleset>
 ```
 
@@ -173,25 +174,25 @@ pmd {
 ```xml
 <?xml version="1.0"?>
 <ruleset name="pmd ruleset with your rules">
-  ...
-  <!-- 1. Exclude rule with default configuration  -->
-  <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
-    <exclude name="UseExistingMediaTypeConstant"/>
-  </rule>
-  <!-- 2. Reconfigure rule with expected property -->
-  <rule name="UseExistingMediaTypeConstant"
-        language="java"
-        externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/43"
-        message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
-        class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
-    <priority>3</priority>
-    <properties>
-      <!-- 3. Set the 'regexPattern' considering your needs -->
-      <property name="regexPattern" description="Regular expression of prohibited string"
-                value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
-    </properties>
-  </rule>
-  ...
+    ...
+    <!-- 1. Exclude rule with default configuration  -->
+    <rule ref="io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml">
+        <exclude name="UseExistingMediaTypeConstant"/>
+    </rule>
+    <!-- 2. Reconfigure rule with expected property -->
+    <rule name="UseExistingMediaTypeConstant"
+          language="java"
+          externalInfoUrl="https://github.com/dgroup/arch4u-pmd/discussions/43"
+          message="Use existing MediaType constant instead of string literal: https://github.com/dgroup/arch4u-pmd/discussions/43"
+          class="io.github.dgroup.arch4u.pmd.UseExistingConstant">
+        <priority>3</priority>
+        <properties>
+            <!-- 3. Set the 'regexPattern' considering your needs -->
+            <property name="regexPattern" description="Regular expression of prohibited string"
+                      value="(^|\s)(application\/(json|xml|atom\+xml|x-www-form-urlencoded|octet-stream|svg\+xml|xhtml\+xml)|(multipart\/form-data)|(text\/(html|xml|plain)))(\s|$)"/>
+        </properties>
+    </rule>
+    ...
 </ruleset>
 ```
 
@@ -200,13 +201,13 @@ pmd {
 ```xml
 <?xml version="1.0"?>
 <ruleset name="pmd ruleset with your rules">
-  ...
-  <!-- Exclude target folder that may contain generated sources -->
-  <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
-  <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
-  <!-- Exclude test folder -->
-  <exclude-pattern>.*/src/test/java/org/tbd/tbd/tbd/.*</exclude-pattern>
-  ...
+    ...
+    <!-- Exclude target folder that may contain generated sources -->
+    <exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
+    <exclude-pattern>.*/build/generated-sources/.*</exclude-pattern>
+    <!-- Exclude test folder -->
+    <exclude-pattern>.*/src/test/java/org/tbd/tbd/tbd/.*</exclude-pattern>
+    ...
 </ruleset>
 ```
 

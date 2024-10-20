@@ -11,17 +11,17 @@ censor: false
 placeholder: '*'
 
 # A list of extra forbidden words. Set to `[]` to disable
-extraWords: []
+extraWords: [ ]
 
 # A list of forbidden words to be ignored. Set to `[]` to disable
-exemptWords: []
+exemptWords: [ ]
 
 # Number of days of inactivity before an inappropriate Issue or Pull Request is closed.
 # Set to false to disable. If disabled, issues still need to be closed manually, but will remain marked as inappropriate.
 daysUntilClose: 2
 
 # Issues or Pull Requests with these labels will never be considered inappropriate. Set to `[]` to disable
-exemptLabels: []
+exemptLabels: [ ]
 
 # Set to true to ignore issues in a project (defaults to false)
 exemptProjects: false

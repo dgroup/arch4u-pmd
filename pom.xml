@@ -1,7 +1,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019-2022 Yurii Dubinka
+  ~ Copyright (c) 2019-2024 Yurii Dubinka
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"),
@@ -31,7 +31,9 @@
   <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
-  <description>Linting rules for Java frameworks like Spring, Quarkus, Jackson, SLF4J, etc., to avoid known problems in REST API, logging, observability, performance, and general best practices.</description>
+  <description>Linting rules for Java frameworks like Spring, Quarkus, Jackson, SLF4J, etc., to avoid known problems
+    in REST API, logging, observability, performance, and general best practices.
+  </description>
   <url>https://github.com/dgroup/arch4u-pmd</url>
   <licenses>
     <license>
@@ -82,36 +84,35 @@
     <mvn.nexus.version>1.6.8</mvn.nexus.version>
     <mvn.javadoc.version>3.3.1</mvn.javadoc.version>
     <mvn.source.version>2.2.1</mvn.source.version>
-    <mvn.surefire.version>3.0.0-M3</mvn.surefire.version>
-    <mvn.failsafe.version>3.0.0-M3</mvn.failsafe.version>
+    <mvn.surefire.version>3.5.1</mvn.surefire.version>
+    <mvn.failsafe.version>3.5.1</mvn.failsafe.version>
     <mvn.gpg.version>1.5</mvn.gpg.version>
     <mvn.properties.version>1.0.0</mvn.properties.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <jacoco.version>0.8.6</jacoco.version>
+    <compiler-plugin.version>3.13.0</compiler-plugin.version>
+    <jacoco.version>0.8.12</jacoco.version>
     <qulice.version>0.18.19</qulice.version>
     <sonar.version>3.4.0.905</sonar.version>
     <commons-logging.version>1.2</commons-logging.version>
     <!-- General dependencies -->
-    <pmd.rules.version>6.55.0</pmd.rules.version>
+    <pmd.rules.version>7.6.0</pmd.rules.version>
     <!-- Testing -->
     <hamcrest.version>2.2</hamcrest.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
     <assertj.version>3.22.0</assertj.version>
+    <junit.version>5.10.2</junit.version>
     <jmh.version>1.37</jmh.version>
     <jmh.suite.name>arch4u-pmd-benchmarks</jmh.suite.name>
     <!-- Code quality -->
-    <code.cvrg.classes-without-tests>3</code.cvrg.classes-without-tests>
-    <code.cvrg.instructions>0.6</code.cvrg.instructions>
-    <code.cvrg.complexity>0.55</code.cvrg.complexity>
-    <code.cvrg.methods>0.5</code.cvrg.methods>
-    <code.cvrg.branch>0.65</code.cvrg.branch>
-    <code.cvrg.line>0.5</code.cvrg.line>
+    <code.cvrg.classes-without-tests>0</code.cvrg.classes-without-tests>
+    <code.cvrg.instructions>0.9</code.cvrg.instructions>
+    <code.cvrg.complexity>0.8</code.cvrg.complexity>
+    <code.cvrg.methods>0.9</code.cvrg.methods>
+    <code.cvrg.branch>0.8</code.cvrg.branch>
+    <code.cvrg.line>0.9</code.cvrg.line>
     <sonar.projectKey>dgroup_arch4u-pmd</sonar.projectKey>
     <sonar.organization>dgroup-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <sonar.coverage.exclusions>
-      **/*Exception.java,**/*Fake*.java,**/*.Fake*.java,**/**.Fake*.java
-    </sonar.coverage.exclusions>
+    <sonar.coverage.exclusions>**/*Exception.java,**/*Fake*.java,**/*.Fake*.java,**/**.Fake*.java</sonar.coverage.exclusions>
     <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml
     </sonar.coverage.jacoco.xmlReportPaths>
   </properties>
@@ -181,6 +182,18 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.35</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -255,6 +268,8 @@
               <license>file:${basedir}/license.txt</license>
               <excludes combine.children="append">
                 <exclude>duplicatefinder:.*</exclude>
+                <exclude>checkstyle:/src/test/java/io/github/dgroup/arch4u/pmd/test_entity/.*</exclude>
+                <exclude>checkstyle:/src/main/java/io/github/dgroup/arch4u/pmd/test_entity/.*</exclude>
                 <exclude>dependencies:org.cactoos:cactoos</exclude>
                 <exclude>dependencies:org.llorllale:cactoos-matchers</exclude>
                 <exclude>dependencies:org.openjdk.jmh</exclude>
