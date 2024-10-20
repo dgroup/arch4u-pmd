@@ -84,8 +84,8 @@
     <mvn.nexus.version>1.6.8</mvn.nexus.version>
     <mvn.javadoc.version>3.3.1</mvn.javadoc.version>
     <mvn.source.version>2.2.1</mvn.source.version>
-    <mvn.surefire.version>3.0.0-M3</mvn.surefire.version>
-    <mvn.failsafe.version>3.0.0-M3</mvn.failsafe.version>
+    <mvn.surefire.version>3.5.1</mvn.surefire.version>
+    <mvn.failsafe.version>3.5.1</mvn.failsafe.version>
     <mvn.gpg.version>1.5</mvn.gpg.version>
     <mvn.properties.version>1.0.0</mvn.properties.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
