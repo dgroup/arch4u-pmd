@@ -37,9 +37,9 @@ import net.sourceforge.pmd.properties.PropertyFactory;
 /**
  * A PMD rule that prohibits the invocation of specified methods from a given class.
  *
+ * @checkstyle ReturnCountCheck (100 lines)
  * @see <a href="https://github.com/dgroup/arch4u-pmd/issues/22">https://github.com/dgroup/arch4u-pmd/issues/22</a>
  * @since 0.1.0
- * @checkstyle ReturnCountCheck (100 lines)
  */
 @SuppressWarnings({
     "PMD.OnlyOneReturn",
@@ -76,18 +76,12 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
             .build();
 
     /**
-     * List of MDC classes.
-     */
-    private final List<String> mdc;
-
-    /**
      * Constructor.
      */
     public AvoidMdcOutsideTryStatement() {
         definePropertyDescriptor(CLASSES);
         definePropertyDescriptor(TRY);
         definePropertyDescriptor(FINALLY);
-        this.mdc = getProperty(CLASSES);
     }
 
     @Override
@@ -100,18 +94,20 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
 
     /**
      * Checks if the provided expression is an invocation of an MDC class.
+     *
      * @param qualifier An expression.
      * @return Result if the expression is an MDC invocation.
-     * @todo: move to an util class as a duplicated code.
      */
     @SuppressWarnings("AvoidInlineConditionals")
     private boolean isMdc(final ASTExpression qualifier) {
-        return qualifier != null && this.mdc.stream()
+        return qualifier != null && this.getProperty(CLASSES)
+            .stream()
             .anyMatch(mdcClass -> TypeTestUtil.isA(mdcClass, qualifier.getTypeMirror()));
     }
 
     /**
      * Checks if the method invocation located inside a try-statement.
+     *
      * @param node Method invocation node.
      * @return True if is inside a try-statement.
      */
@@ -122,6 +118,7 @@ public final class AvoidMdcOutsideTryStatement extends AbstractJavaRule {
 
     /**
      * Checks if the method invocation located inside a finally-statement.
+     *
      * @param node Method invocation node.
      * @return True if is inside a finally-statement.
      */

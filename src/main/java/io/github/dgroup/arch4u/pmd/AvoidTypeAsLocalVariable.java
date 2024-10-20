@@ -84,24 +84,12 @@ public final class AvoidTypeAsLocalVariable extends AbstractJavaRule {
             .build();
 
     /**
-     * List of classes to find.
-     */
-    private final List<String> classes;
-
-    /**
-     * List of annotations that allows to use the objects as a local variables.
-     */
-    private final List<String> annotations;
-
-    /**
      * Constructor.
      */
     public AvoidTypeAsLocalVariable() {
         this.definePropertyDescriptor(CLASSES);
         this.definePropertyDescriptor(ANNOTATIONS);
         this.definePropertyDescriptor(SUBTYPES);
-        this.classes = getProperty(CLASSES);
-        this.annotations = getProperty(ANNOTATIONS);
     }
 
     @Override
@@ -138,7 +126,8 @@ public final class AvoidTypeAsLocalVariable extends AbstractJavaRule {
     private boolean illegalType(final TypeNode type) {
         boolean found = false;
         if (type != null) {
-            found = this.classes.stream()
+            found = this.getProperty(CLASSES)
+                .stream()
                 .anyMatch(className -> this.isTypeMatches(type, className));
         }
         return found;
@@ -177,6 +166,6 @@ public final class AvoidTypeAsLocalVariable extends AbstractJavaRule {
      * @return True if an allowed annotation is presented.
      */
     private boolean hasAllowedAnnotations(final ASTMethodDeclaration method) {
-        return method.isAnyAnnotationPresent(this.annotations);
+        return method.isAnyAnnotationPresent(this.getProperty(ANNOTATIONS));
     }
 }
