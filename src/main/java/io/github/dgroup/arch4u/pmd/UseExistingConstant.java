@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -25,11 +25,11 @@
 package io.github.dgroup.arch4u.pmd;
 
 import java.util.regex.Pattern;
-import net.sourceforge.pmd.RuleContext;
-import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
+import net.sourceforge.pmd.lang.java.ast.ASTStringLiteral;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
+import net.sourceforge.pmd.reporting.RuleContext;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -40,7 +40,6 @@ import org.apache.commons.lang3.StringUtils;
  * @see <a href="https://github.com/dgroup/arch4u-pmd/discussions/43">https://github.com/dgroup/arch4u-pmd/discussions/43</a>
  * @since 0.1.0
  */
-@SuppressWarnings("PMD.StaticAccessToStaticFields")
 public final class UseExistingConstant extends AbstractJavaRule {
 
     /**
@@ -49,7 +48,7 @@ public final class UseExistingConstant extends AbstractJavaRule {
     private static final PropertyDescriptor<String> REGEX_PROPERTY =
         PropertyFactory.stringProperty("regexPattern")
             .desc("Regular expression of prohibited string")
-            .defaultValue(StringUtils.EMPTY)
+            .defaultValue("")
             .build();
 
     /**
@@ -62,24 +61,21 @@ public final class UseExistingConstant extends AbstractJavaRule {
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public UseExistingConstant() {
-        this.definePropertyDescriptor(REGEX_PROPERTY);
-        this.addRuleChainVisit(ASTLiteral.class);
+        super();
+        definePropertyDescriptor(UseExistingConstant.REGEX_PROPERTY);
     }
 
     @Override
     public void start(final RuleContext ctx) {
         super.start(ctx);
-        this.pattern = Pattern.compile(this.getProperty(REGEX_PROPERTY));
+        this.pattern = Pattern.compile(this.getProperty(UseExistingConstant.REGEX_PROPERTY));
     }
 
     @Override
-    public Object visit(final ASTLiteral node, final Object data) {
-        if (node.isStringLiteral()) {
-            String image = node.getTextBlockContent();
-            image = image.substring(1, image.length() - 1);
-            if (image.length() > 0 && this.pattern.matcher(image).find()) {
-                asCtx(data).addViolation(node);
-            }
+    public Object visit(final ASTStringLiteral node, final Object data) {
+        final String image = node.getConstValue();
+        if (StringUtils.isNotBlank(image) && this.pattern.matcher(image).find()) {
+            asCtx(data).addViolation(node);
         }
         return data;
     }

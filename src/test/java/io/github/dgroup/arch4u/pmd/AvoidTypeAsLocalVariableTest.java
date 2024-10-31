@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -24,21 +24,20 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
- * Test case for {@code AvoidUsingObjectMapperAsALocalVariable} rule.
+ * Test case for {@link  AvoidTypeAsLocalVariable} rule.
  *
  * @since 0.1.0
  */
 @SuppressWarnings({"PMD.TestClassWithoutTestCases", "PMD.JUnit4TestShouldUseBeforeAnnotation"})
-public final class AvoidUsingObjectMapperAsALocalVariableTest extends SimpleAggregatorTst {
-
+public final class AvoidTypeAsLocalVariableTest extends SimpleAggregatorTst {
     @Override
     public void setUp() {
         addRule(
             "io/github/dgroup/arch4u/pmd/arch4u-ruleset.xml",
-            "AvoidUsingObjectMapperAsALocalVariable"
+            "AvoidTypeAsLocalVariable"
         );
     }
 }

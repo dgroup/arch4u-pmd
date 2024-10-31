@@ -8,17 +8,19 @@ assignees: dgroup
 ---
 
 ### Summary
-| Key            |  Value |
-|:---------------|:------|
-| Rule           | ...   |
-| Ruleset        | [io/github/dgroup/arch4u/pmd/....xml](https://github.com/dgroup/arch4u-pmd/blob/master/src/main/resources/io/github/dgroup/arch4u/pmd/....xml)|
-| Category       | Best Practices, Code Style, Design, Documentation, Error Prone, Multithreading, Performance, Security |
-| Framework      | ... |
-| Since          |    0.2.0    |
-| Incidents in past at my experience | 10+ |
-| Template       | true/false |
+
+| Key                                | Value                                                                                                                                          |
+|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Rule                               | ...                                                                                                                                            |
+| Ruleset                            | [io/github/dgroup/arch4u/pmd/....xml](https://github.com/dgroup/arch4u-pmd/blob/master/src/main/resources/io/github/dgroup/arch4u/pmd/....xml) |
+| Category                           | Best Practices, Code Style, Design, Documentation, Error Prone, Multithreading, Performance, Security                                          |
+| Framework                          | ...                                                                                                                                            |
+| Since                              | 0.2.0                                                                                                                                          |
+| Incidents in past at my experience | 10+                                                                                                                                            |
+| Template                           | true/false                                                                                                                                     |
 
 ### Rule definition
+
 ```xml
 <rule name="..."
       since="0.2.0"
@@ -35,11 +37,15 @@ assignees: dgroup
 ```
 
 ### Why?
+
 ...
+
 ```java
 // TBD
 ```
+
 ...
+
 ```java
 TBD
 ```

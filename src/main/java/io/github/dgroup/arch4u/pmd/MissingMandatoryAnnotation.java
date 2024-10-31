@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -82,6 +82,7 @@ public final class MissingMandatoryAnnotation extends AbstractJavaRule {
 
     /**
      * Checks if the method has no mandatory metric annotations.
+     *
      * @param mthd Method declaration node.
      * @return True if there is no mandatory metric annotations.
      */
@@ -91,6 +92,7 @@ public final class MissingMandatoryAnnotation extends AbstractJavaRule {
 
     /**
      * Finds method REST endpoint annotations. Returns the first one.
+     *
      * @param mthd Method declaration node.
      * @return Optional of the first declared REST endpoint annotation.
      */

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -26,6 +26,7 @@ package io.github.dgroup.arch4u.pmd;
 
 import java.util.List;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
+import net.sourceforge.pmd.lang.java.ast.JModifier;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.PropertyFactory;
@@ -67,6 +68,7 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
 
     /**
      * Finds method REST endpoint annotations. Returns the first one.
+     *
      * @param mthd Method declaration node.
      * @return Optional of the first declared REST endpoint annotation.
      */
@@ -78,10 +80,12 @@ public final class WrongRestMethodSignature extends AbstractJavaRule {
      * Checks if the REST endpoint method has prohibited signature.
      * Correct method's signature has public access modifier
      * and {@link java.lang.Override} annotation.
+     *
      * @param mthd Method declaration node.
      * @return True if the method has prohibited signature.
      */
     private static boolean hasWrongSignature(final ASTMethodDeclaration mthd) {
-        return !mthd.isAnnotationPresent("java.lang.Override") || !mthd.isPublic();
+        return !mthd.isAnnotationPresent("java.lang.Override")
+            || !mthd.hasModifiers(JModifier.PUBLIC);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2022 Yurii Dubinka
+ * Copyright (c) 2019-2024 Yurii Dubinka
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -24,10 +24,10 @@
 
 package io.github.dgroup.arch4u.pmd;
 
-import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import net.sourceforge.pmd.test.SimpleAggregatorTst;
 
 /**
- * Test case for {@code AvoidProhibitedClasses} rule.
+ * Test case for {@link AvoidProhibitedClasses} rule.
  *
  * @since 0.1.0
  */
