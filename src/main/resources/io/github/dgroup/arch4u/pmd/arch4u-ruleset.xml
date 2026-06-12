@@ -349,6 +349,10 @@
   </rule>
 
 
+  <!-- Rules related to testing -->
+  <rule ref="io/github/dgroup/arch4u/pmd/testing/junit.xml"/>
+
+
   <!-- Third-party rules -->
     <rule ref="category/java/bestpractices.xml">
       <exclude name="GuardLogStatement"/> <!-- @todo #/DEV GuardLogStatement: deep investigation is needed regarding purpose and goal of this this rule. Potentially improvement is needed. -->

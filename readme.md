@@ -51,6 +51,7 @@ Legend:
 | [AvoidUsingObjectMapperAsALocalVariable](https://github.com/dgroup/arch4u-pmd/discussions/30)                                             | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
 | [AvoidMdcOutsideTryStatement](https://github.com/dgroup/arch4u-pmd/discussions/86)                                                        | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
 | [PotentiallyThreadLocalPollutionByMdc](https://github.com/dgroup/arch4u-pmd/discussions/88)                                               | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ⌛    |
+| [AvoidMixingJunit4AndJunit5](https://github.com/dgroup/arch4u-pmd/issues/147)                                                             | `arch4u-pmd:0.1.0` |   ✅    |   ✅    |    ✅    |
 | [GuardLogStatement](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#guardlogstatement)                                     | `pmd-java:7.25.0`  |   ❌    |   ❌    |    ❌    |
 | [JUnitAssertionsShouldIncludeMessage](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#junitassertionsshouldincludemessage) | `pmd-java:7.25.0`  |   🌵   |   ⌛    |    ⌛    |
 | [UnusedPrivateMethod](https://pmd.github.io/latest/pmd_rules_java_bestpractices.html#unusedprivatemethod)                                 | `pmd-java:7.25.0`  |   🌵   |   ⌛    |    ⌛    |
